@@ -1,5 +1,5 @@
 {
-  "name": "@react-native-ui-kit/bottom-sheet",
+  "name": "@mainamiru/react-native-ui-kit",
   "version": "1.0.0",
   "main": "src/index",
   "devDependencies": {
