@@ -1,0 +1,9 @@
+{
+  "name": "@react-native-ui-kit/bottom-sheet",
+  "version": "1.0.0",
+  "main": "src/index",
+  "devDependencies": {
+    "react": "19.1.0",
+    "react-native": "0.81.4"
+  }
+}

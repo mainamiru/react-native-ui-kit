@@ -1,0 +1,15 @@
+{
+  "name": "react-native-ui-kit",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cd apps/storybook && bun start"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packageManager": "bun@1.2.8",
+  "trustedDependencies": [
+    "unrs-resolver"
+  ]
+}
