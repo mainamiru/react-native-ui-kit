@@ -11,16 +11,16 @@ import {
   ViewStyle,
 } from "react-native";
 
-type TouchableRippleProps = {
-  children: React.ReactElement;
+type TouchableProps = {
   onPress?: () => void;
   rippleColor?: string;
   borderless?: boolean;
   rippleDuration?: number;
   style?: StyleProp<ViewStyle>;
+  children: React.ReactElement;
 };
 
-export const TouchableRipple: React.FC<TouchableRippleProps> = ({
+export const Touchable: React.FC<TouchableProps> = ({
   style,
   onPress,
   children,

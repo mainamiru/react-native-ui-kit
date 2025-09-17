@@ -1,4 +1,9 @@
 import { useTheme } from "@/hooks";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ReactNativeUIKitProvider,
+} from "@mainamiru/react-native-ui-kit";
 import { ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import React from "react";
@@ -16,10 +21,13 @@ export const unstable_settings = {
 
 const RootLayout = () => {
   const theme = useTheme();
+  const colors = theme.dark ? DarkTheme.colors : DefaultTheme.colors;
   return (
     <SafeAreaProvider>
       <ThemeProvider value={theme}>
-        <RootStack />
+        <ReactNativeUIKitProvider theme={{ colors, isDark: theme.dark }}>
+          <RootStack />
+        </ReactNativeUIKitProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

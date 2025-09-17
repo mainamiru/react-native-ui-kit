@@ -8,6 +8,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+import { useThemeColors } from "../../hooks";
 
 export interface ListItemProps extends TouchableOpacityProps {
   title: React.ReactNode;
@@ -37,6 +38,8 @@ const ListItem: React.FC<ListItemProps> = ({
   descriptionNumberOfLines = 2,
   ...props
 }) => {
+  const Colors = useThemeColors();
+
   return (
     <TouchableOpacity {...props} activeOpacity={activeOpacity}>
       <View
@@ -55,7 +58,7 @@ const ListItem: React.FC<ListItemProps> = ({
             numberOfLines={titleNumberOfLines}
             style={[
               {
-                color: "#333",
+                color: Colors.text,
                 fontSize: 16,
                 fontWeight: "500",
               },
@@ -67,7 +70,7 @@ const ListItem: React.FC<ListItemProps> = ({
           {description && (
             <Text
               numberOfLines={descriptionNumberOfLines}
-              style={[{ fontSize: 14, color: "#666" }, descriptionStyle]}
+              style={[{ fontSize: 14, color: Colors.text }, descriptionStyle]}
             >
               {description}
             </Text>

@@ -28,7 +28,7 @@ export type BottomSheetRef = {
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
-const BottomSheetBase = forwardRef<BottomSheetRef, BottomSheetProps>(
+export const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
   (props, ref) => {
     const {
       children,
@@ -168,24 +168,7 @@ const BottomSheetBase = forwardRef<BottomSheetRef, BottomSheetProps>(
   }
 );
 
-BottomSheetBase.displayName = "BottomSheet";
-
-export const BottomSheet = Object.assign(BottomSheetBase, {
-  Trigger: ({
-    children,
-    bottomSheetRef,
-  }: {
-    children: React.ReactNode;
-    bottomSheetRef: React.RefObject<BottomSheetRef>;
-  }) => (
-    <Pressable onPress={() => bottomSheetRef.current?.toggle()}>
-      {children}
-    </Pressable>
-  ),
-  Content: ({ children }: { children: React.ReactNode }) => (
-    <View>{children}</View>
-  ),
-});
+BottomSheet.displayName = "BottomSheet";
 
 const styles = StyleSheet.create({
   sheet: {
