@@ -10,7 +10,8 @@ import {
   AccessibilityRole,
   Animated,
   Easing,
-  GestureResponderEvent,
+  PanResponder,
+  PanResponderGestureState,
   Platform,
   Pressable,
   StyleSheet,
@@ -25,11 +26,12 @@ export type SwitchProps = {
   onValueChange?: (next: boolean) => void;
   disabled?: boolean;
   size?: SwitchSize;
-  trackColor?: { true?: string; false?: string };
   thumbColor?: string;
   style?: ViewStyle;
   accessibilityLabel?: string;
   testID?: string;
+  activeTrackColor?: string;
+  inactiveTrackColor?: string;
 };
 
 export type SwitchRef = {
@@ -48,18 +50,16 @@ const ANIM_DURATION = 160;
 
 export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
   const {
-    value: controlledValue,
-    defaultValue = false,
-    onValueChange,
-    disabled = false,
-    size = "md",
-    trackColor = {
-      true: "#34D399",
-      false: "#E5E7EB",
-    }, // green / gray default
     style,
     testID,
+    size = "md",
+    onValueChange,
+    disabled = false,
+    defaultValue = false,
+    value: controlledValue,
     thumbColor = "#FFFFFF",
+    activeTrackColor = "green",
+    inactiveTrackColor = "grey",
     accessibilityLabel = "Toggle",
   } = props;
 
@@ -104,7 +104,7 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
 
   const interpolatedTrackColor = anim.interpolate({
     inputRange: [0, 1],
-    outputRange: [trackColor.false ?? "#E5E7EB", trackColor.true ?? "#34D399"],
+    outputRange: [inactiveTrackColor, activeTrackColor],
   });
 
   // handle toggle
@@ -134,17 +134,41 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
       getValue: () =>
         isControlled ? (controlledValue as boolean) : internalValue,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [toggle, internalValue, isControlled, controlledValue]
   );
 
-  const onPressHandler = (e?: GestureResponderEvent) => {
-    // for accessibility and touch
+  const onPressHandler = () => {
     toggle();
   };
 
   // Accessibility role
   const role: AccessibilityRole = Platform.OS === "web" ? "switch" : "button";
+
+  // PanResponder for drag
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => !disabled,
+      onStartShouldSetPanResponder: () => !disabled,
+      onPanResponderMove: (_, gesture: PanResponderGestureState) => {
+        const ratio = Math.min(Math.max(gesture.dx / travel, 0), 1);
+        anim.setValue(internalValue ? 1 + ratio : ratio);
+      },
+      onPanResponderRelease: (_, gesture: PanResponderGestureState) => {
+        const shouldToggle = gesture.dx > travel / 2;
+        const next = shouldToggle ? true : false;
+        setValueInternal(next);
+      },
+      onPanResponderTerminate: () => {
+        // snap back if gesture cancelled
+        Animated.timing(anim, {
+          toValue: internalValue ? 1 : 0,
+          duration: ANIM_DURATION,
+          easing: Easing.out(Easing.quad),
+          useNativeDriver: true,
+        }).start();
+      },
+    })
+  ).current;
 
   // Styles
   const containerStyle: ViewStyle = {
@@ -157,22 +181,19 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
 
   return (
     <Pressable
+      testID={testID}
+      disabled={disabled}
       onPress={onPressHandler}
       accessibilityRole={role}
-      accessibilityState={{ disabled, checked: internalValue }}
       accessibilityLabel={accessibilityLabel}
-      disabled={disabled}
-      style={[styles.pressable, style]}
-      testID={testID}
+      style={[{ alignSelf: "flex-start" }, style]}
+      accessibilityState={{ disabled, checked: internalValue }}
     >
       <Animated.View
         style={[
           containerStyle,
-          styles.track,
-          {
-            backgroundColor: undefined, // use animated color below
-            transform: [],
-          },
+          { overflow: "hidden" },
+          { backgroundColor: undefined, transform: [] },
         ]}
       >
         {/* Animated track color overlay */}
@@ -186,7 +207,7 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
           ]}
         />
         <Animated.View
-          pointerEvents="none"
+          {...panResponder.panHandlers}
           style={[
             {
               width: thumbSize,
@@ -194,7 +215,6 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
               borderRadius: thumbSize / 2,
               backgroundColor: thumbColor,
               transform: [{ translateX }],
-              // Shadow / elevation for thumb
               ...Platform.select({
                 ios: {
                   shadowColor: "#000",
@@ -202,9 +222,7 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
                   shadowRadius: 2,
                   shadowOffset: { width: 0, height: 1 },
                 },
-                android: {
-                  elevation: 2,
-                },
+                android: { elevation: 2 },
               }),
             },
           ]}
@@ -215,14 +233,5 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
 });
 
 Switch.displayName = "Switch";
-
-const styles = StyleSheet.create({
-  pressable: {
-    alignSelf: "flex-start",
-  },
-  track: {
-    overflow: "hidden",
-  },
-});
 
 export default Switch;
