@@ -5,6 +5,7 @@ export * from "./checkbox";
 export * from "./code";
 export * from "./list";
 export * from "./menu";
+export * from "./picker";
 export * from "./portal";
 export * from "./sidebar";
 export * from "./switch";
