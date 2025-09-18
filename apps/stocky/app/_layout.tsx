@@ -13,10 +13,7 @@ import {
 } from "react-native-safe-area-context";
 
 export const unstable_settings = {
-  anchor: "(tabs)",
-  tabs: {
-    anchor: "index",
-  },
+  anchor: "index",
 };
 
 const RootLayout = () => {
@@ -37,7 +34,8 @@ const RootStack = () => {
   const { bottom } = useSafeAreaInsets();
   return (
     <Stack screenOptions={{ contentStyle: { paddingBottom: bottom } }}>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="docs" options={{ headerShown: false }} />
     </Stack>
   );
 };

@@ -7,7 +7,7 @@ export function useReactNativeUIKitTheme(): RNUIKitTheme {
   return context.theme;
 }
 
-export function useThemeColors(): ThemeColor {
+export function useThemeColor(): ThemeColor {
   const theme = useReactNativeUIKitTheme();
   return theme.colors;
 }
