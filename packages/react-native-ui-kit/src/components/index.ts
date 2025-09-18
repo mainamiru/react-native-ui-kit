@@ -1,6 +1,7 @@
 export * from "./avatar";
 export * from "./bottom-sheet";
 export * from "./button";
+export * from "./card";
 export * from "./checkbox";
 export * from "./code";
 export * from "./list";

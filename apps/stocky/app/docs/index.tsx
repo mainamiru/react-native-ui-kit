@@ -1,19 +1,21 @@
-import { ContextMenu, Text } from "@mainamiru/react-native-ui-kit";
+import { Card, Text } from "@mainamiru/react-native-ui-kit";
 import React from "react";
 import { View } from "react-native";
 
 const Installation = () => {
   return (
-    <View>
+    <View style={{ padding: 10 }}>
       <Text variant="titleMedium">Installation</Text>
-      <ContextMenu
-        options={[
-          { label: "Option 1", onPress: () => console.log("Option 1") },
-          { label: "Option 2", onPress: () => console.log("Option 2") },
-        ]}
-      >
-        <Text variant="titleMedium">Right click me</Text>
-      </ContextMenu>
+      <Card>
+        <Card.Image
+          alt="Photo"
+          source="https://images.pexels.com/photos/31258133/pexels-photo-31258133.jpeg"
+        />
+        <Card.Content>
+          <Card.Title>Hello World</Card.Title>
+          <Card.Description>This is the card description</Card.Description>
+        </Card.Content>
+      </Card>
     </View>
   );
 };

@@ -8,7 +8,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import { useThemeColor } from "..";
+import { useThemeColor } from "../hooks";
 import Text from "./text";
 
 export type ButtonVariant = "contained" | "outlined" | "text";
