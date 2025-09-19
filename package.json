@@ -11,6 +11,8 @@
   ],
   "packageManager": "bun@1.2.8",
   "trustedDependencies": [
+    "@firebase/util",
+    "protobufjs",
     "unrs-resolver"
   ]
 }

@@ -24,6 +24,8 @@ export interface LeftProps {
   style: ViewStyle;
 }
 
+export type TextInputRef = DefaultTextInput;
+
 export interface TextInputProps extends DefaultTextInputProps {
   label?: string | null;
   helperText?: string;
@@ -38,7 +40,7 @@ export interface TextInputProps extends DefaultTextInputProps {
   right?: (props: LeftProps) => React.ReactElement;
 }
 
-export const TextInput = forwardRef<DefaultTextInput, TextInputProps>(
+export const TextInput = forwardRef<TextInputRef, TextInputProps>(
   (
     {
       label,
@@ -108,7 +110,7 @@ export const TextInput = forwardRef<DefaultTextInput, TextInputProps>(
             style={[
               {
                 color: text,
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: "500",
               },
               labelStyle,

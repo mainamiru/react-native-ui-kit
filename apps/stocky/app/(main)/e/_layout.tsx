@@ -1,11 +1,11 @@
+import { Tabs } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
 
 const EmployeeLayout = () => {
   return (
-    <View>
-      <Text>EmployeeLayout</Text>
-    </View>
+    <Tabs>
+      <Tabs.Screen name="index" options={{ title: "Home" }} />
+    </Tabs>
   );
 };
 
