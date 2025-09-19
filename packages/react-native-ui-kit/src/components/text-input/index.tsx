@@ -151,6 +151,7 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
               {
                 flex: 1,
                 height: 45,
+                color: text,
                 outlineWidth: 0,
                 paddingVertical: 10,
                 paddingLeft: left ? 0 : 10,

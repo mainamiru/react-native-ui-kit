@@ -6,6 +6,7 @@ const AdminLayout = () => {
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="add-user" options={{ title: "New User" }} />
+      <Stack.Screen name="add-product" options={{ title: "New Product" }} />
     </Stack>
   );
 };

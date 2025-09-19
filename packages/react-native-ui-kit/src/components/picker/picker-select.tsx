@@ -2,28 +2,35 @@ import React from "react";
 import { Pressable, StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { useThemeColor } from "../../hooks";
 import BottomSheet, { BottomSheetRef } from "../bottom-sheet";
+import { FlexView } from "../flex-view";
 import { Text } from "../text";
 import { PickerSelectContext } from "./picker-context";
 
 export interface PickerSelectProps<T extends string | number> {
   children: React.ReactNode;
   label?: string;
+  selectedValue?: T;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   position?: "left" | "right" | "bottom";
   containerStyle?: StyleProp<ViewStyle>;
-  selectedValue?: T;
-  onValueChanged?: (value: T) => void;
+  onValueChange?: (value: T) => void;
+  helperText?: string;
+  helperTextStyle?: StyleProp<TextStyle>;
+  bottomSheetHeight?: number;
 }
 
 const PickerSelect = <T extends string | number>({
   label,
   style,
   children,
+  helperText,
   labelStyle,
   selectedValue,
   containerStyle,
-  onValueChanged,
+  onValueChange,
+  helperTextStyle,
+  bottomSheetHeight,
   position = "bottom",
 }: PickerSelectProps<T>) => {
   const [value, setValue] = React.useState<T | undefined>(selectedValue);
@@ -32,14 +39,14 @@ const PickerSelect = <T extends string | number>({
 
   //handle change
   React.useEffect(() => {
-    if (value && onValueChanged) {
-      onValueChanged(value);
+    if (value && onValueChange) {
+      onValueChange(value);
     }
   }, [value]);
 
   return (
     <PickerSelectContext.Provider value={{ value, setValue }}>
-      <View style={style}>
+      <View style={[{ gap: 5 }, style]}>
         {label && <Text style={labelStyle}>{label}</Text>}
         <Pressable
           onPress={() => bottomSheetRef.current?.open()}
@@ -54,15 +61,28 @@ const PickerSelect = <T extends string | number>({
             justifyContent: "space-between",
           }}
         >
-          {value ? (
-            <Text numberOfLines={1}>{value}</Text>
-          ) : (
-            <Text style={{ color: placeholder }}>Select</Text>
-          )}
+          <FlexView>
+            {value ? (
+              <Text
+                numberOfLines={1}
+                style={{
+                  fontWeight: "500",
+                  textTransform: "capitalize",
+                }}
+              >
+                {value}
+              </Text>
+            ) : (
+              <Text style={{ color: placeholder }}>Select</Text>
+            )}
+          </FlexView>
           <Text style={{ color: placeholder }}>⌵</Text>
         </Pressable>
+        {helperText && (
+          <Text style={[{ color: "grey" }, helperTextStyle]}>{helperText}</Text>
+        )}
       </View>
-      <BottomSheet ref={bottomSheetRef} height={300}>
+      <BottomSheet ref={bottomSheetRef} height={bottomSheetHeight}>
         <View style={containerStyle}>{children}</View>
       </BottomSheet>
     </PickerSelectContext.Provider>

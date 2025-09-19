@@ -12,6 +12,7 @@ export * from "./picker";
 export * from "./portal";
 export * from "./row";
 export * from "./sidebar";
+export * from "./spacer";
 export * from "./switch";
 export * from "./text";
 export * from "./text-input";
