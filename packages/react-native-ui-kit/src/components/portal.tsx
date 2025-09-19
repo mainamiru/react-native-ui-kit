@@ -56,7 +56,7 @@ export const Portal: React.FC<{ children: React.ReactNode }> = ({
 
     host.mount(key, children);
     return () => host.unmount(key);
-  }, [children, context, key]);
+  }, [children, key]);
 
   return null;
 };

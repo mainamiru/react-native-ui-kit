@@ -20,7 +20,7 @@ const RootLayout = () => {
   const theme = useTheme();
   const colors = theme.dark ? DarkTheme.colors : DefaultTheme.colors;
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={{ flex: 1 }}>
       <ThemeProvider value={theme}>
         <ReactNativeUIKitProvider theme={{ colors, isDark: theme.dark }}>
           <RootStack />
@@ -35,7 +35,6 @@ const RootStack = () => {
   return (
     <Stack screenOptions={{ contentStyle: { paddingBottom: bottom } }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="docs" options={{ headerShown: false }} />
     </Stack>
   );
 };
