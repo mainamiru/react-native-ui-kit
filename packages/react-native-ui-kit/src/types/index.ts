@@ -7,9 +7,11 @@ export interface ThemeColor {
   card: string;
   text: string;
   border: string;
+  surface: string;
   primary: string;
   secondary: string;
   background: string;
+  placeholder: string;
 }
 
 export interface RNUIKitTheme {

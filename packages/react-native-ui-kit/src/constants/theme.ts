@@ -9,6 +9,8 @@ export const DefaultTheme: RNUIKitTheme = {
     primary: "#6055b5",
     secondary: "#00FF00",
     background: "#f5f5f5",
+    surface: "#f5f5f5",
+    placeholder: "#6e7a7a",
   },
 };
 
@@ -21,5 +23,7 @@ export const DarkTheme: RNUIKitTheme = {
     primary: "#6055b5",
     secondary: "#00FF00",
     background: "#000000",
+    surface: "#292424",
+    placeholder: "#6e7a7a",
   },
 };
