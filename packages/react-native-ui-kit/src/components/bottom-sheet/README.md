@@ -1,33 +1,31 @@
 # BottomSheet Component
 
-A customizable bottom sheet component for React Native with **dynamic height**, **ref control**, and swipe-to-close support.
+A customizable bottom sheet modal for React Native with smooth open/close animations and backdrop support.
 
 ## Props
 
-| Name            | Type                 | Required | Default       | Description                                     |
-| --------------- | -------------------- | -------- | ------------- | ----------------------------------------------- |
-| visible         | boolean              | ❌       | `false`       | Controls initial visibility of the bottom sheet |
-| onClose         | () => void           | ❌       | -             | Callback when the sheet is closed               |
-| height          | number               | ❌       | 50% of screen | Custom height for the bottom sheet              |
-| style           | StyleProp<ViewStyle> | ❌       | -             | Additional custom styles for the sheet          |
-| backgroundColor | string               | ❌       | `"#fff"`      | Background color of the sheet                   |
-| children        | React.ReactNode      | ✅       | -             | Content inside the bottom sheet                 |
+| Name                   | Type                   | Required | Default | Description                                  |
+| ---------------------- | ---------------------- | -------- | ------- | -------------------------------------------- |
+| `open`                 | `boolean`              | ❌       | -       | Control sheet visibility externally.         |
+| `onOpen`               | `() => void`           | ❌       | -       | Callback when sheet is opened.               |
+| `onClose`              | `() => void`           | ❌       | -       | Callback when sheet is closed.               |
+| `backdropOpacity`      | `number`               | ❌       | `0.3`   | Backdrop dim opacity (0–1).                  |
+| `children`             | `React.ReactNode`      | ✅       | -       | Content inside the sheet.                    |
+| `statusBarTranslucent` | `boolean`              | ❌       | `true`  | Pass through to `Modal` for Android.         |
+| `contentStyle`         | `StyleProp<ViewStyle>` | ❌       | -       | Custom style for the bottom sheet container. |
 
 ## Ref Methods
 
-The component supports ref with the following methods:
+You can control the sheet using a ref:
 
-| Method   | Description                  |
-| -------- | ---------------------------- |
-| open()   | Opens the bottom sheet       |
-| close()  | Closes the bottom sheet      |
-| toggle() | Toggles the sheet open/close |
+- `open()`: Opens the bottom sheet.
+- `close()`: Closes the bottom sheet.
 
 ## Usage
 
 ```tsx
 import React, { useRef } from "react";
-import { View, Button, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import { BottomSheet, BottomSheetRef } from "@mainamiru/react-native-ui-kit";
 
 export default function App() {
@@ -35,16 +33,18 @@ export default function App() {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Button title="Open via Ref" onPress={() => sheetRef.current?.open()} />
-      <Button title="Close via Ref" onPress={() => sheetRef.current?.close()} />
       <Button
-        title="Toggle via Ref"
-        onPress={() => sheetRef.current?.toggle()}
+        title="Open Bottom Sheet"
+        onPress={() => sheetRef.current?.open()}
       />
 
-      <BottomSheet ref={sheetRef} height={300}>
-        <Text style={{ fontSize: 18, fontWeight: "600" }}>Hello 👋</Text>
-        <Text>This BottomSheet supports ref methods.</Text>
+      <BottomSheet ref={sheetRef} onClose={() => console.log("Closed!")}>
+        <View style={{ padding: 20 }}>
+          <Text style={{ fontSize: 18, fontWeight: "600" }}>
+            Hello Bottom Sheet!
+          </Text>
+          <Button title="Close" onPress={() => sheetRef.current?.close()} />
+        </View>
       </BottomSheet>
     </View>
   );
