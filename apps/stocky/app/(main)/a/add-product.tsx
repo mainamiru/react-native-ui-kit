@@ -1,4 +1,5 @@
 import { createProduct } from "@/actions";
+import { brands } from "@/utils/data.utils";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Button,
@@ -9,7 +10,7 @@ import {
   useToaster,
 } from "@mainamiru/react-native-ui-kit";
 import React from "react";
-import { KeyboardAvoidingView, ScrollView, View } from "react-native";
+import { FlatList, KeyboardAvoidingView, ScrollView, View } from "react-native";
 
 const AddProductScreen = () => {
   const toast = useToaster();
@@ -93,12 +94,15 @@ const AddProductScreen = () => {
             label="Brand"
             selectedValue={brand}
             onValueChange={setBrand}
-            containerStyle={{ height: "50%" }}
+            containerStyle={{ minHeight: "50%", maxHeight: "70%" }}
           >
-            {/* TODO: replace with dynamic brands */}
-            <Picker.Item label="Generic" value="generic" />
-            <Picker.Item label="Brand A" value="brand_a" />
-            <Picker.Item label="Brand B" value="brand_b" />
+            <FlatList
+              data={brands}
+              keyExtractor={(brand) => brand}
+              renderItem={({ item: brand }) => (
+                <Picker.Item key={brand} label={brand} value={brand} />
+              )}
+            />
           </Picker.Select>
 
           <Picker.Select

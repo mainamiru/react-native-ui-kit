@@ -43,12 +43,12 @@ const getStyle = (color: string): Record<TextVariant, TextStyle> => ({
   titleMedium: {
     color,
     fontSize: 20,
-    fontWeight: "700",
+    fontWeight: "500",
   },
   titleSmall: {
     color,
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: "400",
   },
   bodyLarge: {
     color,
