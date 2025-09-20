@@ -100,7 +100,7 @@ const EmployeeItem = ({ item }: { item: User }) => {
   return (
     <Row
       gap={15}
-      padding={10}
+      padding={15}
       elevation={2}
       borderRadius={10}
       alignItems="center"
