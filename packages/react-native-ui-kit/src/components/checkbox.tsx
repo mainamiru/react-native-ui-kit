@@ -15,6 +15,7 @@ import {
   Text,
   ViewStyle,
 } from "react-native";
+import { assets } from "../utils";
 
 export type CheckboxStatus = "checked" | "unchecked" | "indeterminate";
 
@@ -47,7 +48,7 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
     disabled = false,
     size = 24,
     color = "#2563eb", // blue-600
-    uncheckedColor = "#d1d5db", // gray-300
+    uncheckedColor = "#9ca3af", // gray-500
     style,
     label,
     testID,
@@ -135,6 +136,7 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
             height: size,
             borderWidth: 2,
             borderRadius: 4,
+            overflow: "hidden",
             alignItems: "center",
             justifyContent: "center",
             borderColor: active ? color : uncheckedColor,
@@ -143,22 +145,22 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
         ]}
       >
         {internalStatus === "checked" && (
-          <Animated.Text
+          <Animated.Image
+            resizeMode="contain"
+            source={assets.images.check}
             style={{
-              color: "white",
-              fontWeight: "bold",
-              fontSize: size * 0.7,
+              width: size * 0.6,
+              height: size * 0.6,
+              tintColor: "white",
               transform: [{ scale: scaleAnim }],
             }}
-          >
-            ✓
-          </Animated.Text>
+          />
         )}
         {internalStatus === "indeterminate" && (
           <Animated.View
             style={{
-              width: size * 0.6,
               height: 2,
+              width: size * 0.6,
               backgroundColor: "white",
               transform: [{ scale: scaleAnim }],
             }}
