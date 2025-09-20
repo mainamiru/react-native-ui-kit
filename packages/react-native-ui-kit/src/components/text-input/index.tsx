@@ -63,7 +63,7 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
     ref
   ) => {
     const [error, setError] = useState<Error | null>(null);
-    const { text, placeholder } = useThemeColor();
+    const { text, border, placeholder } = useThemeColor();
     const animatedValue = useRef(new Animated.Value(0)).current;
     const inputRef = useRef<DefaultTextInput>(null);
 
@@ -130,7 +130,7 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
               alignItems: "center",
               borderColor: animatedValue.interpolate({
                 inputRange: [0, 1],
-                outputRange: [mutedColor, focusedOutlineColor],
+                outputRange: [border, focusedOutlineColor],
               }),
             },
           ]}

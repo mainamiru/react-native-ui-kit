@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { Link, Tabs } from "expo-router";
 import React from "react";
 
 const TabsLayout = () => {
@@ -15,15 +15,11 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="staffs"
+        name="attendance"
         options={{
-          title: "Staffs",
+          title: "Attendance",
           tabBarIcon: ({ size, color }) => (
-            <MaterialCommunityIcons
-              size={size}
-              color={color}
-              name="account-group"
-            />
+            <MaterialCommunityIcons size={size} color={color} name="calendar" />
           ),
         }}
       />
@@ -37,6 +33,15 @@ const TabsLayout = () => {
               color={color}
               name="dots-grid"
             />
+          ),
+          headerRight: ({ tintColor }) => (
+            <Link href="/a/add-product" style={{ marginRight: 15 }}>
+              <MaterialCommunityIcons
+                size={24}
+                color={tintColor}
+                name="plus-circle"
+              />
+            </Link>
           ),
         }}
       />

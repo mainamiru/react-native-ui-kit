@@ -5,24 +5,33 @@ import {
   ReactNativeUIKitProvider,
 } from "@mainamiru/react-native-ui-kit";
 import { ThemeProvider } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Slot } from "expo-router";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-// export const unstable_settings = {
-//   anchor: "(auth)",
-// };
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+    },
+  },
+});
 
 const RootLayout = () => {
   const theme = useTheme();
   const colors = theme.dark ? DarkTheme.colors : DefaultTheme.colors;
   return (
     <SafeAreaProvider style={{ flex: 1 }}>
-      <ThemeProvider value={theme}>
-        <ReactNativeUIKitProvider theme={{ colors, isDark: theme.dark }}>
-          <Slot />
-        </ReactNativeUIKitProvider>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider value={theme}>
+          <ReactNativeUIKitProvider theme={{ colors, isDark: theme.dark }}>
+            <Slot />
+          </ReactNativeUIKitProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </SafeAreaProvider>
   );
 };

@@ -10,14 +10,15 @@ export interface PickerSelectProps<T extends string | number> {
   children: React.ReactNode;
   label?: string;
   selectedValue?: T;
+  autoClose?: boolean;
+  helperText?: string;
+  bottomSheetHeight?: number;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   position?: "left" | "right" | "bottom";
   containerStyle?: StyleProp<ViewStyle>;
   onValueChange?: (value: T) => void;
-  helperText?: string;
   helperTextStyle?: StyleProp<TextStyle>;
-  bottomSheetHeight?: number;
 }
 
 const PickerSelect = <T extends string | number>({
@@ -26,6 +27,7 @@ const PickerSelect = <T extends string | number>({
   children,
   helperText,
   labelStyle,
+  autoClose = true,
   selectedValue,
   containerStyle,
   onValueChange,
@@ -41,6 +43,9 @@ const PickerSelect = <T extends string | number>({
   React.useEffect(() => {
     if (value && onValueChange) {
       onValueChange(value);
+      if (autoClose && bottomSheetRef.current) {
+        bottomSheetRef.current.close();
+      }
     }
   }, [value]);
 

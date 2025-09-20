@@ -133,11 +133,11 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
           {
             width: size,
             height: size,
-            borderRadius: 4,
             borderWidth: 2,
-            borderColor: active ? color : uncheckedColor,
+            borderRadius: 4,
             alignItems: "center",
             justifyContent: "center",
+            borderColor: active ? color : uncheckedColor,
             backgroundColor: active ? color : "transparent",
           },
         ]}

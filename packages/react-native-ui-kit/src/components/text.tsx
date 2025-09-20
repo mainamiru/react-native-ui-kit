@@ -20,13 +20,17 @@ export interface TextProps extends DefaultTextProps {
   variant?: TextVariant;
 }
 
-export const Text = ({ variant = "body", style, ...props }: TextProps) => {
+export const Text = ({
+  style,
+  children,
+  variant = "body",
+  ...props
+}: TextProps) => {
   const { text } = useThemeColor();
   return (
-    <DefaultText
-      {...props}
-      style={[getStyle(text)[variant], style]}
-    ></DefaultText>
+    <DefaultText {...props} style={[getStyle(text)[variant], style]}>
+      {children}
+    </DefaultText>
   );
 };
 

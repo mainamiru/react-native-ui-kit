@@ -56,11 +56,16 @@ export type User = z.infer<typeof UserSchema>;
    ------------------------- */
 export const ProductSchema = z.object({
   id: z.string().optional(),
-  name: z.string().min(1),
+  name: z.string().min(1).nonempty(),
   sku: z.string().optional(),
   description: z.string().optional(),
-  category: z.string().optional(),
+  unit: z.string().nonempty(),
+  brand: z.string().nullable().optional(),
+  image: z.string().nullable().optional(),
+  category: z.string().nullable().optional(),
   price: z.number().nonnegative(),
+  costPrice: z.number().nonnegative(),
+  barcode: z.string().nullable().optional(),
   stock: z.number().int().nonnegative().default(0),
   createdBy: z.string().optional(),
   active: z.boolean().default(true),

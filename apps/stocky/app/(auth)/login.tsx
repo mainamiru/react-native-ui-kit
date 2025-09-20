@@ -3,7 +3,9 @@ import {
   Avatar,
   Button,
   Center,
+  Checkbox,
   FlexView,
+  Row,
   Text,
   TextInput,
   TextInputRef,
@@ -43,7 +45,7 @@ const LoginScreen = () => {
         <Text variant="titleLarge">Stocky</Text>
         <Text variant="bodyMedium">Login to your account</Text>
       </Center>
-      <FlexView gap={10} padding={10}>
+      <FlexView gap={15} padding={10}>
         <TextInput
           ref={emailRef}
           label="Email"
@@ -52,7 +54,6 @@ const LoginScreen = () => {
           enterKeyHint="next"
           autoComplete="email"
           autoCapitalize="none"
-          helperText="Enter your email"
           onChangeText={(text) => setEmail(text.trim())}
           onSubmitEditing={() => passwordRef.current?.focus()}
           validate={(text) => {
@@ -70,7 +71,6 @@ const LoginScreen = () => {
           placeholder="Password"
           autoComplete="password"
           onChangeText={(text) => setPassword(text.trim())}
-          helperText="Enter your password"
           right={({ style, color }) => (
             <Center {...style} aspectRatio={1}>
               <MaterialIcons name="eye-off" size={20} color={color} />
@@ -83,6 +83,15 @@ const LoginScreen = () => {
             return null;
           }}
         />
+        <Row gap={10} alignItems="center">
+          <Checkbox status="checked" />
+          <FlexView>
+            <Text>
+              By continuing, I agree that I have read and accept the Terms of
+              Service and Privacy Policy.
+            </Text>
+          </FlexView>
+        </Row>
         <Button buttonStyle={{ marginTop: 10 }} onPress={handleSignIn}>
           Sign In
         </Button>
