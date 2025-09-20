@@ -80,7 +80,7 @@ const AddProductScreen = () => {
             autoClose={true}
             selectedValue={category}
             onValueChange={setCategory}
-            bottomSheetHeight={400}
+            containerStyle={{ height: "50%" }}
           >
             {/* TODO: replace with dynamic categories */}
             <Picker.Item label="Electronics" value="electronics" />
@@ -93,7 +93,7 @@ const AddProductScreen = () => {
             label="Brand"
             selectedValue={brand}
             onValueChange={setBrand}
-            bottomSheetHeight={400}
+            containerStyle={{ height: "50%" }}
           >
             {/* TODO: replace with dynamic brands */}
             <Picker.Item label="Generic" value="generic" />
@@ -105,7 +105,7 @@ const AddProductScreen = () => {
             label="Unit"
             selectedValue={unit}
             onValueChange={setUnit}
-            bottomSheetHeight={400}
+            containerStyle={{ height: "50%" }}
           >
             <Picker.Item label="Piece" value="pc" />
             <Picker.Item label="Box" value="box" />

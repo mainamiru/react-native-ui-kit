@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { useThemeColor } from "../../hooks";
-import BottomSheet, { BottomSheetRef } from "../bottom-sheet";
+import { BottomSheet, BottomSheetRef } from "../bottom-sheet";
 import { FlexView } from "../flex-view";
 import { Text } from "../text";
 import { PickerSelectContext } from "./picker-context";
@@ -12,7 +12,6 @@ export interface PickerSelectProps<T extends string | number> {
   selectedValue?: T;
   autoClose?: boolean;
   helperText?: string;
-  bottomSheetHeight?: number;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   position?: "left" | "right" | "bottom";
@@ -32,7 +31,6 @@ const PickerSelect = <T extends string | number>({
   containerStyle,
   onValueChange,
   helperTextStyle,
-  bottomSheetHeight,
   position = "bottom",
 }: PickerSelectProps<T>) => {
   const [value, setValue] = React.useState<T | undefined>(selectedValue);
@@ -87,8 +85,8 @@ const PickerSelect = <T extends string | number>({
           <Text style={[{ color: "grey" }, helperTextStyle]}>{helperText}</Text>
         )}
       </View>
-      <BottomSheet ref={bottomSheetRef} height={bottomSheetHeight}>
-        <View style={containerStyle}>{children}</View>
+      <BottomSheet ref={bottomSheetRef} contentStyle={containerStyle}>
+        {children}
       </BottomSheet>
     </PickerSelectContext.Provider>
   );

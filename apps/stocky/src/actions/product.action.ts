@@ -4,6 +4,9 @@ import {
   QueryConstraint,
   addDoc,
   collection,
+  deleteDoc,
+  doc,
+  getDoc,
   getDocs,
   query,
 } from "firebase/firestore";
@@ -32,6 +35,7 @@ export async function createProduct(product: Product): Promise<Product> {
   return Object.assign({ id: result.id }, data);
 }
 
+// Get all products
 export async function getProducts(...queryConstraint: QueryConstraint[]) {
   const products: Product[] = [];
   const snapshot = await getDocs(query(productCollection, ...queryConstraint));
@@ -44,4 +48,23 @@ export async function getProducts(...queryConstraint: QueryConstraint[]) {
   }
 
   return products;
+}
+
+// Get product by id
+export async function getProductById(id: string): Promise<Product> {
+  const docRef = doc(productCollection, id);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return {
+      id: docSnap.id,
+      ...(docSnap.data() as any),
+    };
+  }
+  throw new Error("Product not found");
+}
+
+// Delete product by id
+export async function deleteProductById(id: string): Promise<void> {
+  const docRef = doc(productCollection, id);
+  await deleteDoc(docRef);
 }
