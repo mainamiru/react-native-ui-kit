@@ -1,18 +1,18 @@
-import { getProducts, productCollection } from "@/actions";
+import { getProducts } from "@/actions";
 import { useTheme } from "@/hooks";
 import { MaterialIcons } from "@expo/vector-icons";
 import {
   Container,
   FlexView,
   List,
+  SearchBar,
   SmartImage,
   Text,
 } from "@mainamiru/react-native-ui-kit";
 import { useQuery } from "@tanstack/react-query";
-import { onSnapshot, orderBy } from "firebase/firestore";
+import { orderBy } from "firebase/firestore";
 import React from "react";
 import { FlatList, RefreshControl, View } from "react-native";
-import { SearchBar } from "react-native-screens";
 
 const ProductsScreen = () => {
   const { colors } = useTheme();
@@ -23,16 +23,13 @@ const ProductsScreen = () => {
     },
   });
 
-  //handle real time updates
-  React.useEffect(() => {
-    if (isLoading) return;
-    onSnapshot(productCollection, () => refetch());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
-
   return (
     <Container isLoading={isLoading} style={{ backgroundColor: colors.card }}>
-      <SearchBar placeholder="Search products" />
+      <SearchBar
+        iconColor="grey"
+        style={{ margin: 10 }}
+        placeholder="Search products"
+      />
       <FlexView>
         <FlatList
           data={data}
@@ -40,6 +37,7 @@ const ProductsScreen = () => {
           contentContainerStyle={{ padding: 10, gap: 15 }}
           refreshControl={
             <RefreshControl
+              tintColor={colors.text}
               refreshing={isRefetching}
               onRefresh={() => refetch()}
             />

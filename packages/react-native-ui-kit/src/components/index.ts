@@ -12,6 +12,7 @@ export * from "./menu";
 export * from "./picker";
 export * from "./portal";
 export * from "./row";
+export * from "./searchbar";
 export * from "./sidebar";
 export * from "./smart-image";
 export * from "./spacer";
