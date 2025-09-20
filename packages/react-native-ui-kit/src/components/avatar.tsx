@@ -1,13 +1,6 @@
-import React, { useState } from "react";
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native";
+import React from "react";
+import { StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
+import { SmartImage } from "./smart-image";
 
 export type AvatarSize = "sm" | "md" | "lg" | number;
 
@@ -18,7 +11,7 @@ export type AvatarProps = {
   style?: ViewStyle;
   textStyle?: TextStyle;
   backgroundColor?: string;
-  source?: ImageSourcePropType;
+  source?: string | null | number;
 };
 
 const SIZE_MAP = {
@@ -36,17 +29,13 @@ export const Avatar: React.FC<AvatarProps> = ({
   fallback = "?",
   backgroundColor = "#E0E0E0",
 }) => {
-  const [imageError, setImageError] = useState(false);
-
   const avatarSize: number = SIZE_MAP[size] ?? size;
 
   const renderContent = () => {
-    if (source && !imageError) {
+    if (source) {
       return (
-        <Image
+        <SmartImage
           source={source}
-          testID={`${testID}-image`}
-          onError={() => setImageError(true)}
           style={{
             width: avatarSize,
             height: avatarSize,

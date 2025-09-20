@@ -1,7 +1,16 @@
+import { useTheme } from "@/hooks";
 import { User } from "@/schema";
-import { Container } from "@mainamiru/react-native-ui-kit";
+import {
+  Avatar,
+  Badge,
+  Container,
+  FlexView,
+  Row,
+  Text,
+} from "@mainamiru/react-native-ui-kit";
+import { capitalize } from "lodash";
 import React from "react";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 const DUMMY_EMPLOYEES: User[] = [
   {
@@ -87,57 +96,42 @@ function Salary({
 }
 
 const EmployeeItem = ({ item }: { item: User }) => {
-  const hasAvatar = !!item.avatar;
+  const { colors } = useTheme();
   return (
-    <View style={[styles.row, !item.active && styles.inactiveRow]}>
-      <View style={styles.avatarWrap}>
-        {hasAvatar ? (
-          <Image source={{ uri: item.avatar! }} style={styles.avatar} />
-        ) : (
-          <View style={[styles.avatar, styles.avatarFallback]}>
-            <Text style={styles.avatarText}>{getInitials(item.name)}</Text>
-          </View>
-        )}
-      </View>
-      <View style={styles.info}>
-        <View style={styles.titleRow}>
-          <Text style={styles.name}>{item.name}</Text>
-          <View style={[styles.pill, styles[`role_${item.role}` as const]]}>
-            <Text style={styles.pillText}>{item.role}</Text>
-          </View>
-          {!item.active && (
-            <View style={[styles.pill, styles.pillMuted]}>
-              <Text style={styles.pillText}>inactive</Text>
-            </View>
-          )}
-        </View>
-        <View style={styles.metaRow}>
-          <Text style={styles.metaText}>{item.email}</Text>
-          {item.phone ? <Text style={styles.dot}>•</Text> : null}
-          {item.phone ? (
-            <Text style={styles.metaText}>{item.phone}</Text>
-          ) : null}
-        </View>
-        <View style={styles.metaRow}>
-          <Salary type={item.salaryType} amount={item.salaryAmount} />
-        </View>
-      </View>
-    </View>
+    <Row
+      gap={15}
+      padding={10}
+      elevation={2}
+      borderRadius={10}
+      alignItems="center"
+      backgroundColor={colors.card}
+    >
+      <Avatar
+        size={60}
+        source={item.avatar}
+        fallback={getInitials(item.name)}
+      />
+      <FlexView>
+        <Row gap={8}>
+          <Text variant="titleMedium">{item.name}</Text>
+          <Badge>{capitalize(item.role)}</Badge>
+        </Row>
+        <Text variant="bodyMedium">{item.email}</Text>
+        <Text variant="bodyMedium">{item.phone}</Text>
+        <Salary type={item.salaryType} amount={item.salaryAmount} />
+      </FlexView>
+    </Row>
   );
 };
 
-const ItemSeparator = () => <View style={styles.separator} />;
-
 const EmployeesScreen = () => {
   return (
-    <Container style={{ backgroundColor: "#0b0b0c" }}>
-      <Text style={styles.header}>Employees</Text>
+    <Container>
       <FlatList
         data={DUMMY_EMPLOYEES}
         keyExtractor={(it) => it.id ?? it.email}
         renderItem={({ item }) => <EmployeeItem item={item} />}
-        ItemSeparatorComponent={ItemSeparator}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={{ gap: 10, padding: 10 }}
       />
     </Container>
   );

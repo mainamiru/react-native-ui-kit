@@ -1,4 +1,5 @@
 export * from "./avatar";
+export * from "./badge";
 export * from "./bottom-sheet";
 export * from "./button";
 export * from "./card";
@@ -6,6 +7,7 @@ export * from "./center";
 export * from "./checkbox";
 export * from "./code";
 export * from "./container";
+export * from "./divider";
 export * from "./flex-view";
 export * from "./list";
 export * from "./menu";
