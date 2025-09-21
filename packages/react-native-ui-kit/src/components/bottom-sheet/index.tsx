@@ -43,28 +43,25 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     const translateY = React.useRef(new Animated.Value(0)).current;
 
     // handle content layout
-    const handleContentLayout = React.useCallback(
-      (event: LayoutChangeEvent) => {
-        const { height } = event.nativeEvent.layout;
-        if (contentHeight === height) return;
-        setHasMeasured(true);
-        setContentHeight(height);
+    const handleContentLayout = (event: LayoutChangeEvent) => {
+      const { height } = event.nativeEvent.layout;
+      if (contentHeight === height) return;
+      setHasMeasured(true);
+      setContentHeight(height);
 
-        // If already open, re-adjust
-        if (hasMeasured && isOpen) {
-          requestAnimationFrame(() => {
-            Animated.timing(translateY, {
-              toValue: 0,
-              duration: 200,
-              useNativeDriver: true,
-            }).start();
-          });
-        } else {
-          translateY.setValue(height);
-        }
-      },
-      [contentHeight, hasMeasured, isOpen, translateY]
-    );
+      // If already open, re-adjust
+      if (hasMeasured && isOpen) {
+        requestAnimationFrame(() => {
+          Animated.timing(translateY, {
+            toValue: 0,
+            duration: 200,
+            useNativeDriver: true,
+          }).start();
+        });
+      } else {
+        translateY.setValue(height);
+      }
+    };
 
     // close modal
     const closeModal = React.useCallback(() => {
@@ -81,14 +78,12 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     // open modal
     const openModal = React.useCallback(() => {
       setIsOpen(true);
-      if (!hasMeasured) return;
-
       Animated.timing(translateY, {
         toValue: 0,
         duration: 300,
         useNativeDriver: true,
       }).start(onOpen);
-    }, [hasMeasured, onOpen, translateY]);
+    }, [onOpen, translateY]);
 
     // sync external "open" prop
     React.useEffect(() => {
@@ -104,6 +99,13 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       open: openModal,
       close: closeModal,
     }));
+
+    //handle auto open
+    React.useEffect(() => {
+      if (isOpen && hasMeasured) {
+        openModal();
+      }
+    }, [isOpen, hasMeasured]);
 
     return (
       <Modal

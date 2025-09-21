@@ -69,7 +69,7 @@ const AddUserScreen = () => {
           label="Salary Type"
           selectedValue={salaryType}
           onValueChange={setSalaryType}
-          bottomSheetHeight={400}
+          // containerStyle={{ height: "50%" }}
         >
           <Picker.Item label="Hourly" value="hourly" />
           <Picker.Item label="Daily" value="daily" />
@@ -98,7 +98,6 @@ const AddUserScreen = () => {
           label="Role"
           selectedValue={role}
           onValueChange={setRole}
-          bottomSheetHeight={400}
         >
           <Picker.Item label="Admin" value="admin" />
           <Picker.Item label="Staff" value="staff" />
