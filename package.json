@@ -13,6 +13,7 @@
   "trustedDependencies": [
     "@firebase/util",
     "protobufjs",
-    "unrs-resolver"
+    "unrs-resolver",
+    "@mainamiru/react-native-ui-kit"
   ]
 }

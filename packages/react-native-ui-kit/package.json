@@ -2,11 +2,15 @@
   "name": "@mainamiru/react-native-ui-kit",
   "version": "1.0.0",
   "main": "src/index",
+  "scripts": {
+    "postinstall": "node scripts/checkDependencies.js"
+  },
   "devDependencies": {
     "react": "19.1.0",
     "react-native": "0.81.4"
   },
   "dependencies": {
+    "@react-native-vector-icons/evil-icons": "^12.3.0",
     "expo-clipboard": "^8.0.7"
   }
 }

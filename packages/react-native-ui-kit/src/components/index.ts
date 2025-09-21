@@ -9,6 +9,7 @@ export * from "./code";
 export * from "./container";
 export * from "./divider";
 export * from "./flex-view";
+export * from "./kit-icon";
 export * from "./list";
 export * from "./menu";
 export * from "./picker";

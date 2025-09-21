@@ -14,13 +14,14 @@ export interface PickerSelectProps<T extends string | number> {
   selectedValue?: T;
   autoClose?: boolean;
   helperText?: string;
+  sidebarWidth?: number;
+  placeholderText?: string;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   position?: "left" | "right" | "bottom";
   containerStyle?: StyleProp<ViewStyle>;
   onValueChange?: (value: T) => void;
   helperTextStyle?: StyleProp<TextStyle>;
-  placeholderText?: string;
 }
 
 const PickerSelect = <T extends string | number>({
@@ -35,6 +36,7 @@ const PickerSelect = <T extends string | number>({
   onValueChange,
   helperTextStyle,
   position = "bottom",
+  sidebarWidth = 280,
   placeholderText = "Select",
 }: PickerSelectProps<T>) => {
   const { border, placeholder } = useThemeColor();
@@ -46,8 +48,9 @@ const PickerSelect = <T extends string | number>({
   React.useEffect(() => {
     if (value && onValueChange) {
       onValueChange(value);
-      if (autoClose && bottomSheetRef.current) {
-        bottomSheetRef.current.close();
+      if (autoClose) {
+        sidebarRef.current?.close();
+        bottomSheetRef.current?.close();
       }
     }
   }, [value]);
@@ -87,7 +90,7 @@ const PickerSelect = <T extends string | number>({
             justifyContent: "space-between",
           }}
         >
-          <FlexView>
+          <FlexView justifyContent="center">
             {value ? (
               <Text
                 numberOfLines={1}
@@ -105,6 +108,7 @@ const PickerSelect = <T extends string | number>({
           {position === "bottom" ? (
             <Text style={{ color: placeholder }}>⌵</Text>
           ) : (
+            // <Text style={{ color: placeholder }}>⌵</Text>
             <Text
               style={{
                 color: placeholder,
@@ -128,7 +132,7 @@ const PickerSelect = <T extends string | number>({
           {children}
         </BottomSheet>
       ) : (
-        <Sidebar ref={sidebarRef} position={position}>
+        <Sidebar width={sidebarWidth} ref={sidebarRef} position={position}>
           <Text variant="titleMedium" style={{ padding: 10 }} numberOfLines={1}>
             Selected: {value}
           </Text>
