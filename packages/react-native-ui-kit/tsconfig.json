@@ -13,6 +13,7 @@
     "skipLibCheck": true,
     "target": "ESNext"
   },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "node_modules",
     "babel.config.js",

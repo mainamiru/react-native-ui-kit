@@ -37,17 +37,17 @@ export const Text = ({
 const getStyle = (color: string): Record<TextVariant, TextStyle> => ({
   titleLarge: {
     color,
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "700",
   },
   titleMedium: {
     color,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "500",
   },
   titleSmall: {
     color,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "400",
   },
   bodyLarge: {
