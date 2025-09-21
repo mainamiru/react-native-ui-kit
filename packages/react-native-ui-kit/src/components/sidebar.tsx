@@ -101,7 +101,7 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
   // Open
   const openFn = useCallback(() => {
     setInternalOpen(true);
-    startAnimation(1);
+    requestAnimationFrame(() => startAnimation(1));
   }, [startAnimation]);
 
   // Close
