@@ -9,7 +9,7 @@ import {
   getDoc,
   getDocs,
   query,
-} from "firebase/firestore";
+} from "@react-native-firebase/firestore";
 
 export const productCollection = collection(db, "products");
 
@@ -40,7 +40,7 @@ export async function getProducts(...queryConstraint: QueryConstraint[]) {
   const products: Product[] = [];
   const snapshot = await getDocs(query(productCollection, ...queryConstraint));
   if (snapshot.docs) {
-    snapshot.forEach((doc) => {
+    snapshot.forEach((doc: any) => {
       if (doc.exists()) {
         products.push({ id: doc.id, ...(doc.data() as any) });
       }

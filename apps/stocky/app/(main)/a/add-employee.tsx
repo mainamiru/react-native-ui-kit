@@ -1,5 +1,5 @@
 import { createEmployee } from "@/actions";
-import { EmployeeRole, SalaryType } from "@/schema";
+import { SalaryType } from "@/schema";
 import {
   Button,
   Container,
@@ -12,21 +12,19 @@ import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { KeyboardAvoidingView, ScrollView } from "react-native";
 
-const AddUserScreen = () => {
+const AddEmployeeScreen = () => {
   const toast = useToaster();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [salary, setSalary] = React.useState("");
   const [address, setAddress] = React.useState("");
-  const [role, setRole] = React.useState<EmployeeRole>("staff");
   const [salaryType, setSalaryType] = React.useState<SalaryType>("daily");
 
   const { mutateAsync: handleSubmit, isPending } = useMutation({
     mutationFn: async () => {
       return await createEmployee({
         name,
-        role,
         email,
         phone,
         address,
@@ -34,6 +32,7 @@ const AddUserScreen = () => {
         active: true,
         userId: null,
         managerId: null,
+        role: "employee",
         salaryAmount: Number(salary),
       });
     },
@@ -108,15 +107,6 @@ const AddUserScreen = () => {
             placeholder="Address"
             onChangeText={setAddress}
           />
-          <Picker.Select
-            label="Role"
-            selectedValue={role}
-            onValueChange={setRole}
-            containerStyle={{ height: "50%" }}
-          >
-            <Picker.Item label="Admin" value="admin" />
-            <Picker.Item label="Staff" value="staff" />
-          </Picker.Select>
           <Spacer size={10} />
           <Button
             onPress={() => {
@@ -133,4 +123,4 @@ const AddUserScreen = () => {
   );
 };
 
-export default AddUserScreen;
+export default AddEmployeeScreen;

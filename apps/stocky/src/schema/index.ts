@@ -18,12 +18,12 @@ const FirestoreDate = z.preprocess((arg) => {
 /* -------------------------
    Enums / small types
    ------------------------- */
-export const RoleEnum = z.union([
+export const EmployeeRoleEnum = z.union([
   z.literal("admin"),
   z.literal("staff"),
   z.literal("employee"),
 ]);
-export type Role = z.infer<typeof RoleEnum>;
+export type EmployeeRole = z.infer<typeof EmployeeRoleEnum>;
 
 export const SalaryTypeEnum = z.union([
   z.literal("hourly"),
@@ -33,23 +33,25 @@ export const SalaryTypeEnum = z.union([
 export type SalaryType = z.infer<typeof SalaryTypeEnum>;
 
 /* -------------------------
-   User
+   Employee
    ------------------------- */
-export const UserSchema = z.object({
+export const EmployeeSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1),
-  email: z.string().nonempty(),
-  phone: z.string().optional(),
-  role: RoleEnum,
-  salaryType: SalaryTypeEnum.optional(),
-  salaryAmount: z.number().nonnegative().optional(),
+  userId: z.string().nullable(),
+  email: z.string().nullable(),
+  phone: z.string().max(15),
+  role: EmployeeRoleEnum,
+  salaryType: SalaryTypeEnum,
+  address: z.string().nullable(),
+  salaryAmount: z.number().nonnegative(),
   managerId: z.string().nullable().optional(),
-  avatar: z.string().optional(),
+  avatar: z.string().nullable().optional(),
   active: z.boolean().default(true),
   createdAt: FirestoreDate.optional(),
   updatedAt: FirestoreDate.optional(),
 });
-export type User = z.infer<typeof UserSchema>;
+export type Employee = z.infer<typeof EmployeeSchema>;
 
 /* -------------------------
    Product
@@ -57,17 +59,17 @@ export type User = z.infer<typeof UserSchema>;
 export const ProductSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1).nonempty(),
-  sku: z.string().optional(),
-  description: z.string().optional(),
+  sku: z.string().nullable(),
+  description: z.string().nullable(),
   unit: z.string().nonempty(),
-  brand: z.string().nullable().optional(),
-  image: z.string().nullable().optional(),
-  category: z.string().nullable().optional(),
+  brand: z.string().nullable(),
+  image: z.string().nullable(),
+  category: z.string().nullable(),
   price: z.number().nonnegative(),
   costPrice: z.number().nonnegative(),
-  barcode: z.string().nullable().optional(),
+  barcode: z.string().nullable(),
   stock: z.number().int().nonnegative().default(0),
-  createdBy: z.string().optional(),
+  createdBy: z.string().nullable(),
   active: z.boolean().default(true),
   createdAt: FirestoreDate.optional(),
   updatedAt: FirestoreDate.optional(),
@@ -81,11 +83,11 @@ export type Product = z.infer<typeof ProductSchema>;
 export const StockAdjustmentSchema = z.object({
   id: z.string().optional(),
   productId: z.string(),
-  changedBy: z.string().optional(),
+  changedBy: z.string().nullable(),
   delta: z.number().int(),
-  reason: z.string().optional(),
-  reference: z.string().optional(),
-  resultingStock: z.number().int().nonnegative().optional(),
+  reason: z.string().nullable(),
+  reference: z.string().nullable(),
+  resultingStock: z.number().int().nonnegative(),
   createdAt: FirestoreDate.optional(),
 });
 export type StockAdjustment = z.infer<typeof StockAdjustmentSchema>;
@@ -110,9 +112,9 @@ export const AttendanceSchema = z.object({
     ])
     .default("present"),
   approved: z.boolean().default(false),
-  approvedBy: z.string().nullable().optional(),
-  totalHours: z.number().nonnegative().optional(),
-  notes: z.string().optional(),
+  approvedBy: z.string().nullable(),
+  totalHours: z.number().nonnegative(),
+  notes: z.string().nullable(),
   createdAt: FirestoreDate.optional(),
   updatedAt: FirestoreDate.optional(),
 });
@@ -141,8 +143,8 @@ export const AttendanceRequestSchema = z.object({
     .default("pending"),
   requestedAt: FirestoreDate.optional(),
   reviewedAt: FirestoreDate.optional(),
-  reviewedBy: z.string().nullable().optional(),
-  adminComment: z.string().optional(),
+  reviewedBy: z.string().nullable(),
+  adminComment: z.string().nullable(),
 });
 export type AttendanceRequest = z.infer<typeof AttendanceRequestSchema>;
 
@@ -155,15 +157,15 @@ export const SalaryRecordSchema = z.object({
   userId: z.string(),
   period: z.string(),
   generatedAt: FirestoreDate.optional(),
-  totalDaysPresent: z.number().int().nonnegative().optional(),
-  totalHours: z.number().nonnegative().optional(),
-  baseSalary: z.number().nonnegative().optional(),
-  adjustments: z.number().optional().default(0),
-  deductions: z.number().optional().default(0),
-  netPay: z.number().nonnegative().optional(),
+  totalDaysPresent: z.number().int().nonnegative(),
+  totalHours: z.number().nonnegative(),
+  baseSalary: z.number().nonnegative(),
+  adjustments: z.number().default(0),
+  deductions: z.number().default(0),
+  netPay: z.number().nonnegative(),
   paid: z.boolean().default(false),
   paidAt: FirestoreDate.optional(),
-  paymentReference: z.string().optional(),
+  paymentReference: z.string().nullable(),
   createdAt: FirestoreDate.optional(),
   updatedAt: FirestoreDate.optional(),
 });
@@ -179,21 +181,26 @@ export type SalaryRecord = z.infer<typeof SalaryRecordSchema>;
  *   const data = doc.data();
  *   const user = UserSchema.parse({ ...data, id: doc.id });
  */
-export function validateUser(data: unknown) {
-  return UserSchema.parse(data);
+export function validateEmployee(data: unknown): Employee {
+  return EmployeeSchema.parse(data);
 }
+
 export function validateProduct(data: unknown) {
   return ProductSchema.parse(data);
 }
+
 export function validateAttendance(data: unknown) {
   return AttendanceSchema.parse(data);
 }
+
 export function validateAttendanceRequest(data: unknown) {
   return AttendanceRequestSchema.parse(data);
 }
+
 export function validateSalaryRecord(data: unknown) {
   return SalaryRecordSchema.parse(data);
 }
+
 export function validateStockAdjustment(data: unknown) {
   return StockAdjustmentSchema.parse(data);
 }

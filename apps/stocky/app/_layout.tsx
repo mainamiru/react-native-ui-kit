@@ -1,4 +1,5 @@
 import { useTheme } from "@/hooks";
+import { AuthProvider } from "@/providers";
 import {
   DarkTheme,
   DefaultTheme,
@@ -6,10 +7,13 @@ import {
 } from "@mainamiru/react-native-ui-kit";
 import { ThemeProvider } from "@react-navigation/native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import React from "react";
 import { StatusBar } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,7 +38,7 @@ const RootLayout = () => {
         <QueryClientProvider client={queryClient}>
           <ThemeProvider value={theme}>
             <ReactNativeUIKitProvider theme={{ colors, isDark: theme.dark }}>
-              <Slot />
+              <RootStack />
             </ReactNativeUIKitProvider>
           </ThemeProvider>
         </QueryClientProvider>
@@ -43,19 +47,21 @@ const RootLayout = () => {
   );
 };
 
-// const RootStack = () => {
-//   const { bottom } = useSafeAreaInsets();
-//   return (
-//     <Stack
-//       screenOptions={{
-//         headerShown: false,
-//         contentStyle: { paddingBottom: bottom },
-//       }}
-//     >
-//       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-//       <Stack.Screen name="(main)" options={{ headerShown: false }} />
-//     </Stack>
-//   );
-// };
+const RootStack = () => {
+  const { bottom } = useSafeAreaInsets();
+  return (
+    <AuthProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { paddingBottom: bottom },
+        }}
+      >
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(main)" options={{ headerShown: false }} />
+      </Stack>
+    </AuthProvider>
+  );
+};
 
 export default RootLayout;

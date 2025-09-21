@@ -1,7 +1,8 @@
-import { getApp, initializeApp } from "@react-native-firebase/app";
-import { initializeAuth } from "@react-native-firebase/auth";
-import { getFirestore } from "@react-native-firebase/firestore";
-import { Platform } from "react-native";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { initializeAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -14,11 +15,7 @@ const firebaseConfig = {
   measurementId: "G-TY16Z9Y16M",
 };
 
-if (Platform.OS === "web") {
-  initializeApp(firebaseConfig);
-}
-
 // Initialize Firebase
-export const app = getApp();
-export const db = getFirestore(app);
+export const app = initializeApp(firebaseConfig);
 export const auth = initializeAuth(app);
+export const db = getFirestore(app);
