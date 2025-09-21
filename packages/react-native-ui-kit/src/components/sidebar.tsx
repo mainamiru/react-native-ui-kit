@@ -11,6 +11,7 @@ import {
   Dimensions,
   Modal,
   Pressable,
+  StyleProp,
   StyleSheet,
   ViewStyle,
 } from "react-native";
@@ -18,15 +19,15 @@ import {
 export type SidebarPosition = "left" | "right";
 
 export type SidebarProps = {
-  open?: boolean; // controlled
-  defaultOpen?: boolean; // uncontrolled
-  onOpenChange?: (next: boolean) => void;
-  position?: SidebarPosition;
+  open?: boolean;
   width?: number;
+  defaultOpen?: boolean;
   backdropColor?: string;
-  style?: ViewStyle;
   children?: React.ReactNode;
   animationDuration?: number;
+  position?: SidebarPosition;
+  style?: StyleProp<ViewStyle>;
+  onOpenChange?: (next: boolean) => void;
 };
 
 export type SidebarRef = {
@@ -56,6 +57,7 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
   const [internalOpen, setInternalOpen] = useState<boolean>(
     isControlled ? (controlledOpen as boolean) : defaultOpen
   );
+  const anim = useRef(new Animated.Value(internalOpen ? 1 : 0)).current;
 
   // Sync controlled → state
   useEffect(() => {
@@ -64,16 +66,15 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
     }
   }, [controlledOpen, isControlled]);
 
-  // Animated value (0 = closed, 1 = open)
-  const anim = useRef(new Animated.Value(internalOpen ? 1 : 0)).current;
-
   // Open on mount if defaultOpen
   React.useEffect(() => {
-    Animated.timing(anim, {
-      toValue: internalOpen ? 1 : 0,
-      duration: animationDuration,
-      useNativeDriver: true,
-    }).start();
+    requestAnimationFrame(() => {
+      Animated.timing(anim, {
+        toValue: internalOpen ? 1 : 0,
+        duration: animationDuration,
+        useNativeDriver: true,
+      }).start();
+    });
   }, [internalOpen, anim, animationDuration]);
 
   // Set internal open state
@@ -86,16 +87,22 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
   );
 
   // Start animation
-  const startAnimation = (toValue: number) => {
-    Animated.timing(anim, {
-      toValue,
-      duration: animationDuration,
-      useNativeDriver: true,
-    }).start(() => setValueInternal(toValue > 0));
-  };
+  const startAnimation = React.useCallback(
+    (toValue: number) => {
+      Animated.timing(anim, {
+        toValue,
+        useNativeDriver: true,
+        duration: animationDuration,
+      }).start(() => setValueInternal(toValue > 0));
+    },
+    [anim, animationDuration]
+  );
 
   // Open
-  const openFn = useCallback(() => startAnimation(1), [startAnimation]);
+  const openFn = useCallback(() => {
+    setInternalOpen(true);
+    startAnimation(1);
+  }, [startAnimation]);
 
   // Close
   const closeFn = useCallback(() => startAnimation(0), [startAnimation]);
@@ -126,7 +133,7 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
   return (
     <Modal
       transparent={true}
-      animationType="none"
+      animationType="fade"
       onRequestClose={closeFn}
       visible={internalOpen}
     >

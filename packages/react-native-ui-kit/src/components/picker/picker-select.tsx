@@ -1,9 +1,10 @@
-import React from "react";
+import * as React from "react";
 import { Pressable, StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { useThemeColor } from "../../hooks";
 import { BottomSheet, BottomSheetRef } from "../bottom-sheet";
 import Divider from "../divider";
 import { FlexView } from "../flex-view";
+import Sidebar, { SidebarRef } from "../sidebar";
 import { Text } from "../text";
 import { PickerSelectContext } from "./picker-context";
 
@@ -15,7 +16,7 @@ export interface PickerSelectProps<T extends string | number> {
   helperText?: string;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
-  // position?: "left" | "right" | "bottom";
+  position?: "left" | "right" | "bottom";
   containerStyle?: StyleProp<ViewStyle>;
   onValueChange?: (value: T) => void;
   helperTextStyle?: StyleProp<TextStyle>;
@@ -33,11 +34,13 @@ const PickerSelect = <T extends string | number>({
   containerStyle,
   onValueChange,
   helperTextStyle,
+  position = "bottom",
   placeholderText = "Select",
 }: PickerSelectProps<T>) => {
-  const [value, setValue] = React.useState<T | undefined>(selectedValue);
-  const bottomSheetRef = React.useRef<BottomSheetRef>(null);
   const { border, placeholder } = useThemeColor();
+  const sidebarRef = React.useRef<SidebarRef>(null);
+  const bottomSheetRef = React.useRef<BottomSheetRef>(null);
+  const [value, setValue] = React.useState<T | undefined>(selectedValue);
 
   //handle change
   React.useEffect(() => {
@@ -66,7 +69,13 @@ const PickerSelect = <T extends string | number>({
           </Text>
         )}
         <Pressable
-          onPress={() => bottomSheetRef.current?.open()}
+          onPress={() => {
+            if (position === "bottom") {
+              bottomSheetRef.current?.open();
+            } else {
+              sidebarRef.current?.open();
+            }
+          }}
           style={{
             height: 50,
             padding: 10,
@@ -93,19 +102,40 @@ const PickerSelect = <T extends string | number>({
               <Text style={{ color: placeholder }}>{placeholderText}</Text>
             )}
           </FlexView>
-          <Text style={{ color: placeholder }}>⌵</Text>
+          {position === "bottom" ? (
+            <Text style={{ color: placeholder }}>⌵</Text>
+          ) : (
+            <Text
+              style={{
+                color: placeholder,
+                transform: [{ rotate: "-90deg" }],
+              }}
+            >
+              ⌵
+            </Text>
+          )}
         </Pressable>
         {helperText && (
           <Text style={[{ color: "grey" }, helperTextStyle]}>{helperText}</Text>
         )}
       </View>
-      <BottomSheet ref={bottomSheetRef} contentStyle={containerStyle}>
-        <Text variant="titleMedium" style={{ padding: 10 }} numberOfLines={1}>
-          Selected: {value}
-        </Text>
-        <Divider />
-        {children}
-      </BottomSheet>
+      {position === "bottom" ? (
+        <BottomSheet ref={bottomSheetRef} contentStyle={containerStyle}>
+          <Text variant="titleMedium" style={{ padding: 10 }} numberOfLines={1}>
+            Selected: {value}
+          </Text>
+          <Divider />
+          {children}
+        </BottomSheet>
+      ) : (
+        <Sidebar ref={sidebarRef} position={position}>
+          <Text variant="titleMedium" style={{ padding: 10 }} numberOfLines={1}>
+            Selected: {value}
+          </Text>
+          <Divider />
+          {children}
+        </Sidebar>
+      )}
     </PickerSelectContext.Provider>
   );
 };

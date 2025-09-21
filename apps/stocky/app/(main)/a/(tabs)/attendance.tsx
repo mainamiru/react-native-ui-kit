@@ -40,8 +40,6 @@ const DUMMY_ATTENDANCE: Attendance[] = [
     id: "a2",
     userId: "u3",
     date: "2025-09-18",
-    checkIn: new Date("2025-09-18T10:05:00"),
-    checkOut: new Date("2025-09-18T17:30:00"),
     punches: [],
     status: "present",
     approved: false,
@@ -50,6 +48,8 @@ const DUMMY_ATTENDANCE: Attendance[] = [
     notes: "Late arrival",
     createdAt: new Date(),
     updatedAt: new Date(),
+    checkIn: new Date("2025-09-18T10:05:00"),
+    checkOut: new Date("2025-09-18T17:30:00"),
   },
   {
     id: "a3",

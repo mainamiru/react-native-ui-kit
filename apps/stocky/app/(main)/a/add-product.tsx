@@ -107,6 +107,7 @@ const AddProductScreen = () => {
 
           <Picker.Select
             label="Unit"
+            position="right"
             selectedValue={unit}
             onValueChange={setUnit}
             containerStyle={{ height: "50%" }}

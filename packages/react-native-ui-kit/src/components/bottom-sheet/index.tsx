@@ -32,7 +32,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       onClose,
       children,
       contentStyle,
-      backdropOpacity = 0.3,
+      backdropOpacity = 0.5,
       statusBarTranslucent = true,
     },
     ref
@@ -109,7 +109,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       <Modal
         transparent
         visible={isOpen}
-        animationType="none"
+        animationType="fade"
         onRequestClose={closeModal}
         statusBarTranslucent={statusBarTranslucent}
       >
