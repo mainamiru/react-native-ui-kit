@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     borderColor: "#007AFF",
   },
   innerCircle: {
-    height: 10,
     width: 10,
+    height: 10,
     borderRadius: 5,
     backgroundColor: "#007AFF",
   },
