@@ -20,7 +20,7 @@ import {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnMount: true,
+      refetchOnMount: false,
       refetchOnReconnect: true,
       refetchOnWindowFocus: true,
     },

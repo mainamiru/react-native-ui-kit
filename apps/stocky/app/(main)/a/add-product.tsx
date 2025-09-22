@@ -1,4 +1,5 @@
 import { createProduct } from "@/actions";
+import { useAuth } from "@/hooks";
 import { brands } from "@/utils/data.utils";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
@@ -14,6 +15,7 @@ import { FlatList, KeyboardAvoidingView, ScrollView, View } from "react-native";
 
 const AddProductScreen = () => {
   const toast = useToaster();
+  const { user } = useAuth();
   const [sku, setSku] = React.useState("");
   const [name, setName] = React.useState("");
   const [unit, setUnit] = React.useState("");
@@ -37,9 +39,11 @@ const AddProductScreen = () => {
         brand,
         barcode,
         category,
+        image: null,
         description,
         active: true,
         stock: parseInt(stockQty),
+        createdBy: user?.uid || null,
         price: parseInt(salePrice),
         costPrice: parseInt(purchasePrice),
       });
@@ -107,15 +111,17 @@ const AddProductScreen = () => {
 
           <Picker.Select
             label="Unit"
-            position="right"
+            position="bottom"
             selectedValue={unit}
             onValueChange={setUnit}
             containerStyle={{ height: "50%" }}
           >
             <Picker.Item label="Piece" value="pc" />
             <Picker.Item label="Box" value="box" />
+            <Picker.Item label="Packet" value="pkt" />
             <Picker.Item label="Kilogram" value="kg" />
             <Picker.Item label="Liter" value="ltr" />
+            <Picker.Item label="Gram" value="g" />
           </Picker.Select>
 
           <TextInput

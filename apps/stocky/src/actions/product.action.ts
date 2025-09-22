@@ -1,60 +1,34 @@
-import { auth, db } from "@/firebase";
+import { db } from "@/firebase";
 import { Product, ProductSchema } from "@/schema";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-} from "@react-native-firebase/firestore";
+import { validatePayload } from "@/utils";
 
-export const productCollection = collection(db, "products");
+export const productCollection = db.collection("products");
 
+// Create a new product
 export async function createProduct(product: Product): Promise<Product> {
-  const data = ProductSchema.parse(product);
-  const currentUser = auth.currentUser;
-  const result = await addDoc(productCollection, {
-    name: data.name.trim(),
-    stock: data.stock,
-    price: data.price,
-    active: data.active,
-    image: data.image?.trim() || null,
-    costPrice: data.costPrice,
-    sku: data.sku?.trim() || null,
-    unit: data.unit.trim() || null,
-    barcode: data.barcode?.trim() || null,
-    category: data.category?.trim() || null,
-    description: data.description?.trim() || null,
-    createdAt: new Date().toISOString(),
+  const payload = validatePayload(product);
+  const data = ProductSchema.parse(payload);
+  const result = await productCollection.add({
+    ...data,
     updatedAt: new Date().toISOString(),
-    createdBy: currentUser?.uid || null,
+    createdAt: new Date().toISOString(),
   });
   return Object.assign({ id: result.id }, data);
 }
 
 // Get all products
-export async function getProducts(...queryConstraint: any[]) {
-  const products: Product[] = [];
-  const snapshot = await db.collection("products").get();
-  if (snapshot.docs) {
-    snapshot.forEach((doc: any) => {
-      if (doc.exists()) {
-        products.push({ id: doc.id, ...(doc.data() as any) });
-      }
-    });
-  }
-
-  return products;
+export async function getProducts(): Promise<Product[]> {
+  const snapshot = await productCollection.orderBy("createdAt", "desc").get();
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) }));
 }
 
 // Get product by id
 export async function getProductById(id: string): Promise<Product> {
-  const docRef = doc(productCollection, id);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
+  const snapshot = await productCollection.doc(id).get();
+  if (snapshot.exists()) {
     return {
-      id: docSnap.id,
-      ...(docSnap.data() as any),
+      id: snapshot.id,
+      ...(snapshot.data() as any),
     };
   }
   throw new Error("Product not found");
@@ -62,6 +36,5 @@ export async function getProductById(id: string): Promise<Product> {
 
 // Delete product by id
 export async function deleteProductById(id: string): Promise<void> {
-  const docRef = doc(productCollection, id);
-  await deleteDoc(docRef);
+  await productCollection.doc(id).delete();
 }

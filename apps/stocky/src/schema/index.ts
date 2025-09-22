@@ -18,12 +18,8 @@ const FirestoreDate = z.preprocess((arg) => {
 /* -------------------------
    Enums / small types
    ------------------------- */
-export const EmployeeRoleEnum = z.union([
-  z.literal("admin"),
-  z.literal("staff"),
-  z.literal("employee"),
-]);
-export type EmployeeRole = z.infer<typeof EmployeeRoleEnum>;
+export const UserRoleEnum = z.union([z.literal("admin"), z.literal("staff")]);
+export type UserRole = z.infer<typeof UserRoleEnum>;
 
 export const SalaryTypeEnum = z.union([
   z.literal("hourly"),
@@ -40,7 +36,7 @@ export const ProfileSchema = z.object({
   name: z.string().min(1).nonempty(),
   email: z.string().nonempty(),
   phone: z.string().nonempty(),
-  role: EmployeeRoleEnum,
+  role: UserRoleEnum,
   userId: z.string().nullable(),
   avatar: z.string().nullable(),
   address: z.string().nullable(),

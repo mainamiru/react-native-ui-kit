@@ -1,6 +1,7 @@
 {
   "name": "react-native-ui-kit",
   "version": "1.0.0",
+  "main": "index.ts",
   "scripts": {
     "start:app": "cd apps/stocky && bun start",
     "start:storybook": "cd apps/storybook && bun start"

@@ -1,5 +1,6 @@
-import { createEmployee } from "@/actions";
-import { EmployeeRole, SalaryType } from "@/schema";
+import { createProfile } from "@/actions";
+import { useAuth } from "@/hooks";
+import { UserRole } from "@/schema";
 import {
   Button,
   Container,
@@ -9,36 +10,37 @@ import {
   useToaster,
 } from "@mainamiru/react-native-ui-kit";
 import { useMutation } from "@tanstack/react-query";
+import { router } from "expo-router";
 import React from "react";
 import { KeyboardAvoidingView, ScrollView } from "react-native";
 
 const AddUserScreen = () => {
   const toast = useToaster();
+  const { user } = useAuth();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
-  const [salary, setSalary] = React.useState("");
   const [address, setAddress] = React.useState("");
-  const [role, setRole] = React.useState<EmployeeRole>("staff");
-  const [salaryType, setSalaryType] = React.useState<SalaryType>("daily");
+  const [role, setRole] = React.useState<UserRole>("staff");
 
   const { mutateAsync: handleSubmit, isPending } = useMutation({
     mutationFn: async () => {
-      return await createEmployee({
+      return await createProfile({
         name,
         role,
         email,
         phone,
         address,
-        salaryType,
+        avatar: null,
         active: true,
         userId: null,
-        managerId: null,
-        salaryAmount: Number(salary),
+        managerId: user?.uid || null,
       });
     },
-    onError: () => toast.error("Failed to add employee"),
-    onSuccess: () => toast.success("New employee has been added successfully"),
+    onSuccess: () => {
+      router.back();
+      toast.success("New user has been added successfully");
+    },
   });
   return (
     <Container isProcessing={isPending}>
@@ -79,29 +81,6 @@ const AddUserScreen = () => {
               setPhone(numericValue);
             }}
           />
-          <Picker.Select
-            label="Salary Type"
-            selectedValue={salaryType}
-            onValueChange={setSalaryType}
-            // containerStyle={{ height: "50%" }}
-          >
-            <Picker.Item label="Hourly" value="hourly" />
-            <Picker.Item label="Daily" value="daily" />
-            <Picker.Item label="Weekly" value="weekly" />
-            <Picker.Item label="Monthly" value="monthly" />
-            <Picker.Item label="Yearly" value="yearly" />
-          </Picker.Select>
-          <TextInput
-            value={salary}
-            label="Salary Amount"
-            placeholder="Salary Amount"
-            keyboardType="number-pad"
-            helperText={`Enter salary amount in ${salaryType}`}
-            onChangeText={(value) => {
-              const numericValue = value.replace(/[^0-9]/g, "");
-              setSalary(numericValue);
-            }}
-          />
           <TextInput
             value={address}
             label="Address"
@@ -121,7 +100,7 @@ const AddUserScreen = () => {
           <Button
             onPress={() => {
               handleSubmit().catch((error) => {
-                alert("Failed to add user");
+                toast.error(error.message);
               });
             }}
           >

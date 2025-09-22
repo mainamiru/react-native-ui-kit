@@ -2,6 +2,7 @@ import { getProducts } from "@/actions";
 import { useTheme } from "@/hooks";
 import { MaterialIcons } from "@expo/vector-icons";
 import {
+  Center,
   Container,
   FlexView,
   List,
@@ -15,13 +16,10 @@ import { FlatList, RefreshControl, View } from "react-native";
 
 const ProductsScreen = () => {
   const { colors } = useTheme();
-  const { data, refetch, isLoading, isRefetching, error } = useQuery({
+  const { data, refetch, isLoading, isRefetching } = useQuery({
     queryKey: ["products"],
-    queryFn: async () => {
-      return await getProducts();
-    },
+    queryFn: async () => await getProducts(),
   });
-  console.log(error);
 
   return (
     <Container isLoading={isLoading} style={{ backgroundColor: colors.card }}>
@@ -79,6 +77,11 @@ const ProductsScreen = () => {
                 <Text>Stock: {item.stock}</Text>
               </View>
             </List.View>
+          )}
+          ListEmptyComponent={() => (
+            <Center height={300} padding={10}>
+              <Text>No products found</Text>
+            </Center>
           )}
         />
       </FlexView>

@@ -3,14 +3,13 @@ import { useTheme } from "@/hooks";
 import { Employee } from "@/schema";
 import {
   Avatar,
-  Badge,
+  Center,
   Container,
   FlexView,
   Row,
   Text,
 } from "@mainamiru/react-native-ui-kit";
 import { useQuery } from "@tanstack/react-query";
-import { capitalize } from "lodash";
 import React from "react";
 import { FlatList, RefreshControl } from "react-native";
 
@@ -33,7 +32,7 @@ function Salary({
 }) {
   if (!type || amount == null) return null;
   const unit = type === "hourly" ? "/hr" : type === "daily" ? "/day" : "/mo";
-  return <Text>{`₹${amount.toLocaleString()} ${unit}`}</Text>;
+  return <Text>{`₹${amount.toLocaleString()}${unit}`}</Text>;
 }
 
 const EmployeeItem = ({ item }: { item: Employee }) => {
@@ -53,10 +52,7 @@ const EmployeeItem = ({ item }: { item: Employee }) => {
         fallback={getInitials(item.name)}
       />
       <FlexView>
-        <Row gap={8}>
-          <Text variant="titleMedium">{item.name}</Text>
-          <Badge>{capitalize(item.role)}</Badge>
-        </Row>
+        <Text variant="titleMedium">{item.name}</Text>
         {item.email && <Text variant="bodyMedium">{item.email}</Text>}
         <Text variant="bodyMedium">{item.phone}</Text>
         <Salary type={item.salaryType} amount={item.salaryAmount} />
@@ -66,7 +62,7 @@ const EmployeeItem = ({ item }: { item: Employee }) => {
 };
 
 const EmployeesScreen = () => {
-  const { data, isLoading, refetch, isRefetching } = useQuery({
+  const { data, refetch, isLoading, isRefetching } = useQuery({
     queryKey: ["employees"],
     queryFn: async () => await getEmployees(),
   });
@@ -83,6 +79,11 @@ const EmployeesScreen = () => {
             onRefresh={() => refetch()}
           />
         }
+        ListEmptyComponent={() => (
+          <Center height={300} padding={10}>
+            <Text>No employees found</Text>
+          </Center>
+        )}
       />
     </Container>
   );
