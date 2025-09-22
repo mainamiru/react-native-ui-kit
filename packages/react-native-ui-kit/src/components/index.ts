@@ -25,4 +25,4 @@ export * from "./switch";
 export * from "./text";
 export * from "./text-input";
 export * from "./toaster";
-export * from "./touchable";
+export * from "./touch-ripple";

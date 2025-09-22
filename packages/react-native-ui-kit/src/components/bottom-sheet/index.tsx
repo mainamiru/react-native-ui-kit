@@ -14,6 +14,11 @@ export interface BottomSheetRef {
   close: () => void;
 }
 
+export interface AnchorProps {
+  open: () => void;
+  close: () => void;
+}
+
 export interface BottomSheetProps {
   open?: boolean;
   onOpen?: () => void;
@@ -22,6 +27,7 @@ export interface BottomSheetProps {
   children: React.ReactNode;
   statusBarTranslucent?: boolean;
   contentStyle?: StyleProp<ViewStyle>;
+  anchor?: (props: AnchorProps) => void;
 }
 
 export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
@@ -29,6 +35,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     {
       open,
       onOpen,
+      anchor,
       onClose,
       children,
       contentStyle,
@@ -95,10 +102,14 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     }, [open, openModal, closeModal]);
 
     // handle ref
-    React.useImperativeHandle(ref, () => ({
-      open: openModal,
-      close: closeModal,
-    }));
+    React.useImperativeHandle(
+      ref,
+      () => ({
+        open: openModal,
+        close: closeModal,
+      }),
+      [closeModal, openModal]
+    );
 
     //handle auto open
     React.useEffect(() => {
@@ -108,33 +119,36 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     }, [isOpen, hasMeasured]);
 
     return (
-      <Modal
-        transparent
-        visible={isOpen}
-        animationType="fade"
-        onRequestClose={closeModal}
-        statusBarTranslucent={statusBarTranslucent}
-      >
-        <Pressable
-          onPress={closeModal}
-          style={[
-            styles.backdrop,
-            { backgroundColor: `rgba(0,0,0,${backdropOpacity})` },
-          ]}
+      <>
+        {anchor && anchor({ open: openModal, close: closeModal })}
+        <Modal
+          transparent
+          visible={isOpen}
+          animationType="fade"
+          onRequestClose={closeModal}
+          statusBarTranslucent={statusBarTranslucent}
         >
-          <Animated.View
-            pointerEvents="box-none"
-            onLayout={handleContentLayout}
+          <Pressable
+            onPress={closeModal}
             style={[
-              styles.content,
-              contentStyle,
-              { transform: [{ translateY }] },
+              styles.backdrop,
+              { backgroundColor: `rgba(0,0,0,${backdropOpacity})` },
             ]}
           >
-            {children}
-          </Animated.View>
-        </Pressable>
-      </Modal>
+            <Animated.View
+              pointerEvents="box-none"
+              onLayout={handleContentLayout}
+              style={[
+                styles.content,
+                contentStyle,
+                { transform: [{ translateY }] },
+              ]}
+            >
+              {children}
+            </Animated.View>
+          </Pressable>
+        </Modal>
+      </>
     );
   }
 );

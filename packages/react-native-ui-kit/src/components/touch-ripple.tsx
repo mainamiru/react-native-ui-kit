@@ -5,34 +5,34 @@ import {
   GestureResponderEvent,
   LayoutChangeEvent,
   Pressable,
+  PressableProps,
   StyleProp,
-  StyleSheet,
   View,
   ViewStyle,
 } from "react-native";
 
-type TouchableProps = {
+export interface TouchRippleProps extends PressableProps {
   onPress?: () => void;
   rippleColor?: string;
   borderless?: boolean;
   rippleDuration?: number;
   style?: StyleProp<ViewStyle>;
   children: React.ReactElement;
-};
+}
 
-export const Touchable: React.FC<TouchableProps> = ({
+export const TouchRipple: React.FC<TouchRippleProps> = ({
   style,
   onPress,
   children,
   borderless = false,
   rippleDuration = 400,
   rippleColor = "rgba(0,0,0,0.2)",
+  ...props
 }) => {
-  const rippleAnim = useRef(new Animated.Value(0)).current;
-  const rippleOpacity = useRef(new Animated.Value(0)).current;
   const rippleX = useRef(new Animated.Value(0)).current;
   const rippleY = useRef(new Animated.Value(0)).current;
-
+  const rippleAnim = useRef(new Animated.Value(0)).current;
+  const rippleOpacity = useRef(new Animated.Value(0)).current;
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
   const handleLayout = (e: LayoutChangeEvent) => {
@@ -42,11 +42,10 @@ export const Touchable: React.FC<TouchableProps> = ({
 
   const handlePressIn = (event: GestureResponderEvent) => {
     const { locationX, locationY } = event.nativeEvent;
-
-    rippleX.setValue(locationX);
-    rippleY.setValue(locationY);
     rippleAnim.setValue(0);
     rippleOpacity.setValue(1);
+    rippleX.setValue(locationX);
+    rippleY.setValue(locationY);
 
     Animated.timing(rippleAnim, {
       toValue: 1,
@@ -56,49 +55,48 @@ export const Touchable: React.FC<TouchableProps> = ({
     }).start(() => {
       Animated.timing(rippleOpacity, {
         toValue: 0,
-        duration: 150,
+        duration: 200,
         useNativeDriver: true,
       }).start();
     });
   };
 
-  // compute max radius (farthest corner distance)
-  const radius = Math.sqrt(
+  // max radius from touch to farthest corner
+  const maxRadius = Math.sqrt(
     containerSize.width ** 2 + containerSize.height ** 2
   );
 
+  const rippleSize = maxRadius * 2;
+
   const scale = rippleAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: [0.01, radius / 10], // adjust divisor for speed
+    outputRange: [0.01, 1], // scale from tiny dot to full size
   });
 
-  const rippleStyle: ViewStyle = {
-    position: "absolute" as const,
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: rippleColor,
-    transform: [
-      { translateX: Animated.subtract(rippleX, 10) },
-      { translateY: Animated.subtract(rippleY, 10) },
-      { scale },
-    ],
+  const rippleStyle: Animated.WithAnimatedObject<ViewStyle> = {
+    position: "absolute",
+    width: rippleSize,
+    height: rippleSize,
+    transform: [{ scale }],
     opacity: rippleOpacity,
+    backgroundColor: rippleColor,
+    borderRadius: rippleSize / 2,
   };
 
   return (
     <Pressable
+      {...props}
       onPress={onPress}
       onPressIn={handlePressIn}
       style={({ pressed }) => [
-        styles.container,
+        { borderRadius: 8 },
         style,
         !borderless && { overflow: "hidden" },
-        pressed && { opacity: 0.98 }, // slight feedback
+        pressed && { opacity: 0.98 },
       ]}
       onLayout={handleLayout}
     >
-      <View style={styles.content}>
+      <View style={{ flex: 1 }}>
         <Animated.View pointerEvents="none" style={rippleStyle} />
         {children}
       </View>
@@ -106,12 +104,4 @@ export const Touchable: React.FC<TouchableProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 8,
-  },
-  content: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+export default TouchRipple;
