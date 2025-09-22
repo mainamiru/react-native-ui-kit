@@ -15,6 +15,8 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
+(globalThis as any).RNFB_SILENCE_MODULAR_DEPRECATION_WARNINGS = true;
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -25,6 +27,10 @@ const queryClient = new QueryClient({
   },
 });
 
+export const unstable_settings = {
+  anchor: "(main)",
+};
+
 const RootLayout = () => {
   const theme = useTheme();
   const colors = theme.dark ? DarkTheme.colors : DefaultTheme.colors;
@@ -34,15 +40,17 @@ const RootLayout = () => {
         translucent={true}
         barStyle={theme.dark ? "light-content" : "dark-content"}
       />
-      <SafeAreaProvider style={{ flex: 1 }}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider value={theme}>
-            <ReactNativeUIKitProvider theme={{ colors, isDark: theme.dark }}>
-              <RootStack />
-            </ReactNativeUIKitProvider>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </SafeAreaProvider>
+      <AuthProvider>
+        <SafeAreaProvider style={{ flex: 1 }}>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider value={theme}>
+              <ReactNativeUIKitProvider theme={{ colors, isDark: theme.dark }}>
+                <RootStack />
+              </ReactNativeUIKitProvider>
+            </ThemeProvider>
+          </QueryClientProvider>
+        </SafeAreaProvider>
+      </AuthProvider>
     </>
   );
 };
@@ -50,17 +58,15 @@ const RootLayout = () => {
 const RootStack = () => {
   const { bottom } = useSafeAreaInsets();
   return (
-    <AuthProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { paddingBottom: bottom },
-        }}
-      >
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(main)" options={{ headerShown: false }} />
-      </Stack>
-    </AuthProvider>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { paddingBottom: bottom },
+      }}
+    >
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      <Stack.Screen name="(main)" options={{ headerShown: false }} />
+    </Stack>
   );
 };
 

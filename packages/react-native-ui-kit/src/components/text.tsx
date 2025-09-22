@@ -4,7 +4,6 @@ import {
   TextProps as DefaultTextProps,
   TextStyle,
 } from "react-native";
-import { useThemeColor } from "../hooks";
 
 export type TextVariant =
   | "titleLarge"
@@ -26,55 +25,53 @@ export const Text = ({
   variant = "body",
   ...props
 }: TextProps) => {
-  const { text } = useThemeColor();
   return (
-    <DefaultText {...props} style={[getStyle(text)[variant], style]}>
+    <DefaultText {...props} style={[styles[variant], style]}>
       {children}
     </DefaultText>
   );
 };
 
-const getStyle = (color: string): Record<TextVariant, TextStyle> => ({
+const styles: Record<TextVariant, TextStyle> = {
   titleLarge: {
-    color,
+    color: "black",
     fontSize: 20,
     fontWeight: "700",
   },
   titleMedium: {
-    color,
+    color: "#23262b",
     fontSize: 16,
     fontWeight: "500",
   },
   titleSmall: {
-    color,
+    color: "#2f2f30",
     fontSize: 14,
     fontWeight: "400",
   },
   bodyLarge: {
-    color,
+    color: "#2f2f30",
     fontSize: 16,
     fontWeight: "400",
   },
   bodyMedium: {
-    color,
+    color: "#2f2f30",
     fontSize: 14,
     fontWeight: "400",
   },
   bodySmall: {
-    color,
+    color: "#2f2f30",
     fontSize: 12,
     fontWeight: "400",
   },
   body: {
-    color,
+    color: "#2f2f30",
     fontSize: 14,
     fontWeight: "400",
   },
   caption: {
-    color,
+    color: "#2f2f30",
     fontSize: 12,
     fontWeight: "400",
   },
-});
-
+};
 export default Text;

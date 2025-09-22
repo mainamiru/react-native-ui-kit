@@ -1,14 +1,11 @@
 import { auth, db } from "@/firebase";
 import { Product, ProductSchema } from "@/schema";
 import {
-  QueryConstraint,
   addDoc,
   collection,
   deleteDoc,
   doc,
   getDoc,
-  getDocs,
-  query,
 } from "@react-native-firebase/firestore";
 
 export const productCollection = collection(db, "products");
@@ -36,9 +33,9 @@ export async function createProduct(product: Product): Promise<Product> {
 }
 
 // Get all products
-export async function getProducts(...queryConstraint: QueryConstraint[]) {
+export async function getProducts(...queryConstraint: any[]) {
   const products: Product[] = [];
-  const snapshot = await getDocs(query(productCollection, ...queryConstraint));
+  const snapshot = await db.collection("products").get();
   if (snapshot.docs) {
     snapshot.forEach((doc: any) => {
       if (doc.exists()) {

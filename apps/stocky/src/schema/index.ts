@@ -30,7 +30,27 @@ export const SalaryTypeEnum = z.union([
   z.literal("daily"),
   z.literal("monthly"),
 ]);
-export type SalaryType = z.infer<typeof SalaryTypeEnum>;
+export type SalaryType = z.infer<
+  typeof SalaryTypeEnum
+>; /* -------------------------
+   User
+   ------------------------- */
+export const ProfileSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(1).nonempty(),
+  email: z.string().nonempty(),
+  phone: z.string().nonempty(),
+  role: EmployeeRoleEnum,
+  userId: z.string().nullable(),
+  avatar: z.string().nullable(),
+  address: z.string().nullable(),
+  managerId: z.string().nullable(),
+  active: z.boolean().default(true),
+  createdAt: FirestoreDate.optional(),
+  updatedAt: FirestoreDate.optional(),
+});
+
+export type Profile = z.infer<typeof ProfileSchema>;
 
 /* -------------------------
    Employee
@@ -41,7 +61,6 @@ export const EmployeeSchema = z.object({
   userId: z.string().nullable(),
   email: z.string().nullable(),
   phone: z.string().max(15),
-  role: EmployeeRoleEnum,
   salaryType: SalaryTypeEnum,
   address: z.string().nullable(),
   salaryAmount: z.number().nonnegative(),
@@ -203,4 +222,8 @@ export function validateSalaryRecord(data: unknown) {
 
 export function validateStockAdjustment(data: unknown) {
   return StockAdjustmentSchema.parse(data);
+}
+
+export function validateProfile(data: unknown) {
+  return ProfileSchema.parse(data);
 }

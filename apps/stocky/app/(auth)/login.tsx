@@ -11,7 +11,7 @@ import {
   TextInputRef,
   useToaster,
 } from "@mainamiru/react-native-ui-kit";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 const emailRegex =
@@ -95,6 +95,14 @@ const LoginScreen = () => {
         <Button buttonStyle={{ marginTop: 10 }} onPress={handleSignIn}>
           Sign In
         </Button>
+        <Center paddingVertical={20}>
+          <Text>
+            I don&apos;t have an account.{" "}
+            <Link href="/register" style={{ color: "green" }}>
+              Sign Up
+            </Link>
+          </Text>
+        </Center>
       </FlexView>
     </SafeAreaView>
   );

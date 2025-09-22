@@ -10,18 +10,18 @@ import {
   Text,
 } from "@mainamiru/react-native-ui-kit";
 import { useQuery } from "@tanstack/react-query";
-import { orderBy } from "firebase/firestore";
 import React from "react";
 import { FlatList, RefreshControl, View } from "react-native";
 
 const ProductsScreen = () => {
   const { colors } = useTheme();
-  const { data, refetch, isLoading, isRefetching } = useQuery({
+  const { data, refetch, isLoading, isRefetching, error } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      return await getProducts(orderBy("createdAt", "desc"));
+      return await getProducts();
     },
   });
+  console.log(error);
 
   return (
     <Container isLoading={isLoading} style={{ backgroundColor: colors.card }}>

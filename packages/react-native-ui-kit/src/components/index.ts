@@ -14,6 +14,7 @@ export * from "./list";
 export * from "./menu";
 export * from "./picker";
 export * from "./portal";
+export * from "./radio-button";
 export * from "./row";
 export * from "./searchbar";
 export * from "./sidebar";
