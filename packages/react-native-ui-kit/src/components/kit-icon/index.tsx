@@ -1,7 +1,4 @@
-import {
-  EvilIcons,
-  EvilIconsIconName,
-} from "@react-native-vector-icons/evil-icons";
+import { EvilIcons } from "@react-native-vector-icons/evil-icons";
 import React from "react";
 import { StyleProp, TextProps, TextStyle } from "react-native";
 
@@ -11,9 +8,8 @@ export interface IconProps extends TextProps {
   style?: StyleProp<TextStyle>;
 }
 
-const createIcon =
-  (name: EvilIconsIconName) =>
-  ({ size = 20, color = "black", style, ...rest }: IconProps) => {
+const createIcon = (name: React.ComponentProps<typeof EvilIcons>["name"]) => {
+  return ({ size = 20, color = "black", style, ...rest }: IconProps) => {
     return (
       <EvilIcons
         name={name}
@@ -24,6 +20,7 @@ const createIcon =
       />
     );
   };
+};
 
 export const KitIcon = {
   Archive: createIcon("archive"),
