@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import Text from "../text";
 import { TableContext } from "./table-base";
 
 export interface TableCellProps {

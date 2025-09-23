@@ -135,6 +135,7 @@ export default MyComponent;`}
             <Table.Header>
               <Table.Title>Prop</Table.Title>
               <Table.Title>Type</Table.Title>
+              <Table.Title>Required</Table.Title>
               <Table.Title>Default</Table.Title>
               <Table.Title colsSpan={2}>Description</Table.Title>
             </Table.Header>
@@ -144,7 +145,10 @@ export default MyComponent;`}
                 <Table.Cell
                   textStyle={{ textAlign: "center" }}
                 >{`'outlined' | 'text' | 'contained'`}</Table.Cell>
-                <Table.Cell>"contained"</Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>No</Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>
+                  "contained"
+                </Table.Cell>
                 <Table.Cell colsSpan={2}>
                   The variant of the button. It can be "outlined", "text", or
                   "contained".
@@ -152,20 +156,22 @@ export default MyComponent;`}
               </Table.Row>
               <Table.Row>
                 <Table.Cell>onPress</Table.Cell>
-                <Table.Cell
-                  textStyle={{ textAlign: "center" }}
-                >{`() => void`}</Table.Cell>
-                <Table.Cell>-</Table.Cell>
+                <Table.Cell textStyle={{ textAlign: "center" }}>
+                  void
+                </Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>No</Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>-</Table.Cell>
                 <Table.Cell colsSpan={2}>
                   The callback function to be called when the button is pressed.
                 </Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell>icon</Table.Cell>
-                <Table.Cell
-                  textStyle={{ textAlign: "center" }}
-                >{`() => React.ReactNode`}</Table.Cell>
-                <Table.Cell>-</Table.Cell>
+                <Table.Cell textStyle={{ textAlign: "center" }}>
+                  React.ReactNode
+                </Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>No</Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>-</Table.Cell>
                 <Table.Cell colsSpan={2}>
                   The icon to be displayed on the button.
                 </Table.Cell>
@@ -175,7 +181,8 @@ export default MyComponent;`}
                 <Table.Cell
                   textStyle={{ textAlign: "center" }}
                 >{`boolean`}</Table.Cell>
-                <Table.Cell>-</Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>No</Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>-</Table.Cell>
                 <Table.Cell colsSpan={2}>
                   Whether the button is in a loading state.
                 </Table.Cell>
@@ -185,7 +192,8 @@ export default MyComponent;`}
                 <Table.Cell
                   textStyle={{ textAlign: "center" }}
                 >{`boolean`}</Table.Cell>
-                <Table.Cell>-</Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>No</Table.Cell>
+                <Table.Cell style={{ alignItems: "center" }}>-</Table.Cell>
                 <Table.Cell colsSpan={2}>
                   Whether the button is disabled.
                 </Table.Cell>

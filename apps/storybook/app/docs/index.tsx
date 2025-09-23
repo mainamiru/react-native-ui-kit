@@ -6,9 +6,6 @@ const Index = () => {
   return (
     <Container style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView contentContainerStyle={{ padding: 20, gap: 20 }}>
-        <Text variant="titleLarge" style={{ fontSize: 40 }}>
-          Get Started
-        </Text>
         <Text variant="titleLarge" style={{ fontSize: 30 }}>
           Installation
         </Text>
@@ -21,6 +18,7 @@ const Index = () => {
             <Tabs.Trigger value="yarn">yarn</Tabs.Trigger>
             <Tabs.Trigger value="bun">bun</Tabs.Trigger>
             <Tabs.Trigger value="pnpm">pnpm</Tabs.Trigger>
+            <Tabs.Trigger value="expo">expo</Tabs.Trigger>
           </Tabs.Header>
           <Tabs.Content value="npm">
             <Code
@@ -40,7 +38,7 @@ const Index = () => {
             <Code
               textColor="#000"
               backgroundColor="#f5f5f5"
-              code="bun install @mainamiru/react-native-ui-kit @react-native-vector-icons"
+              code="bun add @mainamiru/react-native-ui-kit @react-native-vector-icons"
             />
           </Tabs.Content>
           <Tabs.Content value="pnpm">
@@ -48,6 +46,13 @@ const Index = () => {
               textColor="#000"
               backgroundColor="#f5f5f5"
               code="pnpm install @mainamiru/react-native-ui-kit @react-native-vector-icons"
+            />
+          </Tabs.Content>
+          <Tabs.Content value="expo">
+            <Code
+              textColor="#000"
+              backgroundColor="#f5f5f5"
+              code="npx expo install @mainamiru/react-native-ui-kit @react-native-vector-icons"
             />
           </Tabs.Content>
         </Tabs>

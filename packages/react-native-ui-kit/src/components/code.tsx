@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     fontFamily: "monospace",
   },
   keyword: {
-    color: "#569CD6",
+    color: "#3b388f",
   },
   string: {
     color: "#D69D85",

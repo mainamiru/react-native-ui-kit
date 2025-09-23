@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import Text from "../text";
 import { TableContext } from "./table-base";
 
 export interface TableTitleProps {
@@ -29,10 +30,10 @@ const TableTitle = ({
       ]}
     >
       <Text
+        variant="titleMedium"
         style={[
           {
             padding: 10,
-            fontWeight: "500",
             textAlign: "center",
           },
           titleStyle,
