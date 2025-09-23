@@ -1,11 +1,12 @@
 import * as React from "react";
-import { Pressable, StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import { Platform, StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { useThemeColor } from "../../hooks";
 import { BottomSheet, BottomSheetRef } from "../bottom-sheet";
 import Divider from "../divider";
 import { FlexView } from "../flex-view";
 import Sidebar, { SidebarRef } from "../sidebar";
 import { Text } from "../text";
+import TouchRipple from "../touch-ripple";
 import { PickerSelectContext } from "./picker-context";
 
 export interface PickerSelectProps<T extends string | number> {
@@ -17,6 +18,7 @@ export interface PickerSelectProps<T extends string | number> {
   sidebarWidth?: number;
   placeholderText?: string;
   style?: StyleProp<ViewStyle>;
+  inputStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   position?: "left" | "right" | "bottom";
   containerStyle?: StyleProp<ViewStyle>;
@@ -30,6 +32,7 @@ const PickerSelect = <T extends string | number>({
   children,
   helperText,
   labelStyle,
+  inputStyle,
   autoClose = true,
   selectedValue,
   containerStyle,
@@ -48,10 +51,10 @@ const PickerSelect = <T extends string | number>({
   React.useEffect(() => {
     if (value && onValueChange) {
       onValueChange(value);
-      if (autoClose) {
-        sidebarRef.current?.close();
-        bottomSheetRef.current?.close();
-      }
+    }
+    if (autoClose) {
+      sidebarRef.current?.close();
+      bottomSheetRef.current?.close();
     }
   }, [value]);
 
@@ -71,7 +74,7 @@ const PickerSelect = <T extends string | number>({
             {label}
           </Text>
         )}
-        <Pressable
+        <TouchRipple
           onPress={() => {
             if (position === "bottom") {
               bottomSheetRef.current?.open();
@@ -79,16 +82,19 @@ const PickerSelect = <T extends string | number>({
               sidebarRef.current?.open();
             }
           }}
-          style={{
-            height: 50,
-            padding: 10,
-            borderWidth: 1,
-            borderRadius: 5,
-            borderColor: border,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+          style={[
+            {
+              padding: 10,
+              borderWidth: 1,
+              borderRadius: 5,
+              borderColor: border,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              height: Platform.OS === "web" ? 40 : 50,
+            },
+            inputStyle,
+          ]}
         >
           <FlexView justifyContent="center">
             {value ? (
@@ -118,7 +124,7 @@ const PickerSelect = <T extends string | number>({
               ⌵
             </Text>
           )}
-        </Pressable>
+        </TouchRipple>
         {helperText && (
           <Text style={[{ color: "grey" }, helperTextStyle]}>{helperText}</Text>
         )}

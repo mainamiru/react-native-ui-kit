@@ -1,32 +1,37 @@
-import { Picker, TextInput } from "@mainamiru/react-native-ui-kit";
+import { DocsViewer } from "@/components";
+import { Picker } from "@mainamiru/react-native-ui-kit";
 import React from "react";
 import { View } from "react-native";
 
 const PickerDocsScreen = () => {
   return (
-    <View style={{ gap: 20, padding: 10, backgroundColor: "#fff" }}>
-      <TextInput
-        label="Name"
-        mode="underline"
-        placeholder="Name"
-        style={{ marginBottom: 10 }}
-        helperText="Enter your full name"
-        validate={(value) => {
-          const regex = /^[a-zA-Z ]+$/;
-          if (!regex.test(value)) {
-            return new Error("Please enter your valid name");
-          }
-          return null;
-        }}
-      />
-      <Picker.Select position="right">
-        <Picker.Item value="Hello" label="Hello" />
-        <Picker.Item value="Hello" label="Hello" />
-        <Picker.Item value="Hello" label="Hello" />
-        <Picker.Item value="Hello" label="Hello" />
-        <Picker.Item value="Hello" label="Hello" />
-      </Picker.Select>
-    </View>
+    <DocsViewer
+      title="Picker"
+      description="Picker for DateTime, BottomSheet and Sidebar"
+      exampleCode={`import * as React from "react";
+import { Picker } from "@mainamiru/react-native-ui-kit";
+      `}
+      usage="Use the Picker component to allow users to select a value from a list of options. You can customize the picker by passing props to it. The picker component accepts the following props:"
+    >
+      <View style={{ padding: 10 }}>
+        <Picker.Select label="Gender" helperText="This is BottomSheet Picker">
+          <Picker.Item value="male" label="Male" />
+          <Picker.Item value="female" label="Female" />
+        </Picker.Select>
+        <Picker.Select
+          label="Gender"
+          position="right"
+          helperText="This is Sidebar Picker"
+        >
+          <Picker.Item value="male" label="Male" />
+          <Picker.Item value="female" label="Female" />
+        </Picker.Select>
+        <Picker.DateTime
+          label="Date of Birth"
+          helperText="This is DateTime Picker"
+        />
+      </View>
+    </DocsViewer>
   );
 };
 

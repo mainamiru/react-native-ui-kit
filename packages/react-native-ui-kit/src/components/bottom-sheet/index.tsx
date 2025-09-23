@@ -131,22 +131,20 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
           <Pressable
             onPress={closeModal}
             style={[
-              styles.backdrop,
+              StyleSheet.absoluteFillObject,
               { backgroundColor: `rgba(0,0,0,${backdropOpacity})` },
             ]}
+          />
+          <Animated.View
+            onLayout={handleContentLayout}
+            style={[
+              styles.content,
+              contentStyle,
+              { transform: [{ translateY }] },
+            ]}
           >
-            <Animated.View
-              pointerEvents="box-none"
-              onLayout={handleContentLayout}
-              style={[
-                styles.content,
-                contentStyle,
-                { transform: [{ translateY }] },
-              ]}
-            >
-              {children}
-            </Animated.View>
-          </Pressable>
+            {children}
+          </Animated.View>
         </Modal>
       </>
     );
@@ -154,12 +152,11 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
 );
 
 const styles = StyleSheet.create({
-  backdrop: {
-    flex: 1,
-    position: "relative",
-    justifyContent: "flex-end",
-  },
   content: {
+    left: 0,
+    right: 0,
+    bottom: 0,
+    position: "absolute",
     overflow: "hidden",
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
