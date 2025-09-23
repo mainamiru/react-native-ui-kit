@@ -24,22 +24,22 @@ export interface ButtonProps extends PressableProps {
   loading?: boolean;
   buttonColor?: string;
   variant?: ButtonVariant;
+  style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   buttonStyle?: StyleProp<ViewStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
   icon?: (props: ButtonIconProps) => React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   icon,
+  style,
   loading,
   children,
   disabled,
   textStyle,
   textColor,
-  buttonStyle,
   buttonColor,
-  containerStyle,
+  buttonStyle,
   variant = "text",
   ...props
 }) => {
@@ -54,11 +54,11 @@ export const Button: React.FC<ButtonProps> = ({
         disabled && styles.disabled,
       ]}
     >
-      <View style={[styles.container, containerStyle]}>
+      <View style={[styles.container, style]}>
         {loading ? (
-          <ActivityIndicator size={20} color={textColor} />
+          <ActivityIndicator size={16} color={textColor} />
         ) : (
-          icon && icon({ size: 20, color: textColor })
+          icon && icon({ size: 16, color: textColor })
         )}
         <Text style={[{ color: textColor, fontWeight: "500" }, textStyle]}>
           {children}
@@ -70,7 +70,6 @@ export const Button: React.FC<ButtonProps> = ({
 
 const styles = StyleSheet.create({
   base: {
-    padding: 10,
     borderRadius: 20,
     overflow: "hidden",
     alignItems: "center",
@@ -92,6 +91,7 @@ const styles = StyleSheet.create({
   },
   container: {
     gap: 10,
+    padding: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

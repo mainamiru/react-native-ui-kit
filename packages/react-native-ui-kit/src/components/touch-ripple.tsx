@@ -4,16 +4,18 @@ import {
   Pressable,
   PressableProps,
   StyleProp,
+  StyleSheet,
   ViewStyle,
 } from "react-native";
 
 export interface TouchRippleProps extends PressableProps {
+  hoverColor?: string;
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
-  hoverColor?: string;
 }
 
 const TouchRipple: React.FC<TouchRippleProps> = ({
+  style,
   children,
   onHoverOut,
   onHoverIn,
@@ -62,17 +64,21 @@ const TouchRipple: React.FC<TouchRippleProps> = ({
       onHoverOut={handleHoverOut}
       onPressIn={handleHoverIn}
       onPressOut={handleHoverOut}
+      style={[{ position: "relative" }, style]}
     >
       <Animated.View
-        style={{
-          top: 0,
-          left: 0,
-          zIndex: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor,
-          position: "absolute",
-        }}
+        style={[
+          StyleSheet.absoluteFillObject,
+          {
+            top: 0,
+            left: 0,
+            zIndex: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor,
+            position: "absolute",
+          },
+        ]}
       />
       {children}
     </Pressable>
