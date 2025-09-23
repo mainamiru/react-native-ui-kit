@@ -23,6 +23,7 @@ export * from "./spacer";
 export * from "./spinner";
 export * from "./switch";
 export * from "./table";
+export * from "./tabs";
 export * from "./text";
 export * from "./text-input";
 export * from "./toaster";

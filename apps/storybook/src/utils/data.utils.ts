@@ -28,4 +28,9 @@ export const navigations: NavLink[] = [
     path: "/docs/button",
     description: "Button component",
   },
+  {
+    label: "Picker",
+    path: "/docs/picker",
+    description: "Picker component",
+  },
 ];

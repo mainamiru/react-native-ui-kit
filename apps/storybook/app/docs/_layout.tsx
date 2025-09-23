@@ -23,6 +23,7 @@ const DocsLayout = () => {
     >
       <Drawer.Screen name="index" options={{ title: "Get Started" }} />
       <Drawer.Screen name="button" options={{ title: "Button" }} />
+      <Drawer.Screen name="picker" options={{ title: "Picker" }} />
     </Drawer>
   );
 };

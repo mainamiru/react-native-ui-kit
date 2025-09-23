@@ -1,4 +1,4 @@
-import { Code, Container, Text } from "@mainamiru/react-native-ui-kit";
+import { Code, Container, Tabs, Text } from "@mainamiru/react-native-ui-kit";
 import React from "react";
 import { ScrollView, View } from "react-native";
 
@@ -15,11 +15,42 @@ const Index = () => {
         <Text variant="bodyLarge">
           ● Open a Terminal in your project&apos;s folder and run:
         </Text>
-        <Code
-          textColor="#000"
-          backgroundColor="#f5f5f5"
-          code="bun install @mainamiru/react-native-ui-kit @react-native-vector-icons"
-        />
+        <Tabs defaultValue="npm">
+          <Tabs.Header style={{ gap: 5 }}>
+            <Tabs.Trigger value="npm">npm</Tabs.Trigger>
+            <Tabs.Trigger value="yarn">yarn</Tabs.Trigger>
+            <Tabs.Trigger value="bun">bun</Tabs.Trigger>
+            <Tabs.Trigger value="pnpm">pnpm</Tabs.Trigger>
+          </Tabs.Header>
+          <Tabs.Content value="npm">
+            <Code
+              textColor="#000"
+              backgroundColor="#f5f5f5"
+              code="npm install @mainamiru/react-native-ui-kit @react-native-vector-icons"
+            />
+          </Tabs.Content>
+          <Tabs.Content value="yarn">
+            <Code
+              textColor="#000"
+              backgroundColor="#f5f5f5"
+              code="yarn add @mainamiru/react-native-ui-kit @react-native-vector-icons"
+            />
+          </Tabs.Content>
+          <Tabs.Content value="bun">
+            <Code
+              textColor="#000"
+              backgroundColor="#f5f5f5"
+              code="bun install @mainamiru/react-native-ui-kit @react-native-vector-icons"
+            />
+          </Tabs.Content>
+          <Tabs.Content value="pnpm">
+            <Code
+              textColor="#000"
+              backgroundColor="#f5f5f5"
+              code="pnpm install @mainamiru/react-native-ui-kit @react-native-vector-icons"
+            />
+          </Tabs.Content>
+        </Tabs>
         <View style={{ gap: 20 }}>
           <Text variant="titleLarge" style={{ fontSize: 30 }}>
             Usage

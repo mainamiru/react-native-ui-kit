@@ -7,6 +7,7 @@ import {
 import { useThemeColor } from "../hooks";
 
 export type TextVariant =
+  | "text"
   | "titleLarge"
   | "titleMedium"
   | "titleSmall"
@@ -23,7 +24,7 @@ export interface TextProps extends DefaultTextProps {
 export const Text = ({
   style,
   children,
-  variant = "body",
+  variant = "text",
   ...props
 }: TextProps) => {
   const { text, typography } = useThemeColor();
@@ -32,6 +33,7 @@ export const Text = ({
       {...props}
       style={[
         styles[variant],
+        variant === "text" && { color: text },
         variant.includes("title") && { color: text },
         variant.includes("body") && { color: typography },
         style,
@@ -43,6 +45,11 @@ export const Text = ({
 };
 
 const styles: Record<TextVariant, TextStyle> = {
+  text: {
+    color: "black",
+    fontSize: 14,
+    fontWeight: "400",
+  },
   titleLarge: {
     color: "black",
     fontSize: 20,

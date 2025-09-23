@@ -27,6 +27,7 @@ export type SidebarProps = {
   animationDuration?: number;
   position?: SidebarPosition;
   style?: StyleProp<ViewStyle>;
+  type?: "default" | "permanent";
   onOpenChange?: (next: boolean) => void;
 };
 
@@ -45,6 +46,7 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
     style,
     children,
     onOpenChange,
+    type = "default",
     position = "left",
     defaultOpen = false,
     open: controlledOpen,
@@ -129,6 +131,23 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
     inputRange: [0, 1],
     outputRange: position === "left" ? [-width, 0] : [width, 0],
   });
+
+  if (type === "permanent") {
+    return (
+      <Animated.View
+        style={[
+          styles.sidebar,
+          {
+            width,
+            transform: [{ translateX }],
+          },
+          style,
+        ]}
+      >
+        {children}
+      </Animated.View>
+    );
+  }
 
   return (
     <Modal
