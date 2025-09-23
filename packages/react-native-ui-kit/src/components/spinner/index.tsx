@@ -1,80 +1,142 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Easing, View } from "react-native";
+import React, { useRef, useState } from "react";
+import {
+  Animated,
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from "react-native";
+import TouchRipple from "../touch-ripple";
 
-export interface SpinnerProps {
-  size?: number;
-  color?: string;
+export interface SpinnerProps<T = string | number> {
+  data: T[];
+  itemHeight?: number;
+  initialIndex?: number;
+  style?: StyleProp<ViewStyle>;
+  onChange?: (value: T) => void;
+  visibleItems?: number; // number of items visible at once (default: 3)
 }
 
-export const Spinner: React.FC<SpinnerProps> = ({
-  size = 40,
-  color = "#007bff",
-}) => {
-  const bars = Array.from({ length: 12 });
-  const progress = useRef(new Animated.Value(0)).current;
+export const Spinner = <T extends string | number>({
+  data,
+  style,
+  onChange,
+  itemHeight = 50,
+  initialIndex = 0,
+  visibleItems = 3,
+}: SpinnerProps<T>) => {
+  const [activeIndex, setActiveIndex] = useState<number>(initialIndex + 1);
+  const ref = useRef<FlatList>(null);
+  const scrollY = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
-    const loop = Animated.loop(
-      Animated.timing(progress, {
-        toValue: 1,
-        duration: 1000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      })
-    );
-    loop.start();
-    return () => loop.stop();
-  }, [progress]);
+  const flatData = ["empty", ...data, "empty"];
+  const contentHeight = itemHeight * visibleItems;
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { contentOffset } = event.nativeEvent;
+    const index = Math.round(contentOffset.y / itemHeight);
+    const isFirstItem = index === 0;
+    const isLastItem = index === flatData.length - 1;
+
+    if (index !== activeIndex && !isFirstItem && !isLastItem) {
+      setActiveIndex(index);
+      if (onChange && flatData[index] !== "empty") {
+        onChange(flatData[index] as T);
+      }
+    }
+    scrollY.setValue(contentOffset.y);
+  };
 
   return (
-    <View
-      style={{
-        width: size,
-        height: size,
-        alignSelf: "center",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      {bars.map((_, i) => {
-        // instead of sharp single highlight, give each bar a wider fade curve
-        const inputRange = [
-          (i - 2) / bars.length,
-          (i - 1) / bars.length,
-          i / bars.length,
-          (i + 1) / bars.length,
-          (i + 2) / bars.length,
-        ];
-        const outputRange = [0.2, 0.5, 1, 0.5, 0.2];
+    <View style={[{ height: contentHeight, justifyContent: "center" }, style]}>
+      <View
+        style={[
+          styles.highlight,
+          { height: itemHeight, top: (contentHeight - itemHeight) / 2 },
+        ]}
+      />
+      <FlatList
+        ref={ref}
+        data={flatData}
+        pagingEnabled
+        decelerationRate="fast"
+        snapToAlignment="center"
+        onScroll={handleScroll}
+        snapToInterval={itemHeight}
+        showsVerticalScrollIndicator={false}
+        getItemLayout={(_, idx) => ({
+          index: idx,
+          length: itemHeight,
+          offset: itemHeight * idx,
+        })}
+        renderItem={({ item, index }) => {
+          const inputRange = [
+            itemHeight * (index - 2),
+            itemHeight * (index - 1),
+            itemHeight * index,
+            itemHeight * (index + 1),
+            itemHeight * (index + 2),
+          ];
+          const outputRange = [0.5, 1, 0.5, 0, 0.5];
+          const opacity = scrollY.interpolate({
+            inputRange,
+            outputRange,
+            extrapolate: "clamp",
+          });
 
-        const opacity = progress.interpolate({
-          inputRange,
-          outputRange,
-          extrapolate: "clamp",
-        });
-
-        const angle = (i * 360) / bars.length;
-
-        return (
-          <Animated.View
-            key={i}
-            style={{
-              position: "absolute",
-              width: size * 0.1,
-              height: size * 0.3,
-              borderRadius: size * 0.05,
-              backgroundColor: color,
-              opacity,
-              transform: [
-                { rotate: `${angle}deg` },
-                { translateY: -size * 0.35 },
-              ],
-            }}
-          />
-        );
-      })}
+          return (
+            <Animated.View style={{ opacity }}>
+              <TouchRipple
+                disabled={item === "empty"}
+                style={[styles.item, { height: itemHeight }]}
+                onPress={() => {
+                  setActiveIndex(index);
+                  ref.current?.scrollToIndex({
+                    index,
+                    animated: true,
+                    viewOffset: itemHeight,
+                  });
+                  if (onChange && item !== "empty") {
+                    onChange(item as T);
+                  }
+                }}
+              >
+                {item !== "empty" && (
+                  <Text style={[styles.itemText, { fontSize: itemHeight / 2 }]}>
+                    {item}
+                  </Text>
+                )}
+              </TouchRipple>
+            </Animated.View>
+          );
+        }}
+        keyExtractor={(_, key) => key.toString()}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  highlight: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderTopColor: "gray",
+    borderBottomColor: "gray",
+  },
+  item: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  itemText: {
+    fontWeight: "500",
+  },
+});
 
 export default Spinner;

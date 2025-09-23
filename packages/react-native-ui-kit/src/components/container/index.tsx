@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
-import { Spinner } from "./spinner";
+import ActivityIndicator from "../activity-indicator";
 
 export interface ContainerProps {
   children?: React.ReactNode;
@@ -26,7 +26,7 @@ export const Container: React.FC<ContainerProps> = React.memo(
       return (
         <View style={{ flex: 1, position: "relative" }}>
           <View style={styles.loadingWrapper}>
-            <Spinner size={indicatorSize} color={indicatorColor} />
+            <ActivityIndicator size={indicatorSize} color={indicatorColor} />
           </View>
         </View>
       );
@@ -43,7 +43,7 @@ export const Container: React.FC<ContainerProps> = React.memo(
           onRequestClose={onRequestClose}
         >
           <View style={styles.modalOverlay}>
-            <Spinner size={indicatorSize} color="white" />
+            <ActivityIndicator size={indicatorSize} color="white" />
           </View>
         </Modal>
       </View>

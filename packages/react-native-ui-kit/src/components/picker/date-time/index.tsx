@@ -7,6 +7,7 @@ import { PickerSelectContext } from "../../picker/picker-context";
 import { SidebarRef } from "../../sidebar";
 import { Text } from "../../text";
 import TouchRipple from "../../touch-ripple";
+import DatePicker from "./date-picker";
 
 export interface DateTimePickerProps {
   label?: string;
@@ -110,7 +111,7 @@ const DateTimePicker = ({
         <Text variant="titleMedium" style={{ padding: 10 }} numberOfLines={1}>
           Selected: {value}
         </Text>
-        <Text>Hello World</Text>
+        <DatePicker />
       </BottomSheet>
     </PickerSelectContext.Provider>
   );
