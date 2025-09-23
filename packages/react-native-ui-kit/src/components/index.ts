@@ -22,6 +22,7 @@ export * from "./smart-image";
 export * from "./spacer";
 export * from "./spinner";
 export * from "./switch";
+export * from "./table";
 export * from "./text";
 export * from "./text-input";
 export * from "./toaster";

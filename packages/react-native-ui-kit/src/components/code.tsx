@@ -2,9 +2,11 @@ import * as Clipboard from "expo-clipboard"; // For Expo projects
 import React, { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
-type CodeProps = {
+export interface CodeProps {
   code: string;
-};
+  textColor?: string;
+  backgroundColor?: string;
+}
 
 const keywords = [
   "const",
@@ -74,7 +76,11 @@ const highlight = (code: string) => {
   return parts;
 };
 
-export const Code: React.FC<CodeProps> = ({ code }) => {
+export const Code: React.FC<CodeProps> = ({
+  code,
+  textColor = "#d4d4d4",
+  backgroundColor = "#1e1e1e",
+}) => {
   const highlighted = highlight(code);
   const [copied, setCopied] = useState(false);
 
@@ -85,38 +91,41 @@ export const Code: React.FC<CodeProps> = ({ code }) => {
   };
 
   return (
-    <View style={styles.wrapper}>
-      <Pressable style={styles.copyButton} onPress={copyToClipboard}>
-        <Text style={styles.copyText}>{copied ? "Copied!" : "Copy"}</Text>
-      </Pressable>
-
-      <ScrollView horizontal style={styles.container}>
-        <Text style={styles.code}>
-          {highlighted.map((part, i) => (
-            <Text key={i} style={part.style}>
-              {part.text}
-            </Text>
-          ))}
-        </Text>
-      </ScrollView>
+    <View style={[styles.wrapper, { backgroundColor }]}>
+      <View style={{ flex: 1 }}>
+        <ScrollView horizontal style={styles.container}>
+          <Text style={[styles.code, { color: textColor }]}>
+            {highlighted.map((part, i) => (
+              <Text key={i} style={part.style}>
+                {part.text}
+              </Text>
+            ))}
+          </Text>
+        </ScrollView>
+      </View>
+      <View>
+        <Pressable style={styles.copyButton} onPress={copyToClipboard}>
+          <Text style={styles.copyText}>{copied ? "Copied!" : "Copy"}</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginVertical: 8,
     borderRadius: 8,
     overflow: "hidden",
+    flexDirection: "row",
     backgroundColor: "#1e1e1e",
   },
   container: {
-    padding: 12,
+    padding: 15,
   },
   code: {
-    fontFamily: "monospace",
     fontSize: 14,
     color: "#d4d4d4",
+    fontFamily: "monospace",
   },
   keyword: {
     color: "#569CD6",
@@ -132,14 +141,18 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
   },
   copyButton: {
-    alignSelf: "flex-end",
+    borderRadius: 10,
     paddingVertical: 6,
     paddingHorizontal: 12,
     backgroundColor: "#2d2d2d",
+    position: "absolute",
+    top: 0,
+    right: 0,
+    zIndex: 10,
   },
   copyText: {
-    color: "#569CD6",
     fontSize: 12,
+    color: "#569CD6",
     fontWeight: "500",
   },
 });

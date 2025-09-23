@@ -2,6 +2,7 @@
   "name": "@mainamiru/react-native-ui-kit",
   "version": "1.0.0",
   "main": "src/index",
+  "type": "commonjs",
   "devDependencies": {
     "react": "19.1.0",
     "react-native": "0.81.4"

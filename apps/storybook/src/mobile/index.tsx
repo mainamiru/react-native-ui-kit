@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { format } from "date-fns";
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
 export interface MobileViewProps {
@@ -17,17 +18,13 @@ export function MobileView({
   return (
     <View style={[styles.frame, { width, backgroundColor }]}>
       <View style={styles.header}>
-        <Text style={{ fontSize: 10, fontWeight: "500" }}>04:37 PM</Text>
-        <View
-          style={{
-            gap: 5,
-            paddingHorizontal: 10,
-            flexDirection: "row",
-          }}
-        >
-          <MaterialCommunityIcons name="signal" />
-          <MaterialCommunityIcons name="signal" />
-          <MaterialCommunityIcons name="battery-70" />
+        <Text style={{ fontSize: 10, fontWeight: "500" }}>
+          {format(new Date(), "hh:mm a")}
+        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+          <MaterialCommunityIcons name="wifi" size={14} />
+          <MaterialCommunityIcons name="battery-70" size={14} />
+          <Text style={{ fontSize: 10 }}>70%</Text>
         </View>
       </View>
       <View style={[styles.container, style]}>{children}</View>
@@ -45,12 +42,16 @@ export function MobileView({
 
 const styles = StyleSheet.create({
   frame: {
-    width: 250,
-    aspectRatio: 8 / 15,
+    alignSelf: "center",
+    aspectRatio: 8 / 16,
     borderWidth: 10,
     borderRadius: 30,
-    overflow: "hidden",
     borderColor: "black",
+    overflow: "hidden",
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
   },
   container: {
     flex: 1,

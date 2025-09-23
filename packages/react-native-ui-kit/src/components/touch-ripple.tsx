@@ -1,105 +1,83 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import {
   Animated,
-  Easing,
-  GestureResponderEvent,
-  LayoutChangeEvent,
   Pressable,
   PressableProps,
   StyleProp,
-  View,
   ViewStyle,
 } from "react-native";
 
 export interface TouchRippleProps extends PressableProps {
-  onPress?: () => void;
-  rippleColor?: string;
-  borderless?: boolean;
-  rippleDuration?: number;
+  children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
-  children: React.ReactElement;
 }
 
-export const TouchRipple: React.FC<TouchRippleProps> = ({
-  style,
-  onPress,
+const TouchRipple: React.FC<TouchRippleProps> = ({
   children,
-  borderless = false,
-  rippleDuration = 400,
-  rippleColor = "rgba(0,0,0,0.2)",
+  onFocus,
+  onBlur,
+  onHoverOut,
+  onHoverIn,
+  onPressOut,
+  onPressIn,
   ...props
 }) => {
-  const rippleX = useRef(new Animated.Value(0)).current;
-  const rippleY = useRef(new Animated.Value(0)).current;
-  const rippleAnim = useRef(new Animated.Value(0)).current;
-  const rippleOpacity = useRef(new Animated.Value(0)).current;
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const [isHovered, setIsHovered] = React.useState(false);
+  const animatedValue = React.useRef(new Animated.Value(0)).current;
 
-  const handleLayout = (e: LayoutChangeEvent) => {
-    const { width, height } = e.nativeEvent.layout;
-    setContainerSize({ width, height });
-  };
+  // Animate the background color
+  React.useEffect(() => {
+    Animated.timing(animatedValue, {
+      toValue: isHovered ? 1 : 0,
+      duration: 250,
+      useNativeDriver: false,
+    }).start();
+  }, [isHovered]);
 
-  const handlePressIn = (event: GestureResponderEvent) => {
-    const { locationX, locationY } = event.nativeEvent;
-    rippleAnim.setValue(0);
-    rippleOpacity.setValue(1);
-    rippleX.setValue(locationX);
-    rippleY.setValue(locationY);
-
-    Animated.timing(rippleAnim, {
-      toValue: 1,
-      duration: rippleDuration,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start(() => {
-      Animated.timing(rippleOpacity, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+  // Interpolate the background color
+  const backgroundColor = React.useMemo(() => {
+    return animatedValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["transparent", "rgba(0,0,0,0.1)"],
     });
+  }, [isHovered, animatedValue]);
+
+  const handleHoverIn = (event: any) => {
+    setIsHovered(true);
+    onFocus?.(event);
+    onHoverIn?.(event);
+    onPressIn?.(event);
   };
 
-  // max radius from touch to farthest corner
-  const maxRadius = Math.sqrt(
-    containerSize.width ** 2 + containerSize.height ** 2
-  );
-
-  const rippleSize = maxRadius * 2;
-
-  const scale = rippleAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.01, 1], // scale from tiny dot to full size
-  });
-
-  const rippleStyle: Animated.WithAnimatedObject<ViewStyle> = {
-    position: "absolute",
-    width: rippleSize,
-    height: rippleSize,
-    transform: [{ scale }],
-    opacity: rippleOpacity,
-    backgroundColor: rippleColor,
-    borderRadius: rippleSize / 2,
+  const handleHoverOut = (event: any) => {
+    setIsHovered(false);
+    onBlur?.(event);
+    onHoverOut?.(event);
+    onPressOut?.(event);
   };
 
   return (
     <Pressable
       {...props}
-      onPress={onPress}
-      onPressIn={handlePressIn}
-      style={({ pressed }) => [
-        { borderRadius: 8 },
-        style,
-        !borderless && { overflow: "hidden" },
-        pressed && { opacity: 0.98 },
-      ]}
-      onLayout={handleLayout}
+      onFocus={handleHoverIn}
+      onBlur={handleHoverOut}
+      onHoverIn={handleHoverIn}
+      onHoverOut={handleHoverOut}
+      onPressIn={handleHoverIn}
+      onPressOut={handleHoverOut}
     >
-      <View style={{ flex: 1 }}>
-        <Animated.View pointerEvents="none" style={rippleStyle} />
-        {children}
-      </View>
+      <Animated.View
+        style={{
+          top: 0,
+          left: 0,
+          zIndex: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor,
+          position: "absolute",
+        }}
+      />
+      {children}
     </Pressable>
   );
 };

@@ -1,15 +1,15 @@
 import React from "react";
 import {
   ActivityIndicator,
+  PressableProps,
   StyleProp,
+  StyleSheet,
   TextStyle,
-  TouchableOpacity,
-  TouchableOpacityProps,
   View,
   ViewStyle,
 } from "react-native";
-import { useThemeColor } from "../hooks";
 import Text from "./text";
+import TouchRipple from "./touch-ripple";
 
 export type ButtonVariant = "contained" | "outlined" | "text";
 
@@ -18,7 +18,7 @@ export interface ButtonIconProps {
   color: string;
 }
 
-export interface ButtonProps extends TouchableOpacityProps {
+export interface ButtonProps extends PressableProps {
   children: string;
   textColor?: string;
   loading?: boolean;
@@ -32,86 +32,80 @@ export interface ButtonProps extends TouchableOpacityProps {
 
 export const Button: React.FC<ButtonProps> = ({
   icon,
-  variant,
   loading,
   children,
   disabled,
   textStyle,
+  textColor,
   buttonStyle,
   buttonColor,
   containerStyle,
-  textColor = "white",
-  activeOpacity = 0.7,
+  variant = "text",
   ...props
 }) => {
-  const { border, primary } = useThemeColor();
-  const defaultButtonStyle: ViewStyle = React.useMemo(() => {
-    if (variant === "text") {
-      return {
-        borderWidth: 0,
-        borderRadius: 0,
-      };
-    } else if (variant == "outlined") {
-      return {
-        borderWidth: 1,
-        borderColor: border,
-        backgroundColor: "transparent",
-      };
-    } else {
-      return {
-        borderWidth: 0,
-        backgroundColor: buttonColor || primary,
-      };
-    }
-  }, [variant, border]);
-
   return (
-    <TouchableOpacity
+    <TouchRipple
       {...props}
-      disabled={disabled || loading}
-      activeOpacity={activeOpacity}
+      disabled={disabled}
       style={[
-        {
-          padding: 10,
-          borderRadius: 20,
-          overflow: "hidden",
-          alignItems: "center",
-          justifyContent: "center",
-        },
-        defaultButtonStyle,
+        styles.base,
+        styles[variant],
         buttonStyle,
+        disabled && styles.disabled,
       ]}
     >
-      <View
-        style={[
-          {
-            gap: 10,
-            flexDirection: "row",
-            alignItems: "center",
-          },
-          containerStyle,
-        ]}
-      >
+      <View style={[styles.container, containerStyle]}>
         {loading ? (
           <ActivityIndicator size={20} color={textColor} />
         ) : (
           icon && icon({ size: 20, color: textColor })
         )}
-        <Text
-          style={[
-            {
-              color: textColor,
-              fontWeight: "600",
-              textAlign: "center",
-            },
-            textStyle,
-          ]}
-        >
+        <Text style={[{ color: textColor, fontWeight: "500" }, textStyle]}>
           {children}
         </Text>
       </View>
-    </TouchableOpacity>
+    </TouchRipple>
   );
 };
+
+const styles = StyleSheet.create({
+  base: {
+    padding: 10,
+    borderRadius: 20,
+    overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    borderWidth: 0,
+    borderColor: "transparent",
+    backgroundColor: "transparent",
+  },
+  outlined: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    backgroundColor: "transparent",
+  },
+  contained: {
+    borderColor: "#645ff5",
+    backgroundColor: "#645ff5",
+  },
+  container: {
+    gap: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+  hovered: {
+    opacity: 1,
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+  },
+});
 
 export default Button;

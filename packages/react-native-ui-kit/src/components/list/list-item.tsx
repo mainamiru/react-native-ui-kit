@@ -19,8 +19,8 @@ export interface ListItemProps extends TouchableOpacityProps {
   titleStyle?: StyleProp<TextStyle>;
   containerStyle?: StyleProp<ViewStyle>;
   descriptionStyle?: StyleProp<TextStyle>;
-  left?: (style: { marginLeft: number }) => React.ReactNode;
-  right?: (style: { marginRight: number }) => React.ReactNode;
+  left?: () => React.ReactNode;
+  right?: () => React.ReactNode;
 }
 
 const ListItem: React.FC<ListItemProps> = ({
@@ -44,16 +44,20 @@ const ListItem: React.FC<ListItemProps> = ({
     <TouchableOpacity {...props} activeOpacity={activeOpacity}>
       <View
         style={[
+          {
+            gap: 10,
+            padding: 10,
+            maxWidth: "100%",
+          },
           style,
           {
-            maxWidth: "100%",
-            flexDirection: "row",
             alignItems: "center",
+            flexDirection: "row",
           },
         ]}
       >
-        {left && left({ marginLeft: 10 })}
-        <View style={[{ flex: 1, padding: 10 }, containerStyle]}>
+        {left && left()}
+        <View style={[{ flex: 1 }, containerStyle]}>
           <Text
             numberOfLines={titleNumberOfLines}
             style={[
@@ -76,7 +80,7 @@ const ListItem: React.FC<ListItemProps> = ({
             </Text>
           )}
         </View>
-        {right && right({ marginRight: 10 })}
+        {right && right()}
       </View>
     </TouchableOpacity>
   );
