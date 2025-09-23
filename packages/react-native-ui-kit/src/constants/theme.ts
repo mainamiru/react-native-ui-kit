@@ -11,6 +11,7 @@ export const DefaultTheme: RNUIKitTheme = {
     background: "#f5f5f5",
     surface: "#f5f5f5",
     placeholder: "#6e7a7a",
+    typography: "#7b7a82",
   },
 };
 
@@ -25,5 +26,6 @@ export const DarkTheme: RNUIKitTheme = {
     background: "#000000",
     surface: "#292424",
     placeholder: "#6e7a7a",
+    typography: "#7b7a82",
   },
 };

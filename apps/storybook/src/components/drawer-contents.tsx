@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { List } from "@mainamiru/react-native-ui-kit";
 import { Href, Link, usePathname } from "expo-router";
 import React from "react";
@@ -29,10 +29,10 @@ export const DrawerContents = () => {
                 style={{ width: "100%" }}
                 description={item.description}
                 right={() => (
-                  <MaterialCommunityIcons
+                  <Entypo
                     size={20}
                     color="darkblue"
-                    name="chevron-right-circle-outline"
+                    name="chevron-with-circle-right"
                   />
                 )}
               />

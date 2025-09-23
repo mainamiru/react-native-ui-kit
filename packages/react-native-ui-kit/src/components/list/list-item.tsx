@@ -1,16 +1,8 @@
 import React from "react";
-import {
-  StyleProp,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  View,
-  ViewStyle,
-} from "react-native";
-import { useThemeColor } from "../../hooks";
+import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
+import TouchRipple, { TouchRippleProps } from "../touch-ripple";
 
-export interface ListItemProps extends TouchableOpacityProps {
+export interface ListItemProps extends TouchRippleProps {
   title: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   description?: React.ReactNode;
@@ -33,15 +25,12 @@ const ListItem: React.FC<ListItemProps> = ({
   description,
   containerStyle,
   descriptionStyle,
-  activeOpacity = 1,
   titleNumberOfLines = 1,
   descriptionNumberOfLines = 2,
   ...props
 }) => {
-  const { text } = useThemeColor();
-
   return (
-    <TouchableOpacity {...props} activeOpacity={activeOpacity}>
+    <TouchRipple {...props}>
       <View
         style={[
           {
@@ -60,21 +49,14 @@ const ListItem: React.FC<ListItemProps> = ({
         <View style={[{ flex: 1 }, containerStyle]}>
           <Text
             numberOfLines={titleNumberOfLines}
-            style={[
-              {
-                color: text,
-                fontSize: 16,
-                fontWeight: "500",
-              },
-              titleStyle,
-            ]}
+            style={[{ fontSize: 16, fontWeight: "500" }, titleStyle]}
           >
             {title}
           </Text>
           {description && (
             <Text
               numberOfLines={descriptionNumberOfLines}
-              style={[{ fontSize: 14, color: text }, descriptionStyle]}
+              style={[{ fontSize: 14, color: "gray" }, descriptionStyle]}
             >
               {description}
             </Text>
@@ -82,7 +64,7 @@ const ListItem: React.FC<ListItemProps> = ({
         </View>
         {right && right()}
       </View>
-    </TouchableOpacity>
+    </TouchRipple>
   );
 };
 

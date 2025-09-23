@@ -5,7 +5,7 @@ import { useWindowDimensions } from "react-native";
 
 const DocsLayout = () => {
   const { width } = useWindowDimensions();
-  const isDesktop = width >= 768;
+  const isDesktop = width >= 1024;
   return (
     <Drawer
       drawerContent={(props: any) => <DrawerContents {...props} />}

@@ -4,6 +4,7 @@ import {
   TextProps as DefaultTextProps,
   TextStyle,
 } from "react-native";
+import { useThemeColor } from "../hooks";
 
 export type TextVariant =
   | "titleLarge"
@@ -25,8 +26,17 @@ export const Text = ({
   variant = "body",
   ...props
 }: TextProps) => {
+  const { text, typography } = useThemeColor();
   return (
-    <DefaultText {...props} style={[styles[variant], style]}>
+    <DefaultText
+      {...props}
+      style={[
+        styles[variant],
+        variant.includes("title") && { color: text },
+        variant.includes("body") && { color: typography },
+        style,
+      ]}
+    >
       {children}
     </DefaultText>
   );

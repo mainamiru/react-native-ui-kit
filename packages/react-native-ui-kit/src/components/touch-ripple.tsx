@@ -8,18 +8,18 @@ import {
 } from "react-native";
 
 export interface TouchRippleProps extends PressableProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  hoverColor?: string;
 }
 
 const TouchRipple: React.FC<TouchRippleProps> = ({
   children,
-  onFocus,
-  onBlur,
   onHoverOut,
   onHoverIn,
   onPressOut,
   onPressIn,
+  hoverColor = "rgba(0,0,0,0.1)",
   ...props
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
@@ -38,20 +38,19 @@ const TouchRipple: React.FC<TouchRippleProps> = ({
   const backgroundColor = React.useMemo(() => {
     return animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ["transparent", "rgba(0,0,0,0.1)"],
+      outputRange: ["transparent", hoverColor],
     });
-  }, [isHovered, animatedValue]);
+  }, [isHovered, animatedValue, hoverColor]);
 
+  // Handle hover events
   const handleHoverIn = (event: any) => {
     setIsHovered(true);
-    onFocus?.(event);
     onHoverIn?.(event);
     onPressIn?.(event);
   };
 
   const handleHoverOut = (event: any) => {
     setIsHovered(false);
-    onBlur?.(event);
     onHoverOut?.(event);
     onPressOut?.(event);
   };
@@ -59,8 +58,6 @@ const TouchRipple: React.FC<TouchRippleProps> = ({
   return (
     <Pressable
       {...props}
-      onFocus={handleHoverIn}
-      onBlur={handleHoverOut}
       onHoverIn={handleHoverIn}
       onHoverOut={handleHoverOut}
       onPressIn={handleHoverIn}
