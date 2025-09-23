@@ -9,19 +9,40 @@ const ButtonDocsScreen = () => (
     usage="Use the button component when you want users to take an action. You can customize the button by passing props to it. The button component accepts the following props:"
     description="A button is component that the user can press to trigger an action."
     exampleCode={`import * as React from "react";
-import { Button, Center } from "@mainamiru/react-native-ui-kit";
+import { Button, Center, FlexView } from "@mainamiru/react-native-ui-kit";
 
 const MyComponent = () => (
-  <Center flex={1}>
+  <FlexView flex={1} gap={15} justifyContent="center" padding={15}>
     <Button
       textColor="white"
       variant="contained"
-      icon={() => <KitIcon.Cart />}
+      icon={({ size, color }) => (
+        <MaterialIcons name="camera" size={size} color={color} />
+      )}
       onPress={() => alert("Button pressed")}
     >
-      Button
+      Contained
     </Button>
-  </Center>
+    <Button
+      loading={true}
+      variant="text"
+      icon={({ size, color }) => (
+        <MaterialIcons name="camera" size={size} color={color} />
+      )}
+      onPress={() => alert("Button pressed")}
+    >
+      Loading
+    </Button>
+    <Button
+      variant="outlined"
+      icon={({ size, color }) => (
+        <MaterialIcons name="camera" size={size} color={color} />
+      )}
+      onPress={() => alert("Button pressed")}
+    >
+      Outlined
+    </Button>
+  </FlexView>
 );
 
 export default MyComponent;
