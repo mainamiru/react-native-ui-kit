@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   Animated,
   FlatList,
@@ -29,26 +29,26 @@ export const Spinner = <T extends string | number>({
   initialIndex = 0,
   visibleItems = 3,
 }: SpinnerProps<T>) => {
-  const [activeIndex, setActiveIndex] = useState<number>(initialIndex + 1);
   const ref = useRef<FlatList>(null);
   const scrollY = useRef(new Animated.Value(0)).current;
 
+  //internal variables
   const flatData = ["empty", ...data, "empty"];
   const contentHeight = itemHeight * visibleItems;
 
+  //handle scroll
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { contentOffset } = event.nativeEvent;
-    const index = Math.round(contentOffset.y / itemHeight);
-    const isFirstItem = index === 0;
-    const isLastItem = index === flatData.length - 1;
-
-    if (index !== activeIndex && !isFirstItem && !isLastItem) {
-      setActiveIndex(index);
-      if (onChange && flatData[index] !== "empty") {
-        onChange(flatData[index] as T);
-      }
-    }
     scrollY.setValue(contentOffset.y);
+  };
+
+  //handle item press
+  const handleItemPress = (item: T, index: number) => {
+    onChange?.(item);
+    ref.current?.scrollToIndex({
+      index,
+      animated: true,
+    });
   };
 
   return (
@@ -65,11 +65,12 @@ export const Spinner = <T extends string | number>({
       <FlatList
         ref={ref}
         data={flatData}
-        pagingEnabled
+        pagingEnabled={true}
         decelerationRate="fast"
         snapToAlignment="center"
         onScroll={handleScroll}
         snapToInterval={itemHeight}
+        initialScrollIndex={initialIndex}
         showsVerticalScrollIndicator={false}
         getItemLayout={(_, idx) => ({
           index: idx,
@@ -77,6 +78,7 @@ export const Spinner = <T extends string | number>({
           offset: itemHeight * idx,
         })}
         renderItem={({ item, index }) => {
+          const isEmpty = item === "empty";
           const inputRange = [
             itemHeight * (index - 2),
             itemHeight * (index - 1),
@@ -90,25 +92,14 @@ export const Spinner = <T extends string | number>({
             outputRange,
             extrapolate: "clamp",
           });
-
           return (
             <Animated.View style={{ opacity }}>
               <TouchRipple
-                disabled={item === "empty"}
+                disabled={isEmpty}
                 style={[styles.item, { height: itemHeight }]}
-                onPress={() => {
-                  setActiveIndex(index);
-                  ref.current?.scrollToIndex({
-                    index,
-                    animated: true,
-                    viewOffset: itemHeight,
-                  });
-                  if (onChange && item !== "empty") {
-                    onChange(item as T);
-                  }
-                }}
+                onPress={() => handleItemPress(item, index)}
               >
-                {item !== "empty" && (
+                {!isEmpty && (
                   <Text style={[styles.itemText, { fontSize: itemHeight / 2 }]}>
                     {item}
                   </Text>

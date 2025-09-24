@@ -108,9 +108,6 @@ const DateTimePicker = ({
         )}
       </View>
       <BottomSheet ref={bottomSheetRef} contentStyle={{ height: "50%" }}>
-        <Text variant="titleMedium" style={{ padding: 10 }} numberOfLines={1}>
-          Selected: {value}
-        </Text>
         <DatePicker />
       </BottomSheet>
     </PickerSelectContext.Provider>
