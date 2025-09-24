@@ -27,7 +27,7 @@ export const Text = ({
   variant = "text",
   ...props
 }: TextProps) => {
-  const { text, typography } = useThemeColor();
+  const { text, placeholder } = useThemeColor();
   return (
     <DefaultText
       {...props}
@@ -35,7 +35,7 @@ export const Text = ({
         styles[variant],
         variant === "text" && { color: text },
         variant.includes("title") && { color: text },
-        variant.includes("body") && { color: typography },
+        variant.includes("body") && { color: placeholder },
         style,
       ]}
     >

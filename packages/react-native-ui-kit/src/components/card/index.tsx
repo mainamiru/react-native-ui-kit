@@ -10,6 +10,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+import { useThemeColor } from "../../hooks";
 
 export interface CardProps {
   style?: StyleProp<ViewStyle>;
@@ -43,7 +44,10 @@ export const Card: React.FC<CardProps> & {
   Title: React.FC<CardTitleProps>;
   Description: React.FC<CardDescriptionProps>;
 } = ({ style, children }) => {
-  return <View style={[styles.card, style]}>{children}</View>;
+  const { card: backgroundColor } = useThemeColor();
+  return (
+    <View style={[styles.card, { backgroundColor }, style]}>{children}</View>
+  );
 };
 
 Card.Image = ({ source, style, alt }) => {
@@ -77,7 +81,6 @@ Card.Description = ({ children, style }) => {
 const styles = StyleSheet.create({
   card: {
     elevation: 3,
-    width: "100%",
     shadowRadius: 6,
     borderRadius: 10,
     overflow: "hidden",

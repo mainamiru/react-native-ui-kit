@@ -24,35 +24,35 @@ const Index = () => {
             <Code
               textColor="#000"
               backgroundColor="#f5f5f5"
-              code="npm install @mainamiru/react-native-ui-kit @react-native-vector-icons"
+              code="npm install @mainamiru/react-native-ui-kit"
             />
           </Tabs.Content>
           <Tabs.Content value="yarn">
             <Code
               textColor="#000"
               backgroundColor="#f5f5f5"
-              code="yarn add @mainamiru/react-native-ui-kit @react-native-vector-icons"
+              code="yarn add @mainamiru/react-native-ui-kit"
             />
           </Tabs.Content>
           <Tabs.Content value="bun">
             <Code
               textColor="#000"
               backgroundColor="#f5f5f5"
-              code="bun add @mainamiru/react-native-ui-kit @react-native-vector-icons"
+              code="bun add @mainamiru/react-native-ui-kit"
             />
           </Tabs.Content>
           <Tabs.Content value="pnpm">
             <Code
               textColor="#000"
               backgroundColor="#f5f5f5"
-              code="pnpm install @mainamiru/react-native-ui-kit @react-native-vector-icons"
+              code="pnpm install @mainamiru/react-native-ui-kit"
             />
           </Tabs.Content>
           <Tabs.Content value="expo">
             <Code
               textColor="#000"
               backgroundColor="#f5f5f5"
-              code="npx expo install @mainamiru/react-native-ui-kit @react-native-vector-icons"
+              code="npx expo install @mainamiru/react-native-ui-kit"
             />
           </Tabs.Content>
         </Tabs>

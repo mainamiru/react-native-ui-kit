@@ -69,9 +69,36 @@ export const navigations: NavLink[] = [
     description: "SearchBar component",
   },
   {
-    label: "KitIcon",
-    path: "/docs/kit-icon",
-    description: "KitIcon component",
+    label: "Layout",
+    path: "/docs/layout",
+    description: "Layout component",
+    sections: [
+      {
+        label: "Layout.XSmallView",
+        path: "/docs/layout/xsmall-view",
+        description: "XSmallView component",
+      },
+      {
+        label: "Layout.SmallView",
+        path: "/docs/layout/small-view",
+        description: "SmallView component",
+      },
+      {
+        label: "Layout.MediumView",
+        path: "/docs/layout/medium-view",
+        description: "MediumView component",
+      },
+      {
+        label: "Layout.LargeView",
+        path: "/docs/layout/large-view",
+        description: "LargeView component",
+      },
+      {
+        label: "Layout.XLargeView",
+        path: "/docs/layout/xlarge-view",
+        description: "XLargeView component",
+      },
+    ],
   },
   {
     label: "List",

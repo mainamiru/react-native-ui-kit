@@ -8,8 +8,10 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import Text from "./text";
-import TouchRipple from "./touch-ripple";
+import { useThemeColor } from "../../hooks";
+import { getContrastColor } from "../../utils/color.utils";
+import Text from "../text";
+import TouchRipple from "../touch-ripple";
 
 export type ButtonMode = "contained" | "outlined" | "text";
 
@@ -27,44 +29,65 @@ export interface ButtonProps extends PressableProps {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   containerStyle?: StyleProp<ViewStyle>;
-  icon?: (props: ButtonIconProps) => React.ReactNode;
+  leadingIcon?: (props: ButtonIconProps) => React.ReactNode;
+  trailingIcon?: (props: ButtonIconProps) => React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({
-  icon,
   style,
-  loading,
   children,
-  disabled,
   textStyle,
   textColor,
-  buttonColor = "#645ff5",
+  buttonColor,
+  loading = false,
+  disabled = false,
   containerStyle,
   mode = "text",
+  leadingIcon,
+  trailingIcon,
   ...props
 }) => {
-  const backgroundColor = buttonColor;
+  const { primary, text } = useThemeColor();
+
+  //computed text color
+  const computedTextColor = React.useMemo(() => {
+    if (textColor) return textColor;
+    if (mode === "contained" && buttonColor) {
+      return getContrastColor(buttonColor);
+    } else if (mode === "contained") {
+      return getContrastColor(primary);
+    } else if (mode === "outlined") {
+      return text;
+    }
+  }, [mode, textColor, buttonColor, text]);
+
   return (
     <TouchRipple
       {...props}
-      disabled={disabled}
+      disabled={disabled || loading}
       style={[
         styles.base,
         styles[mode],
         style,
-        mode === "contained" && { backgroundColor },
+        mode === "contained" && {
+          backgroundColor: buttonColor || primary,
+        },
+        mode === "outlined" && { borderColor: buttonColor },
         disabled && styles.disabled,
       ]}
     >
       <View style={[styles.container, containerStyle]}>
         {loading ? (
-          <ActivityIndicator size={16} color={textColor} />
+          <ActivityIndicator size={16} color={computedTextColor} />
         ) : (
-          icon && icon({ size: 16, color: textColor })
+          leadingIcon && leadingIcon({ size: 16, color: computedTextColor })
         )}
-        <Text style={[{ color: textColor, fontWeight: "500" }, textStyle]}>
+        <Text
+          style={[{ color: computedTextColor, fontWeight: "500" }, textStyle]}
+        >
           {children}
         </Text>
+        {trailingIcon && trailingIcon({ size: 16, color: computedTextColor })}
       </View>
     </TouchRipple>
   );
@@ -92,21 +115,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#645ff5",
   },
   container: {
-    gap: 10,
-    padding: 10,
+    gap: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
   disabled: {
     opacity: 0.5,
-  },
-  hovered: {
-    opacity: 1,
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
   },
 });
 

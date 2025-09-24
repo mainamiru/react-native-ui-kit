@@ -13,7 +13,7 @@ import { Card, Text } from "@mainamiru/react-native-ui-kit";
 export default function App() {
   return (
     <Card>
-      <Card.Image source="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg" alt="Sample" />
+      <Card.Image source="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg" alt="Mountain" />
       <Card.Content>
         <Card.Title>Mountain Escape</Card.Title>
         <Card.Description>
@@ -48,11 +48,11 @@ export default function App() {
       },
     }}
   >
-    <Card>
+    <Card style={{ margin: 10 }}>
       <Card.Image
         source="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg"
         alt="Mountain"
-        style={{ height: 160, width: "100%" }}
+        style={{ height: 160 }}
       />
       <Card.Content>
         <Card.Title>Mountain Escape</Card.Title>

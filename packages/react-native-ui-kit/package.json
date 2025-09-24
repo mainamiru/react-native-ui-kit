@@ -8,7 +8,6 @@
     "react-native": "0.81.4"
   },
   "dependencies": {
-    "@react-native-vector-icons/evil-icons": "^12.3.0",
     "expo-clipboard": "^8.0.7",
     "typescript": "^5.9.2"
   }

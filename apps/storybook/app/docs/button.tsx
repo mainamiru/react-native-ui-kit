@@ -1,108 +1,108 @@
 import { DocsViewer } from "@/components";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Button, FlexView } from "@mainamiru/react-native-ui-kit";
+import { Ionicons } from "@expo/vector-icons";
+import { Button } from "@mainamiru/react-native-ui-kit";
 import React from "react";
 
 const ButtonDocsScreen = () => (
   <DocsViewer
     title="Button"
-    usage="Use the button component when you want users to take an action. You can customize the button by passing props to it. The button component accepts the following props:"
-    description="A button is component that the user can press to trigger an action."
-    exampleCode={`import * as React from "react";
-import { Button, Center, FlexView } from "@mainamiru/react-native-ui-kit";
+    description="A flexible button component with multiple modes, loading states, and optional icons."
+    usage="Use Button for user actions. It supports 'contained', 'outlined', and 'text' modes."
+    exampleCode={`import React from "react";
+import { Button } from "@mainamiru/react-native-ui-kit";
+import { Ionicons } from "@expo/vector-icons";
 
-const MyComponent = () => (
-  <FlexView flex={1} gap={15} justifyContent="center" padding={15}>
-    <Button
-      textColor="white"
-      mode="contained"
-      icon={({ size, color }) => (
-        <MaterialIcons name="camera" size={size} color={color} />
-      )}
-      onPress={() => alert("Button pressed")}
-    >
-      Contained
+export default function App() {
+  return (
+    <>
+      <Button mode="contained">Save</Button>
+      <Button mode="outlined">Cancel</Button>
+      <Button mode="text">Skip</Button>
+      <Button mode="contained" loading>Loading</Button>
+      <Button
+        mode="contained"
+        icon={({ size, color }) => <Ionicons name="add" size={size} color={color} />}
+      >
+        Add Item
+      </Button>
+    </>
+  );
+}`}
+    props={{
+      children: {
+        type: "string",
+        required: true,
+        description: "The button label text.",
+      },
+      textColor: {
+        type: "string",
+        required: false,
+        description: "Custom text color. Defaults based on mode.",
+      },
+      loading: {
+        type: "boolean",
+        required: false,
+        description: "If true, shows a spinner instead of text or icon.",
+      },
+      mode: {
+        type: `"contained" | "outlined" | "text"`,
+        required: false,
+        description: "The visual style of the button.",
+      },
+      buttonColor: {
+        type: "string",
+        required: false,
+        description: "Background/border color depending on mode.",
+      },
+      style: {
+        type: "StyleProp<ViewStyle>",
+        required: false,
+        description: "Custom style for button wrapper.",
+      },
+      containerStyle: {
+        type: "StyleProp<ViewStyle>",
+        required: false,
+        description: "Custom style for inner container.",
+      },
+      textStyle: {
+        type: "StyleProp<TextStyle>",
+        required: false,
+        description: "Custom style for button label.",
+      },
+      leadingIcon: {
+        type: "(props: { size: number; color: string }) => JSX.Element",
+        required: false,
+        description: "Function that renders an icon inside the button.",
+      },
+      trailingIcon: {
+        type: "(props: { size: number; color: string }) => JSX.Element",
+        required: false,
+        description: "Function that renders an icon inside the button.",
+      },
+      disabled: {
+        type: "boolean",
+        required: false,
+        description: "Disables the button.",
+      },
+    }}
+    style={{ padding: 10, gap: 15 }}
+  >
+    <Button mode="contained">Save</Button>
+    <Button mode="outlined" buttonColor="#ff6347">
+      Cancel
     </Button>
-    <Button
-      loading={true}
-      mode="text"
-      icon={({ size, color }) => (
-        <MaterialIcons name="camera" size={size} color={color} />
-      )}
-      onPress={() => alert("Button pressed")}
-    >
+    <Button mode="text">Skip</Button>
+    <Button mode="contained" loading>
       Loading
     </Button>
     <Button
-      mode="outlined"
-      icon={({ size, color }) => (
-        <MaterialIcons name="camera" size={size} color={color} />
+      mode="contained"
+      leadingIcon={({ size, color }) => (
+        <Ionicons name="add" size={size} color={color} />
       )}
-      onPress={() => alert("Button pressed")}
     >
-      Outlined
+      Add Item
     </Button>
-  </FlexView>
-);
-
-export default MyComponent;
-`}
-    props={{
-      mode: {
-        type: "text | contained | outlined",
-        default: "contained",
-        required: false,
-        description:
-          "The mode of the button. Can be 'contained', 'outlined', or 'text'.",
-      },
-      textColor: {
-        type: "ColorValue",
-        default: "white",
-        required: false,
-        description:
-          "The text color of the button. Can be 'white', 'black', or 'primary'.",
-      },
-      icon: {
-        type: "function",
-        default: "white",
-        required: false,
-        description:
-          "The icon of the button. Can be 'white', 'black', or 'primary'.",
-      },
-    }}
-  >
-    <FlexView flex={1} gap={15} justifyContent="center">
-      <Button
-        mode="contained"
-        textColor="white"
-        icon={({ size, color }) => (
-          <MaterialIcons name="camera" size={size} color={color} />
-        )}
-        onPress={() => alert("Button pressed")}
-      >
-        Contained
-      </Button>
-      <Button
-        mode="text"
-        loading={true}
-        icon={({ size, color }) => (
-          <MaterialIcons name="camera" size={size} color={color} />
-        )}
-        onPress={() => alert("Button pressed")}
-      >
-        Loading
-      </Button>
-      <Button
-        mode="outlined"
-        textColor="black"
-        icon={({ size, color }) => (
-          <MaterialIcons name="camera" size={size} color={color} />
-        )}
-        onPress={() => alert("Button pressed")}
-      >
-        Outlined
-      </Button>
-    </FlexView>
   </DocsViewer>
 );
 

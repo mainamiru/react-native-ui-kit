@@ -12,7 +12,6 @@ export interface ThemeColor {
   secondary: string;
   background: string;
   placeholder: string;
-  typography: string;
 }
 
 export interface RNUIKitTheme {
