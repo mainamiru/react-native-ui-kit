@@ -10,10 +10,12 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+import Divider from "../divider";
 import TouchRipple from "../touch-ripple";
 
 export interface SpinnerProps<T = string | number> {
   data: T[];
+  label: string;
   itemHeight?: number;
   initialIndex?: number;
   style?: StyleProp<ViewStyle>;
@@ -23,6 +25,7 @@ export interface SpinnerProps<T = string | number> {
 
 export const Spinner = <T extends string | number>({
   data,
+  label,
   style,
   onChange,
   itemHeight = 50,
@@ -33,7 +36,9 @@ export const Spinner = <T extends string | number>({
   const scrollY = useRef(new Animated.Value(0)).current;
 
   //internal variables
-  const flatData = ["empty", ...data, "empty"];
+  const firstItem = data[0];
+  const lastItem = data[data.length - 1];
+  const flatData = [lastItem, ...data, firstItem];
   const contentHeight = itemHeight * visibleItems;
 
   //handle scroll
@@ -45,71 +50,105 @@ export const Spinner = <T extends string | number>({
   //handle item press
   const handleItemPress = (item: T, index: number) => {
     onChange?.(item);
-    ref.current?.scrollToIndex({
-      index,
-      animated: true,
-    });
+    const isFirstItem = index === 0;
+    const isLastItem = index === flatData.length - 1;
+    if (isLastItem) {
+      ref.current?.scrollToIndex({
+        index: 1,
+        animated: true,
+        viewOffset: itemHeight,
+      });
+    } else if (isFirstItem) {
+      ref.current?.scrollToIndex({
+        animated: true,
+        index: data.length,
+        viewOffset: itemHeight,
+      });
+    } else {
+      ref.current?.scrollToIndex({
+        index,
+        animated: true,
+        viewOffset: itemHeight,
+      });
+    }
   };
 
   return (
-    <View style={[{ height: contentHeight, justifyContent: "center" }, style]}>
+    <View style={style}>
+      <Text
+        numberOfLines={1}
+        style={{
+          padding: 10,
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
+        {label}
+      </Text>
+      <Divider margin={0} />
       <View
         style={[
-          styles.highlight,
           {
-            height: itemHeight,
-            top: (contentHeight - itemHeight) / 2,
+            width: "100%",
+            height: contentHeight,
+            justifyContent: "center",
           },
         ]}
-      />
-      <FlatList
-        ref={ref}
-        data={flatData}
-        pagingEnabled={true}
-        decelerationRate="fast"
-        snapToAlignment="center"
-        onScroll={handleScroll}
-        snapToInterval={itemHeight}
-        initialScrollIndex={initialIndex}
-        showsVerticalScrollIndicator={false}
-        getItemLayout={(_, idx) => ({
-          index: idx,
-          length: itemHeight,
-          offset: itemHeight * idx,
-        })}
-        renderItem={({ item, index }) => {
-          const isEmpty = item === "empty";
-          const inputRange = [
-            itemHeight * (index - 2),
-            itemHeight * (index - 1),
-            itemHeight * index,
-            itemHeight * (index + 1),
-            itemHeight * (index + 2),
-          ];
-          const outputRange = [0.5, 1, 0.5, 0, 0.5];
-          const opacity = scrollY.interpolate({
-            inputRange,
-            outputRange,
-            extrapolate: "clamp",
-          });
-          return (
-            <Animated.View style={{ opacity }}>
-              <TouchRipple
-                disabled={isEmpty}
-                style={[styles.item, { height: itemHeight }]}
-                onPress={() => handleItemPress(item, index)}
-              >
-                {!isEmpty && (
+      >
+        <View
+          style={[
+            styles.highlight,
+            {
+              height: itemHeight,
+              top: (contentHeight - itemHeight) / 2,
+            },
+          ]}
+        />
+        <FlatList
+          ref={ref}
+          data={flatData}
+          pagingEnabled={true}
+          decelerationRate="fast"
+          snapToAlignment="center"
+          onScroll={handleScroll}
+          snapToInterval={itemHeight}
+          initialScrollIndex={initialIndex}
+          showsVerticalScrollIndicator={false}
+          getItemLayout={(_, idx) => ({
+            index: idx,
+            length: itemHeight,
+            offset: itemHeight * idx,
+          })}
+          renderItem={({ item, index }) => {
+            const inputRange = [
+              itemHeight * (index - 2),
+              itemHeight * (index - 1),
+              itemHeight * index,
+              itemHeight * (index + 1),
+              itemHeight * (index + 2),
+            ];
+            const outputRange = [0.5, 1, 0.5, 0, 0.5];
+            const opacity = scrollY.interpolate({
+              inputRange,
+              outputRange,
+              extrapolate: "clamp",
+            });
+            return (
+              <Animated.View style={{ opacity }}>
+                <TouchRipple
+                  style={[styles.item, { height: itemHeight }]}
+                  onPress={() => handleItemPress(item, index)}
+                >
                   <Text style={[styles.itemText, { fontSize: itemHeight / 2 }]}>
                     {item}
                   </Text>
-                )}
-              </TouchRipple>
-            </Animated.View>
-          );
-        }}
-        keyExtractor={(_, key) => key.toString()}
-      />
+                </TouchRipple>
+              </Animated.View>
+            );
+          }}
+          keyExtractor={(_, key) => key.toString()}
+        />
+      </View>
     </View>
   );
 };

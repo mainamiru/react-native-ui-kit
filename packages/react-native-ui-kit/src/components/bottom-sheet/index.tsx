@@ -25,7 +25,9 @@ export interface BottomSheetProps {
   onClose?: () => void;
   backdropOpacity?: number;
   children: React.ReactNode;
+  closeOnPressBack?: boolean;
   statusBarTranslucent?: boolean;
+  closeOnPressBackdrop?: boolean;
   contentStyle?: StyleProp<ViewStyle>;
   anchor?: (props: AnchorProps) => void;
 }
@@ -40,7 +42,9 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       children,
       contentStyle,
       backdropOpacity = 0.5,
+      closeOnPressBack = true,
       statusBarTranslucent = true,
+      closeOnPressBackdrop = true,
     },
     ref
   ) => {
@@ -125,11 +129,16 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
           transparent
           visible={isOpen}
           animationType="fade"
-          onRequestClose={closeModal}
           statusBarTranslucent={statusBarTranslucent}
+          onRequestClose={() => {
+            if (closeOnPressBack) {
+              closeModal();
+            }
+          }}
         >
           <Pressable
             onPress={closeModal}
+            disabled={!closeOnPressBackdrop}
             style={[
               StyleSheet.absoluteFillObject,
               { backgroundColor: `rgba(0,0,0,${backdropOpacity})` },

@@ -20,14 +20,14 @@ const DatePicker = () => {
   return (
     <Row gap={20}>
       <Row flex={1} alignItems="center">
-        <Spinner style={{ flex: 1 }} data={years} />
-        <Spinner style={{ flex: 1 }} data={days} />
-        <Spinner style={{ flex: 1 }} data={months} />
+        <Spinner data={years} label="YYYY" style={{ flex: 1 }} />
+        <Spinner data={months} label="MM" style={{ flex: 1 }} />
+        <Spinner data={days} label="DD" style={{ flex: 1 }} />
       </Row>
       <Row flex={1} alignItems="center">
-        <Spinner style={{ flex: 1 }} data={hours} />
-        <Spinner style={{ flex: 1 }} data={minutes} />
-        <Spinner style={{ flex: 1 }} data={["AM", "PM"]} />
+        <Spinner data={hours} style={{ flex: 1 }} label="HH" />
+        <Spinner data={minutes} style={{ flex: 1 }} label="MM" />
+        <Spinner data={["AM", "PM"]} style={{ flex: 1 }} label="AM-PM" />
       </Row>
     </Row>
   );
