@@ -8,9 +8,9 @@ import {
 import { assets } from "../../utils";
 
 export interface SmartImageProps {
-  source?: string | number | null;
-  placeholder?: ImageSourcePropType;
   style?: StyleProp<ImageStyle>;
+  placeholder?: ImageSourcePropType;
+  source: string | number | null | undefined | ImageSourcePropType;
   resizeMode?: "cover" | "contain" | "stretch" | "repeat" | "center";
   fadeDuration?: number;
 }
@@ -30,9 +30,9 @@ export const SmartImage: React.FC<SmartImageProps> = ({
     if (typeof source === "number") {
       setSource(source);
     } else if (typeof source === "string") {
-      Image.getSize(source)
-        .then(() => setSource({ uri: source }))
-        .catch(() => setError(true));
+      setSource({ uri: source });
+    } else if (source) {
+      setSource(source);
     } else if (placeholder) {
       setSource(placeholder);
     } else {

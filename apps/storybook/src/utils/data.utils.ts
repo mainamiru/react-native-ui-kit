@@ -101,35 +101,50 @@ export const navigations: NavLink[] = [
     description: "Radio component",
   },
   {
+    label: "SmartImage",
+    path: "/docs/smart-image",
+    description: "SmartImage component",
+  },
+  {
+    label: "Spinner",
+    path: "/docs/spinner",
+    description: "Spinner component",
+  },
+  {
     label: "Table",
     path: "/docs/table",
     description: "Table component",
     sections: [
       {
         label: "Table.Header",
-        path: "/table/header",
+        path: "/docs/table/header",
         description: "Table Header component",
       },
       {
         label: "Table.Body",
-        path: "/table/body",
+        path: "/docs/table/body",
         description: "Table Body component",
       },
       {
         label: "Table.Row",
-        path: "/table/row",
+        path: "/docs/table/row",
         description: "Table Row component",
       },
       {
         label: "Table.Title",
-        path: "/table/title",
+        path: "/docs/table/title",
         description: "Table Title component",
       },
       {
         label: "Table.Cell",
-        path: "/table/cell",
+        path: "/docs/table/cell",
         description: "Table Cell component",
       },
     ],
+  },
+  {
+    label: "TextInput",
+    path: "/docs/text-input",
+    description: "TextInput component",
   },
 ];
