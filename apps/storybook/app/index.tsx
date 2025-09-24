@@ -6,16 +6,24 @@ import { Text, View } from "react-native";
 
 const HomeScreen = () => {
   return (
-    <View style={{ flexDirection: "row", padding: 15, gap: 20 }}>
-      <FlexView>
+    <View
+      style={{
+        gap: 20,
+        flexWrap: "wrap",
+        flexDirection: "row",
+      }}
+    >
+      <FlexView padding={10} minWidth={250}>
         <Text>Home Screen</Text>
         <Button onPress={() => router.push("/docs")}>Get Started</Button>
       </FlexView>
-      <MobileView>
-        <View>
-          <Button onPress={() => router.push("/docs")}>Get Started</Button>
-        </View>
-      </MobileView>
+      <FlexView alignItems="center" minWidth={280}>
+        <MobileView>
+          <View>
+            <Button onPress={() => router.push("/docs")}>Get Started</Button>
+          </View>
+        </MobileView>
+      </FlexView>
     </View>
   );
 };

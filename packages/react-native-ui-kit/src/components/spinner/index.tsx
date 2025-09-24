@@ -56,7 +56,10 @@ export const Spinner = <T extends string | number>({
       <View
         style={[
           styles.highlight,
-          { height: itemHeight, top: (contentHeight - itemHeight) / 2 },
+          {
+            height: itemHeight,
+            top: (contentHeight - itemHeight) / 2,
+          },
         ]}
       />
       <FlatList
@@ -122,10 +125,10 @@ export const Spinner = <T extends string | number>({
 
 const styles = StyleSheet.create({
   highlight: {
-    position: "absolute",
     left: 0,
     right: 0,
     borderTopWidth: 1,
+    position: "absolute",
     borderBottomWidth: 1,
     borderTopColor: "gray",
     borderBottomColor: "gray",
