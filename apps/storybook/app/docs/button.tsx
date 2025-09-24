@@ -15,7 +15,7 @@ const MyComponent = () => (
   <FlexView flex={1} gap={15} justifyContent="center" padding={15}>
     <Button
       textColor="white"
-      variant="contained"
+      mode="contained"
       icon={({ size, color }) => (
         <MaterialIcons name="camera" size={size} color={color} />
       )}
@@ -25,7 +25,7 @@ const MyComponent = () => (
     </Button>
     <Button
       loading={true}
-      variant="text"
+      mode="text"
       icon={({ size, color }) => (
         <MaterialIcons name="camera" size={size} color={color} />
       )}
@@ -34,7 +34,7 @@ const MyComponent = () => (
       Loading
     </Button>
     <Button
-      variant="outlined"
+      mode="outlined"
       icon={({ size, color }) => (
         <MaterialIcons name="camera" size={size} color={color} />
       )}
@@ -48,12 +48,12 @@ const MyComponent = () => (
 export default MyComponent;
 `}
     props={{
-      variant: {
+      mode: {
         type: "text | contained | outlined",
         default: "contained",
         required: false,
         description:
-          "The variant of the button. Can be 'contained', 'outlined', or 'text'.",
+          "The mode of the button. Can be 'contained', 'outlined', or 'text'.",
       },
       textColor: {
         type: "ColorValue",
@@ -73,8 +73,8 @@ export default MyComponent;
   >
     <FlexView flex={1} gap={15} justifyContent="center" padding={15}>
       <Button
+        mode="contained"
         textColor="white"
-        variant="contained"
         icon={({ size, color }) => (
           <MaterialIcons name="camera" size={size} color={color} />
         )}
@@ -83,8 +83,8 @@ export default MyComponent;
         Contained
       </Button>
       <Button
+        mode="text"
         loading={true}
-        variant="text"
         icon={({ size, color }) => (
           <MaterialIcons name="camera" size={size} color={color} />
         )}
@@ -93,7 +93,8 @@ export default MyComponent;
         Loading
       </Button>
       <Button
-        variant="outlined"
+        mode="outlined"
+        textColor="black"
         icon={({ size, color }) => (
           <MaterialIcons name="camera" size={size} color={color} />
         )}

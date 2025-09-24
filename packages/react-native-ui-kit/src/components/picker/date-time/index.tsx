@@ -2,12 +2,16 @@ import * as React from "react";
 import { Platform, StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { useThemeColor } from "../../../hooks";
 import { BottomSheet, BottomSheetRef } from "../../bottom-sheet";
+import Button from "../../button";
 import { FlexView } from "../../flex-view";
 import { PickerSelectContext } from "../../picker/picker-context";
+import Row from "../../row";
 import { SidebarRef } from "../../sidebar";
+import { Tabs } from "../../tabs";
 import { Text } from "../../text";
 import TouchRipple from "../../touch-ripple";
 import DatePicker from "./date-picker";
+import TimePicker from "./time-picker";
 
 export interface DateTimePickerProps {
   label?: string;
@@ -108,7 +112,37 @@ const DateTimePicker = ({
         )}
       </View>
       <BottomSheet ref={bottomSheetRef} contentStyle={{ height: "50%" }}>
-        <DatePicker />
+        <FlexView>
+          <Tabs defaultValue="date">
+            <Tabs.Header>
+              <Tabs.Trigger value="date" style={{ flex: 1 }}>
+                Date
+              </Tabs.Trigger>
+              <Tabs.Trigger value="time" style={{ flex: 1 }}>
+                Time
+              </Tabs.Trigger>
+            </Tabs.Header>
+            <Tabs.Content value="date">
+              <DatePicker />
+            </Tabs.Content>
+            <Tabs.Content value="time">
+              <TimePicker />
+            </Tabs.Content>
+          </Tabs>
+        </FlexView>
+        <Row alignItems="center" width="100%" padding={10} gap={10}>
+          <Button
+            style={{ flex: 1 }}
+            mode="contained"
+            buttonColor="red"
+            textColor="white"
+          >
+            Cancel
+          </Button>
+          <Button style={{ flex: 1 }} mode="contained" textColor="white">
+            Done
+          </Button>
+        </Row>
       </BottomSheet>
     </PickerSelectContext.Provider>
   );

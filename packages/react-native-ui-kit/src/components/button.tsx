@@ -11,7 +11,7 @@ import {
 import Text from "./text";
 import TouchRipple from "./touch-ripple";
 
-export type ButtonVariant = "contained" | "outlined" | "text";
+export type ButtonMode = "contained" | "outlined" | "text";
 
 export interface ButtonIconProps {
   size: number;
@@ -22,11 +22,11 @@ export interface ButtonProps extends PressableProps {
   children: string;
   textColor?: string;
   loading?: boolean;
+  mode?: ButtonMode;
   buttonColor?: string;
-  variant?: ButtonVariant;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
-  buttonStyle?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
   icon?: (props: ButtonIconProps) => React.ReactNode;
 }
 
@@ -38,23 +38,25 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   textStyle,
   textColor,
-  buttonColor,
-  buttonStyle,
-  variant = "text",
+  buttonColor = "#645ff5",
+  containerStyle,
+  mode = "text",
   ...props
 }) => {
+  const backgroundColor = buttonColor;
   return (
     <TouchRipple
       {...props}
       disabled={disabled}
       style={[
         styles.base,
-        styles[variant],
-        buttonStyle,
+        styles[mode],
+        style,
+        mode === "contained" && { backgroundColor },
         disabled && styles.disabled,
       ]}
     >
-      <View style={[styles.container, style]}>
+      <View style={[styles.container, containerStyle]}>
         {loading ? (
           <ActivityIndicator size={16} color={textColor} />
         ) : (

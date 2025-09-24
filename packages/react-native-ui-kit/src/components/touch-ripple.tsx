@@ -9,75 +9,81 @@ import {
 } from "react-native";
 
 export interface TouchRippleProps extends PressableProps {
-  hoverColor?: string;
   children?: React.ReactNode;
-  style?: StyleProp<ViewStyle>;
+  /**
+   * Whether to use native driver for animation
+   */
+  useNativeDriver?: boolean;
+  /**
+   * Custom hover style using animated value
+   */
+  hoverStyle?: (
+    animatedValue: Animated.Value
+  ) => Animated.WithAnimatedObject<ViewStyle> | StyleProp<ViewStyle>;
 }
 
-const TouchRipple: React.FC<TouchRippleProps> = ({
+export const TouchRipple: React.FC<TouchRippleProps> = ({
   style,
   children,
-  onHoverOut,
   onHoverIn,
-  onPressOut,
+  onHoverOut,
   onPressIn,
-  hoverColor = "rgba(0,0,0,0.1)",
+  onPressOut,
+  hoverStyle,
+  useNativeDriver = false,
   ...props
 }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
   const animatedValue = React.useRef(new Animated.Value(0)).current;
 
-  // Animate the background color
-  React.useEffect(() => {
-    Animated.timing(animatedValue, {
-      toValue: isHovered ? 1 : 0,
-      duration: 250,
-      useNativeDriver: false,
-    }).start();
-  }, [isHovered]);
+  const animateTo = React.useCallback(
+    (toValue: number) => {
+      Animated.timing(animatedValue, {
+        toValue,
+        duration: 250,
+        useNativeDriver,
+      }).start();
+    },
+    [animatedValue, useNativeDriver]
+  );
 
-  // Interpolate the background color
-  const backgroundColor = React.useMemo(() => {
-    return animatedValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: ["transparent", hoverColor],
-    });
-  }, [isHovered, animatedValue, hoverColor]);
+  const handleIn = React.useCallback(
+    (event: any) => {
+      animateTo(1);
+      onHoverIn?.(event);
+      onPressIn?.(event);
+    },
+    [animateTo, onHoverIn, onPressIn]
+  );
 
-  // Handle hover events
-  const handleHoverIn = (event: any) => {
-    setIsHovered(true);
-    onHoverIn?.(event);
-    onPressIn?.(event);
-  };
+  const handleOut = React.useCallback(
+    (event: any) => {
+      animateTo(0);
+      onHoverOut?.(event);
+      onPressOut?.(event);
+    },
+    [animateTo, onHoverOut, onPressOut]
+  );
 
-  const handleHoverOut = (event: any) => {
-    setIsHovered(false);
-    onHoverOut?.(event);
-    onPressOut?.(event);
-  };
+  const backgroundColor = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["transparent", "rgba(0,0,0,0.1)"],
+  });
 
   return (
     <Pressable
       {...props}
-      onHoverIn={handleHoverIn}
-      onHoverOut={handleHoverOut}
-      onPressIn={handleHoverIn}
-      onPressOut={handleHoverOut}
-      style={[{ position: "relative" }, style]}
+      style={style}
+      onHoverIn={handleIn}
+      onHoverOut={handleOut}
+      onPressIn={handleIn}
+      onPressOut={handleOut}
     >
       <Animated.View
+        pointerEvents="none"
         style={[
-          StyleSheet.absoluteFillObject,
-          {
-            top: 0,
-            left: 0,
-            zIndex: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor,
-            position: "absolute",
-          },
+          StyleSheet.absoluteFill,
+          !hoverStyle && { backgroundColor },
+          hoverStyle?.(animatedValue),
         ]}
       />
       {children}

@@ -114,7 +114,6 @@ const PickerSelect = <T extends string | number>({
           {position === "bottom" ? (
             <Text style={{ color: placeholder }}>⌵</Text>
           ) : (
-            // <Text style={{ color: placeholder }}>⌵</Text>
             <Text
               style={{
                 color: placeholder,
