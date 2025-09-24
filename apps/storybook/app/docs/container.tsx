@@ -44,8 +44,12 @@ export default function App() {
     >
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: 16 }}>
         <Text>Hello World</Text>
-        <Button title="Toggle Loading" onPress={() => setLoading(!loading)} />
-        <Button title="Toggle Processing" onPress={() => setProcessing(!processing)} />
+        <Button mode="outlined" onPress={() => setLoading(!loading)}>
+          {loading ? "Stop Loading" : "Start Loading"}
+        </Button>
+        <Button mode="contained" onPress={() => setProcessing(!processing)}>
+          {processing ? "Stop Processing" : "Start Processing"}
+        </Button>
       </View>
     </Container>
   );

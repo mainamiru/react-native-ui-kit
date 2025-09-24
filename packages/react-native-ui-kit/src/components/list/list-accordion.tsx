@@ -1,11 +1,11 @@
 import * as React from "react";
 import {
   Animated,
+  GestureResponderEvent,
   ScrollView,
   StyleProp,
   StyleSheet,
   TextStyle,
-  TouchableOpacity,
   View,
   ViewStyle,
 } from "react-native";
@@ -13,6 +13,7 @@ import { Divider } from "../divider";
 import { FlexView } from "../flex-view";
 import { Row } from "../row";
 import { Text } from "../text";
+import TouchRipple from "../touch-ripple";
 
 export interface ListAccordionProps {
   title: string;
@@ -23,11 +24,13 @@ export interface ListAccordionProps {
   titleStyle?: StyleProp<TextStyle>;
   contentStyle?: StyleProp<ViewStyle>;
   descriptionStyle?: StyleProp<TextStyle>;
+  onPress?: (event: GestureResponderEvent) => void;
 }
 
 export const ListAccordion: React.FC<ListAccordionProps> = ({
   title,
   style,
+  onPress,
   children,
   titleStyle,
   description,
@@ -50,13 +53,14 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
   }, [isExpanded]);
 
   //toggle accordion
-  const toggleAccordion = () => {
+  const toggleAccordion = (e: GestureResponderEvent) => {
     Animated.timing(animatedHeight, {
       toValue: isExpanded ? 0 : contentHeight,
       duration: 200,
       useNativeDriver: false,
     }).start();
     setIsExpanded(!isExpanded);
+    onPress?.(e);
   };
 
   //handle content size change
@@ -73,7 +77,7 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
 
   return (
     <View style={[styles.container, style]}>
-      <TouchableOpacity onPress={toggleAccordion}>
+      <TouchRipple onPress={toggleAccordion}>
         <Row alignItems="center" padding={10}>
           <FlexView>
             <Text variant="titleMedium" style={titleStyle}>
@@ -85,7 +89,7 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
             ⌵
           </Animated.Text>
         </Row>
-      </TouchableOpacity>
+      </TouchRipple>
       {isExpanded && <Divider margin={0} />}
       <Animated.View
         style={{

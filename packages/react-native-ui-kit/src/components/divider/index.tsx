@@ -14,7 +14,7 @@ export interface DividerProps {
 
 export const Divider: React.FC<DividerProps> = ({
   style,
-  margin = 8,
+  margin = 0,
   thickness = 1,
   color = "#e0e0e0",
 }) => {

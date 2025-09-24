@@ -10,18 +10,6 @@ export const navigations: NavLink[] = [
     label: "Get Started",
     path: "/docs",
     description: "Get started with the app",
-    sections: [
-      {
-        label: "Installation",
-        path: "/docs/installation",
-        description: "Install the app",
-      },
-      {
-        label: "Usage",
-        path: "/docs/usage",
-        description: "Use the app",
-      },
-    ],
   },
   {
     label: "ActivityIndicator",
@@ -47,6 +35,18 @@ export const navigations: NavLink[] = [
     label: "Card",
     path: "/docs/card",
     description: "Card component",
+    sections: [
+      {
+        label: "Card.Content",
+        path: "/docs/card/content",
+        description: "Card Content component",
+      },
+      {
+        label: "Card.Image",
+        path: "/docs/card/image",
+        description: "Card Image component",
+      },
+    ],
   },
   {
     label: "Container",
@@ -54,13 +54,82 @@ export const navigations: NavLink[] = [
     description: "Container component",
   },
   {
+    label: "Divider",
+    path: "/docs/divider",
+    description: "Divider component",
+  },
+  {
     label: "FlexView",
     path: "/docs/flex-view",
     description: "FlexView component",
   },
   {
+    label: "SearchBar",
+    path: "/docs/searchbar",
+    description: "SearchBar component",
+  },
+  {
+    label: "KitIcon",
+    path: "/docs/kit-icon",
+    description: "KitIcon component",
+  },
+  {
+    label: "List",
+    path: "/docs/list",
+    description: "List component",
+    sections: [
+      {
+        label: "List.Item",
+        path: "/docs/list/item",
+        description: "List Item component",
+      },
+      {
+        label: "List.Accordion",
+        path: "/docs/list/accordion",
+        description: "List Accordion component",
+      },
+    ],
+  },
+  {
     label: "Picker",
     path: "/docs/picker",
     description: "Picker component",
+  },
+  {
+    label: "Radio",
+    path: "/docs/radio",
+    description: "Radio component",
+  },
+  {
+    label: "Table",
+    path: "/docs/table",
+    description: "Table component",
+    sections: [
+      {
+        label: "Table.Header",
+        path: "/table/header",
+        description: "Table Header component",
+      },
+      {
+        label: "Table.Body",
+        path: "/table/body",
+        description: "Table Body component",
+      },
+      {
+        label: "Table.Row",
+        path: "/table/row",
+        description: "Table Row component",
+      },
+      {
+        label: "Table.Title",
+        path: "/table/title",
+        description: "Table Title component",
+      },
+      {
+        label: "Table.Cell",
+        path: "/table/cell",
+        description: "Table Cell component",
+      },
+    ],
   },
 ];

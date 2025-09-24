@@ -15,7 +15,7 @@ import TouchRipple from "../touch-ripple";
 
 export interface SpinnerProps<T = string | number> {
   data: T[];
-  label: string;
+  label?: string;
   itemHeight?: number;
   initialIndex?: number;
   style?: StyleProp<ViewStyle>;
@@ -75,16 +75,18 @@ export const Spinner = <T extends string | number>({
 
   return (
     <View style={style}>
-      <Text
-        numberOfLines={1}
-        style={{
-          padding: 10,
-          fontWeight: "bold",
-          textAlign: "center",
-        }}
-      >
-        {label}
-      </Text>
+      {label && (
+        <Text
+          numberOfLines={1}
+          style={{
+            padding: 10,
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          {label}
+        </Text>
+      )}
       <Divider margin={0} />
       <View
         style={[

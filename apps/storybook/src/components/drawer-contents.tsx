@@ -1,32 +1,70 @@
 import { Entypo } from "@expo/vector-icons";
 import { List } from "@mainamiru/react-native-ui-kit";
-import { Href, Link, usePathname } from "expo-router";
+import { Href, Link, router, usePathname } from "expo-router";
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { navigations } from "../utils/data.utils";
 
 export const DrawerContents = () => {
   const pathName = usePathname();
+  const { height } = useWindowDimensions();
   return (
-    <SafeAreaView style={{ flex: 1, position: "relative" }}>
+    <SafeAreaView style={{ height }}>
       <FlatList
         data={navigations}
+        scrollEnabled={true}
         keyExtractor={(item) => item.path}
         renderItem={({ item }) => {
           const isActive = pathName === item.path;
+          if (item.sections?.length) {
+            return (
+              <List.Accordion
+                expanded={isActive}
+                title={item.label}
+                onPress={() => router.push(item.path as Href)}
+                style={{
+                  width: "100%",
+                  borderWidth: 0,
+                  borderRadius: 0,
+                  backgroundColor: isActive ? "#f5f5f5" : "transparent",
+                }}
+                contentStyle={{ padding: 0 }}
+                description={item.description}
+              >
+                {item.sections?.map((section) => (
+                  <Link
+                    asChild={true}
+                    key={section.path}
+                    href={section.path as Href}
+                    style={{
+                      backgroundColor: isActive ? "#f5f5f5" : "transparent",
+                    }}
+                  >
+                    <List.Item
+                      title={section.label}
+                      description={section.description}
+                      right={() => (
+                        <Entypo
+                          size={20}
+                          color="darkblue"
+                          name="chevron-with-circle-right"
+                        />
+                      )}
+                    />
+                  </Link>
+                ))}
+              </List.Accordion>
+            );
+          }
           return (
             <Link
               asChild={true}
               href={item.path as Href}
-              style={{
-                padding: 10,
-                backgroundColor: isActive ? "#f5f5f5" : "transparent",
-              }}
+              style={{ backgroundColor: isActive ? "#f5f5f5" : "transparent" }}
             >
               <List.Item
                 title={item.label}
-                style={{ width: "100%" }}
                 description={item.description}
                 right={() => (
                   <Entypo

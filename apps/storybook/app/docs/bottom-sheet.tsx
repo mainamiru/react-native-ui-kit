@@ -27,7 +27,15 @@ export default function App() {
     <View>
       <Button onPress={() => sheetRef.current?.open()}>Open Bottom Sheet</Button>
 
-      <BottomSheet ref={sheetRef} onClose={() => console.log("Closed")}>
+      <BottomSheet
+        ref={sheetRef}
+        onClose={() => console.log("Closed")}
+        anchor={({ open }) => (
+          <Button mode="outlined" onPress={open}>
+            Anchor
+          </Button>
+        )}
+      >
         <View style={{ padding: 20, gap: 12 }}>
           <Text variant="titleMedium">Hello Bottom Sheet!</Text>
           <Button onPress={() => sheetRef.current?.close()}>Close</Button>
@@ -37,6 +45,11 @@ export default function App() {
   );
 }`}
       props={{
+        anchor: {
+          type: "() => React.ReactNode",
+          required: false,
+          description: "Custom anchor component for the sheet.",
+        },
         open: {
           type: "boolean",
           required: false,
@@ -82,7 +95,15 @@ export default function App() {
         <Button mode="contained" onPress={() => sheetRef.current?.open()}>
           Open Bottom Sheet
         </Button>
-        <BottomSheet ref={sheetRef} onClose={() => console.log("Closed")}>
+        <BottomSheet
+          ref={sheetRef}
+          onClose={() => console.log("Closed")}
+          anchor={({ open }) => (
+            <Button mode="outlined" onPress={open}>
+              Anchor
+            </Button>
+          )}
+        >
           <View style={{ padding: 20, gap: 12 }}>
             <Text variant="titleMedium">Hello Bottom Sheet!</Text>
             <Text variant="bodyMedium">
