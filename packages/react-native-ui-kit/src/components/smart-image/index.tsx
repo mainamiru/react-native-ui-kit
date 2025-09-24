@@ -10,14 +10,14 @@ import { assets } from "../../utils";
 export interface SmartImageProps {
   style?: StyleProp<ImageStyle>;
   placeholder?: ImageSourcePropType;
-  source: string | number | null | undefined | ImageSourcePropType;
+  source: string | null | undefined | ImageSourcePropType;
   resizeMode?: "cover" | "contain" | "stretch" | "repeat" | "center";
   fadeDuration?: number;
 }
 
 export const SmartImage: React.FC<SmartImageProps> = ({
-  source,
   style,
+  source,
   placeholder,
   resizeMode = "cover",
   fadeDuration = 300,
