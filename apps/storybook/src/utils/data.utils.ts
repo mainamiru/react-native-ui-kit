@@ -24,9 +24,39 @@ export const navigations: NavLink[] = [
     ],
   },
   {
+    label: "ActivityIndicator",
+    path: "/docs/activity-indicator",
+    description: "ActivityIndicator component",
+  },
+  {
+    label: "Badge",
+    path: "/docs/badge",
+    description: "Badge component",
+  },
+  {
+    label: "BottomSheet",
+    path: "/docs/bottom-sheet",
+    description: "BottomSheet component",
+  },
+  {
     label: "Button",
     path: "/docs/button",
     description: "Button component",
+  },
+  {
+    label: "Card",
+    path: "/docs/card",
+    description: "Card component",
+  },
+  {
+    label: "Container",
+    path: "/docs/container",
+    description: "Container component",
+  },
+  {
+    label: "FlexView",
+    path: "/docs/flex-view",
+    description: "FlexView component",
   },
   {
     label: "Picker",

@@ -58,7 +58,7 @@ export const DocsViewer = ({
             </FlexView>
             {children && (
               <FlexView padding={15} minWidth={300} alignItems="center">
-                <MobileView>{children}</MobileView>
+                <MobileView style={{ padding: 10 }}>{children}</MobileView>
               </FlexView>
             )}
           </Row>

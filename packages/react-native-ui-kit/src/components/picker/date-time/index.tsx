@@ -111,7 +111,12 @@ const DateTimePicker = ({
           <Text style={[{ color: "grey" }, helperTextStyle]}>{helperText}</Text>
         )}
       </View>
-      <BottomSheet ref={bottomSheetRef} contentStyle={{ height: "50%" }}>
+      <BottomSheet
+        ref={bottomSheetRef}
+        closeOnPressBack={false}
+        closeOnPressBackdrop={false}
+        contentStyle={{ height: "50%" }}
+      >
         <FlexView>
           <Tabs defaultValue="date">
             <Tabs.Header>
@@ -136,10 +141,16 @@ const DateTimePicker = ({
             mode="contained"
             buttonColor="red"
             textColor="white"
+            onPress={() => bottomSheetRef.current?.close()}
           >
             Cancel
           </Button>
-          <Button style={{ flex: 1 }} mode="contained" textColor="white">
+          <Button
+            style={{ flex: 1 }}
+            mode="contained"
+            textColor="white"
+            onPress={() => bottomSheetRef.current?.close()}
+          >
             Done
           </Button>
         </Row>

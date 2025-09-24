@@ -71,7 +71,7 @@ export default MyComponent;
       },
     }}
   >
-    <FlexView flex={1} gap={15} justifyContent="center" padding={15}>
+    <FlexView flex={1} gap={15} justifyContent="center">
       <Button
         mode="contained"
         textColor="white"

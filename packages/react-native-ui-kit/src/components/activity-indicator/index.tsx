@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Animated, Easing, View } from "react-native";
+import { Animated, Easing, Platform, View } from "react-native";
 
 export interface ActivityIndicatorProps {
   size?: number;
@@ -13,14 +13,13 @@ export const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({
   const bars = Array.from({ length: 12 });
   const progress = React.useRef(new Animated.Value(0)).current;
 
-  //handle animation
   React.useEffect(() => {
     const loop = Animated.loop(
       Animated.timing(progress, {
         toValue: 1,
         duration: 1000,
         easing: Easing.linear,
-        useNativeDriver: true,
+        useNativeDriver: Platform.OS !== "web", // ✅ Fix for web
       })
     );
     loop.start();
@@ -38,7 +37,6 @@ export const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({
       }}
     >
       {bars.map((_, i) => {
-        // instead of sharp single highlight, give each bar a wider fade curve
         const inputRange = [
           (i - 2) / bars.length,
           (i - 1) / bars.length,
