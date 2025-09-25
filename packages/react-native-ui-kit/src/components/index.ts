@@ -31,3 +31,4 @@ export * from "./text";
 export * from "./text-input";
 export * from "./toaster";
 export * from "./touch-ripple";
+export * from "./typography";

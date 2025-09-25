@@ -37,6 +37,11 @@ export const navigations: NavLink[] = [
     description: "Card component",
   },
   {
+    label: "Code",
+    path: "/docs/code",
+    description: "Code component",
+  },
+  {
     label: "Container",
     path: "/docs/container",
     description: "Container component",
@@ -100,5 +105,20 @@ export const navigations: NavLink[] = [
     label: "Switch",
     path: "/docs/switch",
     description: "Switch component",
+  },
+  {
+    label: "Toaster",
+    path: "/docs/toaster",
+    description: "Toaster component",
+  },
+  {
+    label: "TouchRipple",
+    path: "/docs/touch-ripple",
+    description: "TouchRipple component",
+  },
+  {
+    label: "Typography",
+    path: "/docs/typography",
+    description: "Typography component",
   },
 ];

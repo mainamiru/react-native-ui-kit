@@ -45,6 +45,7 @@ const DocsLayout = () => {
       <Drawer.Screen name="badge" options={{ title: "Badge" }} />
       <Drawer.Screen name="button" options={{ title: "Button" }} />
       <Drawer.Screen name="card" options={{ title: "Card" }} />
+      <Drawer.Screen name="code" options={{ title: "Code" }} />
       <Drawer.Screen name="divider" options={{ title: "Divider" }} />
       <Drawer.Screen name="list" options={{ title: "List" }} />
       <Drawer.Screen name="picker" options={{ title: "Picker" }} />
@@ -55,6 +56,7 @@ const DocsLayout = () => {
       <Drawer.Screen name="spinner" options={{ title: "Spinner" }} />
       <Drawer.Screen name="table" options={{ title: "Table" }} />
       <Drawer.Screen name="text-input" options={{ title: "Text Input" }} />
+      <Drawer.Screen name="typography" options={{ title: "Typography" }} />
       <Drawer.Screen name="smart-image" options={{ title: "Smart Image" }} />
     </Drawer>
   );
