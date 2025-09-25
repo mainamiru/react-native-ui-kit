@@ -43,8 +43,10 @@ const DocsLayout = () => {
       />
       <Drawer.Screen name="bottom-sheet" options={{ title: "Bottom Sheet" }} />
       <Drawer.Screen name="badge" options={{ title: "Badge" }} />
+      <Drawer.Screen name="container" options={{ title: "Container" }} />
       <Drawer.Screen name="button" options={{ title: "Button" }} />
       <Drawer.Screen name="card" options={{ title: "Card" }} />
+      <Drawer.Screen name="checkbox" options={{ title: "Checkbox" }} />
       <Drawer.Screen name="code" options={{ title: "Code" }} />
       <Drawer.Screen name="divider" options={{ title: "Divider" }} />
       <Drawer.Screen name="list" options={{ title: "List" }} />
@@ -55,8 +57,10 @@ const DocsLayout = () => {
       <Drawer.Screen name="toaster" options={{ title: "Toaster" }} />
       <Drawer.Screen name="spinner" options={{ title: "Spinner" }} />
       <Drawer.Screen name="table" options={{ title: "Table" }} />
+      <Drawer.Screen name="tabs" options={{ title: "Tabs" }} />
       <Drawer.Screen name="text-input" options={{ title: "Text Input" }} />
       <Drawer.Screen name="typography" options={{ title: "Typography" }} />
+      <Drawer.Screen name="touch-ripple" options={{ title: "Touch Ripple" }} />
       <Drawer.Screen name="smart-image" options={{ title: "Smart Image" }} />
     </Drawer>
   );

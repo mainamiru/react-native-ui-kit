@@ -37,6 +37,11 @@ export const navigations: NavLink[] = [
     description: "Card component",
   },
   {
+    label: "Checkbox",
+    path: "/docs/checkbox",
+    description: "Checkbox component",
+  },
+  {
     label: "Code",
     path: "/docs/code",
     description: "Code component",
@@ -105,6 +110,11 @@ export const navigations: NavLink[] = [
     label: "Switch",
     path: "/docs/switch",
     description: "Switch component",
+  },
+  {
+    label: "Tabs",
+    path: "/docs/tabs",
+    description: "Tabs component",
   },
   {
     label: "Toaster",

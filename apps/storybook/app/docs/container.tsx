@@ -9,16 +9,18 @@ const ContainerDocsScreen = () => {
 
   React.useEffect(() => {
     if (!isLoading) return;
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
+    return () => clearTimeout(timeout);
   }, [isLoading]);
 
   React.useEffect(() => {
     if (!isProcessing) return;
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsProcessing(false);
     }, 2000);
+    return () => clearTimeout(timeout);
   }, [isProcessing]);
 
   return (
@@ -102,7 +104,7 @@ export default function App() {
         isLoading={isLoading}
         indicatorColor="#007AFF"
         isProcessing={isProcessing}
-        style={{ gap: 16, borderRadius: 16 }}
+        style={{ gap: 16, borderRadius: 16, padding: 10 }}
         onRequestClose={() => setIsProcessing(false)}
       >
         <View style={{ gap: 12 }}>
@@ -112,7 +114,7 @@ export default function App() {
             action.
           </Text>
         </View>
-        <View style={{ flexDirection: "row", gap: 12 }}>
+        <View style={{ gap: 12 }}>
           <Button
             mode="contained"
             onPress={() => setIsLoading((prev) => !prev)}

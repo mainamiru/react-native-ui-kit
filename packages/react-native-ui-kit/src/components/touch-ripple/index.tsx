@@ -66,7 +66,7 @@ export const TouchRipple: React.FC<TouchRippleProps> = ({
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ["transparent", "rgba(0,0,0,0.1)"],
+    outputRange: ["transparent", "rgba(226, 210, 210, 0.3)"],
   });
 
   return (

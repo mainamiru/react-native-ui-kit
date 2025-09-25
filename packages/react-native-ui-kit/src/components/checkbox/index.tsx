@@ -15,7 +15,7 @@ import {
   Text,
   ViewStyle,
 } from "react-native";
-import { assets } from "../utils";
+import { assets } from "../../utils";
 
 export type CheckboxStatus = "checked" | "unchecked" | "indeterminate";
 
