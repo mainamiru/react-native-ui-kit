@@ -47,7 +47,7 @@ export default function App() {
       },
     }}
   >
-    <View style={{ gap: 12 }}>
+    <View style={{ gap: 12, padding: 10 }}>
       <Text variant="titleMedium">Profile</Text>
       <Text variant="bodyMedium">Account Details</Text>
       <Divider />

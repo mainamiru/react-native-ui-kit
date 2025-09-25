@@ -52,8 +52,8 @@ export const DrawerContents = () => {
                       right={() => (
                         <Entypo
                           size={20}
-                          color="darkblue"
                           name="chevron-with-circle-right"
+                          color={theme.dark ? "white" : "black"}
                         />
                       )}
                     />
@@ -76,8 +76,8 @@ export const DrawerContents = () => {
                 right={() => (
                   <Entypo
                     size={20}
-                    color="darkblue"
                     name="chevron-with-circle-right"
+                    color={theme.dark ? "white" : "black"}
                   />
                 )}
               />

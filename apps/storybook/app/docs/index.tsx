@@ -1,10 +1,12 @@
+import { useTheme } from "@/hooks";
 import { Code, Container, Tabs, Text } from "@mainamiru/react-native-ui-kit";
 import React from "react";
 import { ScrollView, View } from "react-native";
 
 const Index = () => {
+  const { theme } = useTheme();
   return (
-    <Container style={{ flex: 1, backgroundColor: "#fff" }}>
+    <Container style={{ flex: 1, backgroundColor: theme.colors.card }}>
       <ScrollView contentContainerStyle={{ padding: 20, gap: 20 }}>
         <Text variant="titleLarge" style={{ fontSize: 30 }}>
           Installation
