@@ -13,42 +13,28 @@ export interface AvatarImageProps {
   placeholderSource?: ImageSourcePropType;
 }
 
-const AvatarImage = ({
-  size,
+const AvatarImage: React.FC<AvatarImageProps> = ({
   style,
   source,
+  size = 60,
   placeholderSource,
-}: AvatarImageProps) => {
+}) => {
   const [error, setError] = React.useState(false);
 
-  if (error && placeholderSource !== undefined) {
-    return (
-      <Image
-        style={[
-          style,
-          {
-            width: size,
-            height: size,
-            overflow: "hidden",
-            borderRadius: size / 2,
-          },
-        ]}
-        source={placeholderSource}
-      />
-    );
-  }
+  const imageStyle: StyleProp<ImageStyle> = [
+    {
+      width: size,
+      height: size,
+      borderRadius: size / 2,
+      overflow: "hidden" as const,
+    },
+    style,
+  ];
+
   return (
     <Image
-      style={[
-        style,
-        {
-          width: size,
-          height: size,
-          overflow: "hidden",
-          borderRadius: size / 2,
-        },
-      ]}
-      source={source}
+      source={error && placeholderSource ? placeholderSource : source}
+      style={imageStyle}
       onError={() => setError(true)}
     />
   );

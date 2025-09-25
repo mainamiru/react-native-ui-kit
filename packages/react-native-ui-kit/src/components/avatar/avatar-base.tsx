@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
+import {
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 import SmartImage from "../smart-image";
 
 export type AvatarSize = "sm" | "md" | "lg" | number;
@@ -11,7 +18,7 @@ export type AvatarProps = {
   style?: ViewStyle;
   textStyle?: TextStyle;
   backgroundColor?: string;
-  source?: string | null | number;
+  source: string | null | ImageSourcePropType;
 };
 
 const SIZE_MAP = {

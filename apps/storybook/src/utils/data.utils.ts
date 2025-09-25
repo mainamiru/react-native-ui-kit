@@ -17,6 +17,23 @@ export const navigations: NavLink[] = [
     description: "ActivityIndicator component",
   },
   {
+    label: "Avatar",
+    path: "/docs/avatar",
+    description: "Avatar component",
+    sections: [
+      {
+        label: "Avatar.Text",
+        path: "/docs/avatar/text",
+        description: "Avatar.Text component",
+      },
+      {
+        label: "Avatar.Image",
+        path: "/docs/avatar/image",
+        description: "Avatar.Image component",
+      },
+    ],
+  },
+  {
     label: "Badge",
     path: "/docs/badge",
     description: "Badge component",

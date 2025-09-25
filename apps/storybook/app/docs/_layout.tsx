@@ -41,6 +41,9 @@ const DocsLayout = () => {
         name="activity-indicator"
         options={{ title: "Activity Indicator" }}
       />
+      <Drawer.Screen name="avatar/index" options={{ title: "Avatar" }} />
+      <Drawer.Screen name="avatar/image" options={{ title: "Avatar.Image" }} />
+      <Drawer.Screen name="avatar/text" options={{ title: "Avatar.Text" }} />
       <Drawer.Screen name="bottom-sheet" options={{ title: "Bottom Sheet" }} />
       <Drawer.Screen name="badge" options={{ title: "Badge" }} />
       <Drawer.Screen name="container" options={{ title: "Container" }} />
