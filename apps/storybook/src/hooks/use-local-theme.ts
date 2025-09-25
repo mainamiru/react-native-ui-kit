@@ -16,6 +16,13 @@ export function useLocalTheme() {
   } else if (value === "dark") {
     theme = DarkTheme;
   }
+  const toggleTheme = () => {
+    if (value === "light") {
+      setValue("dark");
+    } else {
+      setValue("light");
+    }
+  };
 
-  return { theme, isLoading, setTheme: setValue } as const;
+  return { theme, isLoading, toggleTheme } as const;
 }

@@ -1,5 +1,6 @@
 import { DrawerContents } from "@/components";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useTheme } from "@/hooks";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Row } from "@mainamiru/react-native-ui-kit";
 import { Drawer } from "expo-router/drawer";
 import React from "react";
@@ -8,6 +9,7 @@ import { useWindowDimensions } from "react-native";
 const DocsLayout = () => {
   const { width } = useWindowDimensions();
   const isDesktop = width >= 1024;
+  const { theme, toggleTheme } = useTheme();
   return (
     <Drawer
       drawerContent={(props: any) => <DrawerContents {...props} />}
@@ -23,15 +25,11 @@ const DocsLayout = () => {
         },
         headerRight: ({ tintColor }) => (
           <Row gap={10} alignItems="center" marginRight={15}>
-            <MaterialCommunityIcons
+            <MaterialIcons
               size={24}
               color={tintColor}
-              name="bell-outline"
-            />
-            <MaterialCommunityIcons
-              size={24}
-              color={tintColor}
-              name="theme-light-dark"
+              name={theme.dark ? "light-mode" : "dark-mode"}
+              onPress={() => toggleTheme()}
             />
             <MaterialCommunityIcons name="github" size={24} color={tintColor} />
           </Row>
@@ -47,11 +45,11 @@ const DocsLayout = () => {
       <Drawer.Screen name="badge" options={{ title: "Badge" }} />
       <Drawer.Screen name="button" options={{ title: "Button" }} />
       <Drawer.Screen name="card" options={{ title: "Card" }} />
-      <Drawer.Screen name="checkbox" options={{ title: "Checkbox" }} />
+      {/* <Drawer.Screen name="checkbox" options={{ title: "Checkbox" }} /> */}
       <Drawer.Screen name="picker" options={{ title: "Picker" }} />
       <Drawer.Screen name="radio" options={{ title: "Radio" }} />
       <Drawer.Screen name="switch" options={{ title: "Switch" }} />
-      <Drawer.Screen name="tab-bar" options={{ title: "Tab Bar" }} />
+      {/* <Drawer.Screen name="tab-bar" options={{ title: "Tab Bar" }} /> */}
       <Drawer.Screen name="toaster" options={{ title: "Toaster" }} />
     </Drawer>
   );

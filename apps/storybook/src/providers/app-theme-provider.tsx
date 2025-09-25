@@ -1,4 +1,4 @@
-import { ThemeScheme, useLocalTheme } from "@/hooks";
+import { useLocalTheme } from "@/hooks";
 import {
   Container,
   DarkTheme,
@@ -14,21 +14,20 @@ export interface AppThemeProviderProps {
 
 export interface AppThemeProviderState {
   theme: Theme;
-  setTheme: (scheme: ThemeScheme) => void;
+  toggleTheme: () => void;
 }
 
 export const AppThemeProviderContext =
   React.createContext<AppThemeProviderState>({
     theme: DefaultTheme,
-    setTheme: () => {},
+    toggleTheme: () => {},
   });
 
 export const AppThemeProvider = ({ children }: AppThemeProviderProps) => {
-  const { theme, isLoading, setTheme } = useLocalTheme();
-  const isDark = theme.dark;
-  const uiKitTheme = isDark ? DarkTheme : DefaultThemeUIKit;
+  const { theme, isLoading, toggleTheme } = useLocalTheme();
+  const uiKitTheme = theme.dark ? DarkTheme : DefaultThemeUIKit;
   return (
-    <AppThemeProviderContext.Provider value={{ theme, setTheme }}>
+    <AppThemeProviderContext.Provider value={{ theme, toggleTheme }}>
       <Container isLoading={isLoading}>
         <ThemeProvider value={theme}>
           <ReactNativeUIKitProvider

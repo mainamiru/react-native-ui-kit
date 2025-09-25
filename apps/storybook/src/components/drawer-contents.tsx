@@ -10,8 +10,8 @@ import { navigations } from "../utils/data.utils";
 export const DrawerContents = () => {
   const pathName = usePathname();
   const { height } = useWindowDimensions();
-  const { colors } = useTheme();
-  const activeBackground = colors.card;
+  const { theme } = useTheme();
+  const activeBackground = theme.colors.card;
   return (
     <SafeAreaView style={{ height }}>
       <FlatList

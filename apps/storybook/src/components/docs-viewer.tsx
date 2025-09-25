@@ -44,9 +44,9 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
   exampleCode,
   description,
 }) => {
-  const { colors } = useTheme();
+  const { theme } = useTheme();
   return (
-    <Container style={{ flex: 1, backgroundColor: colors.card }}>
+    <Container style={{ flex: 1, backgroundColor: theme.colors.card }}>
       <ScrollView
         contentContainerStyle={{ padding: 15, gap: 15 }}
         showsVerticalScrollIndicator={false}
@@ -75,7 +75,9 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
             </FlexView>
             {children && (
               <FlexView padding={15} minWidth={300} alignItems="center">
-                <MobileView style={style}>{children}</MobileView>
+                <MobileView style={style} isDarkMode={theme.dark}>
+                  {children}
+                </MobileView>
               </FlexView>
             )}
           </Row>

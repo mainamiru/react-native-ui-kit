@@ -4,21 +4,29 @@ import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
 export interface MobileViewProps {
   width?: number;
+  isDarkMode?: boolean;
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
-  backgroundColor?: string;
 }
 
 export function MobileView({
   style,
   children,
   width = 250,
-  backgroundColor = "white",
+  isDarkMode = false,
 }: MobileViewProps) {
+  const textColor = isDarkMode ? "white" : "black";
+  const backgroundColor = isDarkMode ? "black" : "white";
   return (
     <View style={[styles.frame, { width, backgroundColor }]}>
       <View style={styles.header}>
-        <Text style={{ fontSize: 10, fontWeight: "500" }}>
+        <Text
+          style={{
+            fontSize: 10,
+            fontWeight: "500",
+            color: textColor,
+          }}
+        >
           {format(new Date(), "hh:mm a")}
         </Text>
         <View style={styles.cameraLens}>
@@ -32,9 +40,13 @@ export function MobileView({
           />
         </View>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-          <MaterialCommunityIcons name="wifi" size={14} />
-          <MaterialCommunityIcons name="battery-70" size={14} />
-          <Text style={{ fontSize: 10 }}>70%</Text>
+          <MaterialCommunityIcons name="wifi" size={14} color={textColor} />
+          <MaterialCommunityIcons
+            size={14}
+            color={textColor}
+            name="battery-70"
+          />
+          <Text style={{ fontSize: 10, color: textColor }}>70%</Text>
         </View>
       </View>
       <View style={[styles.container, style]}>{children}</View>
@@ -66,7 +78,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     flexDirection: "row",
     alignItems: "center",
-    borderBottomColor: "#e4eaeb",
+    borderBottomColor: "lightpink",
     justifyContent: "space-between",
   },
   bottomTab: {
