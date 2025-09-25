@@ -21,6 +21,16 @@ export function MobileView({
         <Text style={{ fontSize: 10, fontWeight: "500" }}>
           {format(new Date(), "hh:mm a")}
         </Text>
+        <View style={styles.cameraLens}>
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              backgroundColor: "#4c5c75",
+            }}
+          />
+        </View>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
           <MaterialCommunityIcons name="wifi" size={14} />
           <MaterialCommunityIcons name="battery-70" size={14} />
@@ -28,14 +38,7 @@ export function MobileView({
         </View>
       </View>
       <View style={[styles.container, style]}>{children}</View>
-      <View style={styles.bottomTab}>
-        <MaterialCommunityIcons
-          name="triangle-down-outline"
-          style={{ transform: [{ rotate: "90deg" }] }}
-        />
-        <MaterialCommunityIcons name="circle-outline" />
-        <MaterialCommunityIcons name="square-outline" />
-      </View>
+      <View style={styles.bottomTab} />
     </View>
   );
 }
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
     aspectRatio: 8 / 16,
     borderWidth: 10,
     borderRadius: 30,
-    borderColor: "black",
+    borderColor: "#222426",
     overflow: "hidden",
     backgroundColor: "white",
     shadowColor: "#000",
@@ -67,11 +70,25 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   bottomTab: {
-    padding: 10,
-    borderTopWidth: 1,
-    flexDirection: "row",
+    height: 5,
+    bottom: 10,
+    zIndex: 10,
+    width: 80,
+    left: "50%",
+    borderRadius: 5,
+    position: "absolute",
+    backgroundColor: "#222426",
+    transform: [{ translateX: -40 }],
+  },
+  cameraLens: {
+    width: 20,
+    height: 20,
+    left: "50%",
+    borderRadius: 10,
+    position: "absolute",
     alignItems: "center",
-    borderTopColor: "#e4eaeb",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    backgroundColor: "#222426",
+    // transform: [{ translateX: -10 }],
   },
 });

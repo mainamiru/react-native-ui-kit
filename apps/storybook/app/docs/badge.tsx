@@ -47,7 +47,14 @@ export default function App() {
       },
     }}
   >
-    <View style={{ gap: 12, flexDirection: "row" }}>
+    <View
+      style={{
+        gap: 12,
+        padding: 10,
+        flexDirection: "row",
+        justifyContent: "center",
+      }}
+    >
       <Badge>New</Badge>
       <Badge backgroundColor="#34C759">Active</Badge>
       <Badge backgroundColor="#FF3B30" color="#fff">

@@ -17,6 +17,7 @@ export interface SpinnerProps<T = string | number> {
   data: T[];
   label?: string;
   itemHeight?: number;
+  scrollable?: boolean;
   initialIndex?: number;
   style?: StyleProp<ViewStyle>;
   onChange?: (value: T) => void;
@@ -28,6 +29,7 @@ export const Spinner = <T extends string | number>({
   label,
   style,
   onChange,
+  scrollable,
   itemHeight = 50,
   initialIndex = 0,
   visibleItems = 3,
@@ -113,6 +115,7 @@ export const Spinner = <T extends string | number>({
           decelerationRate="fast"
           snapToAlignment="center"
           onScroll={handleScroll}
+          scrollEnabled={scrollable}
           snapToInterval={itemHeight}
           initialScrollIndex={initialIndex}
           showsVerticalScrollIndicator={false}

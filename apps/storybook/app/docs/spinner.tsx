@@ -73,6 +73,7 @@ export default function App() {
         <Spinner
           data={years}
           initialIndex={5}
+          scrollable={false}
           onChange={(value) => setSelectedYear(Number(value))}
           style={{ width: 120 }}
         />
