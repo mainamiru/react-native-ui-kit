@@ -52,7 +52,7 @@ const loadIconModule = () => {
     } catch {
       try {
         return require("react-native-vector-icons/EvilIcons").default;
-      } catch (err) {
+      } catch {
         return null;
       }
     }
@@ -98,35 +98,3 @@ const FallbackIcon = ({ name, color, size, ...rest }: IconProps) => {
 };
 
 export const EvilIcons: IconModuleType = IconModule || FallbackIcon;
-
-/**
- * Default icon component that handles icon rendering with proper styling and accessibility
- */
-const DefaultIcon = ({
-  name,
-  color,
-  size,
-  testID,
-  direction,
-  allowFontScaling,
-}: IconProps) => {
-  return (
-    <EvilIcons
-      name={name}
-      size={size}
-      color={color}
-      allowFontScaling={allowFontScaling}
-      style={{
-        lineHeight: size,
-        backgroundColor: "transparent",
-        transform: [{ scaleX: direction === "rtl" ? -1 : 1 }],
-      }}
-      pointerEvents="none"
-      selectable={false}
-      testID={testID}
-      {...accessibilityProps}
-    />
-  );
-};
-
-export default DefaultIcon;
