@@ -1,4 +1,3 @@
-import { useLocalTheme } from "@/hooks";
 import {
   Container,
   DarkTheme,
@@ -7,6 +6,7 @@ import {
 } from "@mainamiru/react-native-ui-kit";
 import { DefaultTheme, Theme, ThemeProvider } from "@react-navigation/native";
 import React from "react";
+import { useLocalTheme } from "../hooks/use-local-theme";
 
 export interface AppThemeProviderProps {
   children: React.ReactNode;

@@ -1,4 +1,3 @@
-import { MobileView } from "@/mobile";
 import {
   Avatar,
   Badge,
@@ -9,224 +8,219 @@ import {
 } from "@mainamiru/react-native-ui-kit";
 import { router } from "expo-router";
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomeScreen = () => {
+  const { height } = useWindowDimensions();
   return (
-    <ScrollView style={styles.container}>
-      {/* Hero Section */}
-      <View style={styles.heroSection}>
-        <Text style={styles.heroTitle}>React Native UI Kit</Text>
-        <Text style={styles.heroSubtitle}>
-          Accelerate your mobile app development with prebuilt, customizable
-          components
-        </Text>
-        <Text style={styles.heroDescription}>
-          A complete design system with TypeScript support, modern aesthetics,
-          and seamless integration
-        </Text>
-        <View style={styles.heroActions}>
-          <Button
-            onPress={() => router.push("/docs")}
-            style={styles.primaryButton}
-            mode="contained"
-          >
-            View Components
-          </Button>
-          <Button
-            onPress={() => router.push("/docs")}
-            mode="outlined"
-            style={styles.secondaryButton}
-          >
-            Get Started
-          </Button>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={{ height }}>
+        {/* Hero Section */}
+        <View style={styles.heroSection}>
+          <Text style={styles.heroTitle}>React Native UI Kit</Text>
+          <Text style={styles.heroSubtitle}>
+            Accelerate your mobile app development with prebuilt, customizable
+            components
+          </Text>
+          <Text style={styles.heroDescription}>
+            A complete design system with TypeScript support, modern aesthetics,
+            and seamless integration
+          </Text>
+          <View style={styles.heroActions}>
+            <Button
+              onPress={() => router.push("/docs")}
+              style={styles.primaryButton}
+              mode="contained"
+            >
+              View Components
+            </Button>
+            <Button
+              onPress={() => router.push("/docs")}
+              mode="outlined"
+              style={styles.secondaryButton}
+            >
+              Get Started
+            </Button>
+          </View>
         </View>
-      </View>
 
-      {/* Component Showcase */}
-      <View style={styles.showcaseSection}>
-        <Text style={styles.sectionTitle}>Featured Components</Text>
-        <Text style={styles.sectionSubtitle}>
-          Explore our comprehensive collection of UI components
-        </Text>
+        {/* Component Showcase */}
+        <View style={styles.showcaseSection}>
+          <Text style={styles.sectionTitle}>Featured Components</Text>
+          <Text style={styles.sectionSubtitle}>
+            Explore our comprehensive collection of UI components
+          </Text>
 
-        <View style={styles.showcaseGrid}>
-          {/* Button Showcase */}
-          <Card style={styles.showcaseCard}>
-            <Card.Content>
-              <View style={styles.componentDemo}>
-                <Text style={styles.componentTitle}>Buttons</Text>
-                <View style={styles.buttonRow}>
-                  <Button mode="text">Default</Button>
-                  <Button mode="contained">Contained</Button>
-                  <Button mode="outlined">Outlined</Button>
+          <View style={styles.showcaseGrid}>
+            {/* Button Showcase */}
+            <Card style={styles.showcaseCard}>
+              <Card.Content>
+                <View style={styles.componentDemo}>
+                  <Text style={styles.componentTitle}>Buttons</Text>
+                  <View style={styles.buttonRow}>
+                    <Button mode="text">Default</Button>
+                    <Button mode="contained">Contained</Button>
+                    <Button mode="outlined">Outlined</Button>
+                  </View>
+                  <View style={styles.buttonRow}>
+                    <Button mode="text" disabled>
+                      Disabled
+                    </Button>
+                    <Button mode="contained" buttonColor="#10B981">
+                      Success
+                    </Button>
+                  </View>
                 </View>
-                <View style={styles.buttonRow}>
-                  <Button mode="text" disabled>
-                    Disabled
-                  </Button>
-                  <Button mode="contained" buttonColor="#10B981">
-                    Success
-                  </Button>
-                </View>
-              </View>
-            </Card.Content>
-          </Card>
+              </Card.Content>
+            </Card>
 
-          {/* Avatar Showcase */}
-          <Card style={styles.showcaseCard}>
-            <Card.Content>
-              <View style={styles.componentDemo}>
-                <Text style={styles.componentTitle}>Avatars</Text>
-                <Row gap={10} alignItems="center" justifyContent="center">
-                  <Avatar fallback="JD" />
-                  <Avatar fallback="AB" />
-                  <Avatar fallback="XY" />
-                </Row>
-                <View style={{ marginTop: 10 }}>
+            {/* Avatar Showcase */}
+            <Card style={styles.showcaseCard}>
+              <Card.Content>
+                <View style={styles.componentDemo}>
+                  <Text style={styles.componentTitle}>Avatars</Text>
                   <Row gap={10} alignItems="center" justifyContent="center">
-                    <Avatar source="https://via.placeholder.com/48" />
-                    <Avatar fallback="?" backgroundColor="#4F46E5" />
+                    <Avatar fallback="JD" />
+                    <Avatar fallback="AB" />
+                    <Avatar fallback="XY" />
                   </Row>
+                  <View style={{ marginTop: 10 }}>
+                    <Row gap={10} alignItems="center" justifyContent="center">
+                      <Avatar source="https://via.placeholder.com/48" />
+                      <Avatar fallback="?" backgroundColor="#4F46E5" />
+                    </Row>
+                  </View>
                 </View>
-              </View>
-            </Card.Content>
-          </Card>
+              </Card.Content>
+            </Card>
 
-          {/* Badge Showcase */}
-          <Card style={styles.showcaseCard}>
-            <Card.Content>
-              <View style={styles.componentDemo}>
-                <Text style={styles.componentTitle}>Badges</Text>
-                <Row
-                  gap={8}
-                  alignItems="center"
-                  justifyContent="center"
-                  flexWrap="wrap"
-                >
-                  <Badge>Default</Badge>
-                  <Badge backgroundColor="#10B981">Success</Badge>
-                  <Badge backgroundColor="#F59E0B">Warning</Badge>
-                  <Badge backgroundColor="#EF4444">Error</Badge>
-                </Row>
-                <View style={{ marginTop: 10 }}>
+            {/* Badge Showcase */}
+            <Card style={styles.showcaseCard}>
+              <Card.Content>
+                <View style={styles.componentDemo}>
+                  <Text style={styles.componentTitle}>Badges</Text>
                   <Row
                     gap={8}
                     alignItems="center"
                     justifyContent="center"
                     flexWrap="wrap"
                   >
-                    <Badge backgroundColor="#6B7280" color="#fff">
-                      Gray
-                    </Badge>
-                    <Badge backgroundColor="#8B5CF6" color="#fff">
-                      Purple
-                    </Badge>
+                    <Badge>Default</Badge>
+                    <Badge backgroundColor="#10B981">Success</Badge>
+                    <Badge backgroundColor="#F59E0B">Warning</Badge>
+                    <Badge backgroundColor="#EF4444">Error</Badge>
                   </Row>
+                  <View style={{ marginTop: 10 }}>
+                    <Row
+                      gap={8}
+                      alignItems="center"
+                      justifyContent="center"
+                      flexWrap="wrap"
+                    >
+                      <Badge backgroundColor="#6B7280" color="#fff">
+                        Gray
+                      </Badge>
+                      <Badge backgroundColor="#8B5CF6" color="#fff">
+                        Purple
+                      </Badge>
+                    </Row>
+                  </View>
                 </View>
-              </View>
-            </Card.Content>
-          </Card>
+              </Card.Content>
+            </Card>
 
-          {/* Card Showcase */}
-          <Card style={styles.showcaseCard}>
-            <Card.Content>
-              <View style={styles.componentDemo}>
-                <Text style={styles.componentTitle}>Cards</Text>
-                <Card style={styles.nestedCard}>
-                  <Card.Content>
-                    <Text style={styles.cardTitle}>Sample Card</Text>
-                    <Text style={styles.cardDescription}>
-                      This is an example of a nested card component with content
-                    </Text>
-                  </Card.Content>
-                </Card>
-              </View>
-            </Card.Content>
-          </Card>
-        </View>
-      </View>
-
-      {/* Features Section */}
-      <View style={styles.featuresSection}>
-        <Text style={styles.sectionTitle}>Why Choose Our UI Kit?</Text>
-        <View style={styles.featuresGrid}>
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>⚡</Text>
-            <Text style={styles.featureTitle}>Fast Development</Text>
-            <Text style={styles.featureDescription}>
-              Prebuilt components accelerate your development process
-            </Text>
-          </View>
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>🎨</Text>
-            <Text style={styles.featureTitle}>Modern Design</Text>
-            <Text style={styles.featureDescription}>
-              Clean, modern aesthetics that follow design best practices
-            </Text>
-          </View>
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>📱</Text>
-            <Text style={styles.featureTitle}>Responsive</Text>
-            <Text style={styles.featureDescription}>
-              Optimized for all screen sizes and device types
-            </Text>
-          </View>
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>🔧</Text>
-            <Text style={styles.featureTitle}>Customizable</Text>
-            <Text style={styles.featureDescription}>
-              Easily customize components to match your brand
-            </Text>
-          </View>
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>📚</Text>
-            <Text style={styles.featureTitle}>TypeScript</Text>
-            <Text style={styles.featureDescription}>
-              Full TypeScript support for better development experience
-            </Text>
-          </View>
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>🚀</Text>
-            <Text style={styles.featureTitle}>Production Ready</Text>
-            <Text style={styles.featureDescription}>
-              Battle-tested components ready for production apps
-            </Text>
+            {/* Card Showcase */}
+            <Card style={styles.showcaseCard}>
+              <Card.Content>
+                <View style={styles.componentDemo}>
+                  <Text style={styles.componentTitle}>Cards</Text>
+                  <Card style={styles.nestedCard}>
+                    <Card.Content>
+                      <Text style={styles.cardTitle}>Sample Card</Text>
+                      <Text style={styles.cardDescription}>
+                        This is an example of a nested card component with
+                        content
+                      </Text>
+                    </Card.Content>
+                  </Card>
+                </View>
+              </Card.Content>
+            </Card>
           </View>
         </View>
-      </View>
 
-      {/* CTA Section */}
-      <View style={styles.ctaSection}>
-        <Text style={styles.ctaTitle}>Ready to Get Started?</Text>
-        <Text style={styles.ctaDescription}>
-          Explore our comprehensive documentation and start building amazing
-          apps
-        </Text>
-        <Button
-          onPress={() => router.push("/docs")}
-          style={styles.ctaButton}
-          mode="contained"
-        >
-          Browse Documentation
-        </Button>
-      </View>
-
-      {/* Mobile View */}
-      <View style={styles.mobileViewSection}>
-        <MobileView>
-          <View style={styles.mobileContent}>
-            <Text style={styles.mobileTitle}>Mobile Preview</Text>
-            <Text style={styles.mobileDescription}>
-              See how components look on mobile devices
-            </Text>
-            <Button onPress={() => router.push("/docs")} mode="text">
-              View Docs
-            </Button>
+        {/* Features Section */}
+        <View style={styles.featuresSection}>
+          <Text style={styles.sectionTitle}>Why Choose Our UI Kit?</Text>
+          <View style={styles.featuresGrid}>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>⚡</Text>
+              <Text style={styles.featureTitle}>Fast Development</Text>
+              <Text style={styles.featureDescription}>
+                Prebuilt components accelerate your development process
+              </Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>🎨</Text>
+              <Text style={styles.featureTitle}>Modern Design</Text>
+              <Text style={styles.featureDescription}>
+                Clean, modern aesthetics that follow design best practices
+              </Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>📱</Text>
+              <Text style={styles.featureTitle}>Responsive</Text>
+              <Text style={styles.featureDescription}>
+                Optimized for all screen sizes and device types
+              </Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>🔧</Text>
+              <Text style={styles.featureTitle}>Customizable</Text>
+              <Text style={styles.featureDescription}>
+                Easily customize components to match your brand
+              </Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>📚</Text>
+              <Text style={styles.featureTitle}>TypeScript</Text>
+              <Text style={styles.featureDescription}>
+                Full TypeScript support for better development experience
+              </Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>🚀</Text>
+              <Text style={styles.featureTitle}>Production Ready</Text>
+              <Text style={styles.featureDescription}>
+                Battle-tested components ready for production apps
+              </Text>
+            </View>
           </View>
-        </MobileView>
-      </View>
-    </ScrollView>
+        </View>
+
+        {/* CTA Section */}
+        <View style={styles.ctaSection}>
+          <Text style={styles.ctaTitle}>Ready to Get Started?</Text>
+          <Text style={styles.ctaDescription}>
+            Explore our comprehensive documentation and start building amazing
+            apps
+          </Text>
+          <Button
+            onPress={() => router.push("/docs")}
+            style={styles.ctaButton}
+            mode="contained"
+          >
+            Browse Documentation
+          </Button>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

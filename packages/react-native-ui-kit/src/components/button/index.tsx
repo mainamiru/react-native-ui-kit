@@ -59,7 +59,7 @@ export const Button: React.FC<ButtonProps> = ({
     } else if (mode === "outlined") {
       return text;
     }
-  }, [mode, textColor, buttonColor, text]);
+  }, [mode, textColor, buttonColor, text, primary]);
 
   return (
     <TouchRipple
