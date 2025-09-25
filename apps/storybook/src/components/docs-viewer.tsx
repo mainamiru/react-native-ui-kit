@@ -9,6 +9,7 @@ import {
   Table,
   Text,
 } from "@mainamiru/react-native-ui-kit";
+import Head from "expo-router/head";
 import React from "react";
 import {
   ScrollView,
@@ -46,111 +47,117 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
 }) => {
   const { theme } = useTheme();
   return (
-    <Container style={{ flex: 1, backgroundColor: theme.colors.card }}>
-      <ScrollView
-        contentContainerStyle={{ padding: 15, gap: 15 }}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* Title + Description */}
-        <Text variant="titleLarge" style={{ fontSize: 40 }}>
-          {title}
-        </Text>
-        {description && <Text variant="bodyLarge">{description}</Text>}
+    <>
+      <Head>
+        <title>{`${title} | React Native UI Kit`}</title>
+        <meta name="description" content={description} />
+      </Head>
+      <Container style={{ flex: 1, backgroundColor: theme.colors.card }}>
+        <ScrollView
+          contentContainerStyle={{ padding: 15, gap: 15 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Title + Description */}
+          <Text variant="titleLarge" style={{ fontSize: 40 }}>
+            {title}
+          </Text>
+          {description && <Text variant="bodyLarge">{description}</Text>}
 
-        {/* Usage + Example */}
-        <View style={{ gap: 15 }}>
-          {(usage || exampleCode) && (
-            <Text variant="titleLarge" style={{ fontSize: 30 }}>
-              Usage
-            </Text>
-          )}
-          {usage && <Text variant="bodyLarge">{usage}</Text>}
-          <Row flexWrap="wrap">
-            <FlexView style={{ minWidth: 300, flex: 2 }}>
-              <Code
-                textColor="#000"
-                code={exampleCode}
-                backgroundColor="#f5f5f5"
-              />
-            </FlexView>
-            {children && (
-              <FlexView
-                style={{
-                  padding: 15,
-                  minWidth: 300,
-                  alignItems: "center",
-                }}
-              >
-                <MobileView style={style} isDarkMode={theme.dark}>
-                  {children}
-                </MobileView>
-              </FlexView>
-            )}
-          </Row>
-        </View>
-
-        {/* Props Table */}
-        {props && (
-          <Layout>
-            <Layout.SmallView>
-              <Text style={styles.sectionTitle}>Props</Text>
-              {Object.entries(props).map(([name, details]) => (
-                <View key={name} style={styles.propRow}>
-                  <Text style={styles.propName}>{name}</Text>
-                  <Text style={styles.propDetails}>
-                    {details.type}{" "}
-                    {details.required ? "(required)" : "(optional)"}
-                    {details.default ? ` | default: ${details.default}` : ""}
-                  </Text>
-                  <Text style={styles.propDescription}>
-                    {details.description}
-                  </Text>
-                </View>
-              ))}
-            </Layout.SmallView>
-            <Layout.View
-              modes={["md", "lg", "xlg"]}
-              style={{ padding: 10, gap: 15 }}
-            >
+          {/* Usage + Example */}
+          <View style={{ gap: 15 }}>
+            {(usage || exampleCode) && (
               <Text variant="titleLarge" style={{ fontSize: 30 }}>
-                Props
+                Usage
               </Text>
-              <Text variant="bodyLarge">
-                The {title} component accepts the following props:
-              </Text>
-              <Table>
-                <Table.Header>
-                  <Table.Title>Prop</Table.Title>
-                  <Table.Title>Type</Table.Title>
-                  <Table.Title>Required</Table.Title>
-                  <Table.Title>Default</Table.Title>
-                  <Table.Title colsSpan={2}>Description</Table.Title>
-                </Table.Header>
-                <Table.Body>
-                  {Object.entries(props).map(([name, prop]) => (
-                    <Table.Row key={name}>
-                      <Table.Cell>{name}</Table.Cell>
-                      <Table.Cell style={{ justifyContent: "center" }}>
-                        {prop.type}
-                      </Table.Cell>
-                      <Table.Cell style={{ justifyContent: "center" }}>
-                        {prop.required ? "Yes" : "No"}
-                      </Table.Cell>
-                      <Table.Cell style={{ justifyContent: "center" }}>
-                        {prop.default || "-"}
-                      </Table.Cell>
-                      <Table.Cell colsSpan={2}>
-                        {prop.description || "-"}
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
-            </Layout.View>
-          </Layout>
-        )}
-      </ScrollView>
-    </Container>
+            )}
+            {usage && <Text variant="bodyLarge">{usage}</Text>}
+            <Row flexWrap="wrap">
+              <FlexView style={{ minWidth: 300, flex: 2 }}>
+                <Code
+                  textColor="#000"
+                  code={exampleCode}
+                  backgroundColor="#f5f5f5"
+                />
+              </FlexView>
+              {children && (
+                <FlexView
+                  style={{
+                    padding: 15,
+                    minWidth: 300,
+                    alignItems: "center",
+                  }}
+                >
+                  <MobileView style={style} isDarkMode={theme.dark}>
+                    {children}
+                  </MobileView>
+                </FlexView>
+              )}
+            </Row>
+          </View>
+
+          {/* Props Table */}
+          {props && (
+            <Layout>
+              <Layout.SmallView>
+                <Text style={styles.sectionTitle}>Props</Text>
+                {Object.entries(props).map(([name, details]) => (
+                  <View key={name} style={styles.propRow}>
+                    <Text style={styles.propName}>{name}</Text>
+                    <Text style={styles.propDetails}>
+                      {details.type}{" "}
+                      {details.required ? "(required)" : "(optional)"}
+                      {details.default ? ` | default: ${details.default}` : ""}
+                    </Text>
+                    <Text style={styles.propDescription}>
+                      {details.description}
+                    </Text>
+                  </View>
+                ))}
+              </Layout.SmallView>
+              <Layout.View
+                modes={["md", "lg", "xlg"]}
+                style={{ padding: 10, gap: 15 }}
+              >
+                <Text variant="titleLarge" style={{ fontSize: 30 }}>
+                  Props
+                </Text>
+                <Text variant="bodyLarge">
+                  The {title} component accepts the following props:
+                </Text>
+                <Table>
+                  <Table.Header>
+                    <Table.Title>Prop</Table.Title>
+                    <Table.Title>Type</Table.Title>
+                    <Table.Title>Required</Table.Title>
+                    <Table.Title>Default</Table.Title>
+                    <Table.Title colsSpan={2}>Description</Table.Title>
+                  </Table.Header>
+                  <Table.Body>
+                    {Object.entries(props).map(([name, prop]) => (
+                      <Table.Row key={name}>
+                        <Table.Cell>{name}</Table.Cell>
+                        <Table.Cell style={{ justifyContent: "center" }}>
+                          {prop.type}
+                        </Table.Cell>
+                        <Table.Cell style={{ justifyContent: "center" }}>
+                          {prop.required ? "Yes" : "No"}
+                        </Table.Cell>
+                        <Table.Cell style={{ justifyContent: "center" }}>
+                          {prop.default || "-"}
+                        </Table.Cell>
+                        <Table.Cell colsSpan={2}>
+                          {prop.description || "-"}
+                        </Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </Table.Body>
+                </Table>
+              </Layout.View>
+            </Layout>
+          )}
+        </ScrollView>
+      </Container>
+    </>
   );
 };
 
