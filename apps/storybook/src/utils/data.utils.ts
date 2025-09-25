@@ -174,4 +174,9 @@ export const navigations: NavLink[] = [
     path: "/docs/text-input",
     description: "TextInput component",
   },
+  {
+    label: "Switch",
+    path: "/docs/switch",
+    description: "Switch component",
+  },
 ];

@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import Text from "../text";
 import TouchRipple, { TouchRippleProps } from "../touch-ripple";
 
 export interface ListItemProps extends TouchRippleProps {
@@ -25,8 +26,8 @@ const ListItem: React.FC<ListItemProps> = ({
   description,
   containerStyle,
   descriptionStyle,
-  titleNumberOfLines = 1,
-  descriptionNumberOfLines = 2,
+  titleNumberOfLines = 2,
+  descriptionNumberOfLines = 1,
   ...props
 }) => {
   return (
@@ -48,15 +49,17 @@ const ListItem: React.FC<ListItemProps> = ({
         {left && left()}
         <View style={[{ flex: 1 }, containerStyle]}>
           <Text
+            style={titleStyle}
+            variant="titleMedium"
             numberOfLines={titleNumberOfLines}
-            style={[{ fontSize: 16, fontWeight: "500" }, titleStyle]}
           >
             {title}
           </Text>
           {description && (
             <Text
+              variant="bodyMedium"
+              style={descriptionStyle}
               numberOfLines={descriptionNumberOfLines}
-              style={[{ fontSize: 14, color: "gray" }, descriptionStyle]}
             >
               {description}
             </Text>

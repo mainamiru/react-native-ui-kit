@@ -18,7 +18,7 @@ import {
   ViewStyle,
 } from "react-native";
 
-export type SwitchSize = "sm" | "md" | "lg";
+export type SwitchSize = "sm" | "md" | "lg" | number;
 
 export type SwitchProps = {
   value?: boolean; // controlled
@@ -68,25 +68,21 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
     isControlled ? (controlledValue as boolean) : defaultValue
   );
 
-  // Sync controlled prop -> state
   useEffect(() => {
     if (isControlled) {
       setInternalValue(controlledValue as boolean);
     }
   }, [controlledValue, isControlled]);
 
-  // sizes
-  const dims = SIZE_MAP[size] ?? SIZE_MAP.md;
+  const dims = SIZE_MAP[size] ?? size;
   const trackWidth = dims.width;
   const trackHeight = dims.height;
   const thumbSize = dims.thumb;
   const padding = dims.padding;
   const travel = trackWidth - thumbSize - padding * 2;
 
-  // Animated value: 0 -> off, 1 -> on
   const anim = useRef(new Animated.Value(internalValue ? 1 : 0)).current;
 
-  // Animate when internalValue changes
   useEffect(() => {
     Animated.timing(anim, {
       toValue: internalValue ? 1 : 0,
@@ -96,36 +92,33 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
     }).start();
   }, [anim, internalValue]);
 
-  // Derived animated styles
   const translateX = anim.interpolate({
     inputRange: [0, 1],
     outputRange: [0, travel],
   });
 
-  const interpolatedTrackColor = anim.interpolate({
+  // ✅ proper color fade
+  const inactiveOpacity = anim.interpolate({
     inputRange: [0, 1],
-    outputRange: [inactiveTrackColor, activeTrackColor],
+    outputRange: [1, 0],
+  });
+  const activeOpacity = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
   });
 
-  // handle toggle
   const setValueInternal = useCallback(
     (next: boolean) => {
       if (!isControlled) setInternalValue(next);
-      try {
-        onValueChange?.(next);
-      } catch {
-        /* swallow */
-      }
+      onValueChange?.(next);
     },
     [isControlled, onValueChange]
   );
 
   const toggle = useCallback(() => {
-    if (disabled) return;
-    setValueInternal(!internalValue);
+    if (!disabled) setValueInternal(!internalValue);
   }, [disabled, internalValue, setValueInternal]);
 
-  // expose imperative ref
   useImperativeHandle(
     ref,
     () => ({
@@ -137,29 +130,29 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
     [toggle, internalValue, isControlled, controlledValue]
   );
 
-  const onPressHandler = () => {
-    toggle();
+  // ✅ allow keyboard toggle on web
+  const handleKeyPress = (e: any) => {
+    if (e.nativeEvent.key === "Enter" || e.nativeEvent.key === " ") {
+      e.preventDefault();
+      toggle();
+    }
   };
 
-  // Accessibility role
-  const role: AccessibilityRole = Platform.OS === "web" ? "switch" : "button";
-
-  // PanResponder for drag
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => !disabled,
       onStartShouldSetPanResponder: () => !disabled,
       onPanResponderMove: (_, gesture: PanResponderGestureState) => {
-        const ratio = Math.min(Math.max(gesture.dx / travel, 0), 1);
-        anim.setValue(internalValue ? 1 + ratio : ratio);
+        const ratio = Math.min(Math.max(gesture.dx / travel, -1), 1);
+        const base = internalValue ? 1 : 0;
+        anim.setValue(Math.min(Math.max(base + ratio, 0), 1));
       },
       onPanResponderRelease: (_, gesture: PanResponderGestureState) => {
-        const shouldToggle = gesture.dx > travel / 2;
-        const next = shouldToggle ? true : false;
+        const movedRatio = gesture.dx / travel;
+        const next = movedRatio + (internalValue ? 1 : 0) >= 0.5;
         setValueInternal(next);
       },
       onPanResponderTerminate: () => {
-        // snap back if gesture cancelled
         Animated.timing(anim, {
           toValue: internalValue ? 1 : 0,
           duration: ANIM_DURATION,
@@ -170,42 +163,51 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
     })
   ).current;
 
-  // Styles
   const containerStyle: ViewStyle = {
     width: trackWidth,
     height: trackHeight,
     borderRadius: trackHeight / 2,
-    padding: padding,
+    padding,
     justifyContent: "center",
   };
+
+  const role: AccessibilityRole = "switch";
 
   return (
     <Pressable
       testID={testID}
       disabled={disabled}
-      onPress={onPressHandler}
+      onPress={toggle}
       accessibilityRole={role}
       accessibilityLabel={accessibilityLabel}
       style={[{ alignSelf: "flex-start" }, style]}
       accessibilityState={{ disabled, checked: internalValue }}
     >
-      <Animated.View
-        style={[
-          containerStyle,
-          { overflow: "hidden" },
-          { backgroundColor: undefined, transform: [] },
-        ]}
-      >
-        {/* Animated track color overlay */}
+      <Animated.View style={[containerStyle, { overflow: "hidden" }]}>
+        {/* track layers */}
         <Animated.View
           style={[
             StyleSheet.absoluteFill,
             {
               borderRadius: trackHeight / 2,
-              backgroundColor: interpolatedTrackColor,
+              backgroundColor: inactiveTrackColor,
+              opacity: inactiveOpacity,
             },
           ]}
         />
+        <Animated.View
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              opacity: activeOpacity,
+              borderRadius: trackHeight / 2,
+              backgroundColor: activeTrackColor,
+            },
+            disabled && { backgroundColor: "grey" },
+          ]}
+        />
+
+        {/* thumb */}
         <Animated.View
           {...panResponder.panHandlers}
           style={[

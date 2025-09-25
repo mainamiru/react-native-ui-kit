@@ -99,7 +99,7 @@ export default function App() {
         },
       }}
     >
-      <View style={{ gap: 16 }}>
+      <View style={{ gap: 16, padding: 10 }}>
         <TextInput
           label="Email"
           placeholder="Enter your email"
