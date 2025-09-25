@@ -66,7 +66,7 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
           )}
           {usage && <Text variant="bodyLarge">{usage}</Text>}
           <Row flexWrap="wrap">
-            <FlexView minWidth={300} flex={2}>
+            <FlexView style={{ minWidth: 300, flex: 2 }}>
               <Code
                 textColor="#000"
                 code={exampleCode}
@@ -74,7 +74,13 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
               />
             </FlexView>
             {children && (
-              <FlexView padding={15} minWidth={300} alignItems="center">
+              <FlexView
+                style={{
+                  padding: 15,
+                  minWidth: 300,
+                  alignItems: "center",
+                }}
+              >
                 <MobileView style={style} isDarkMode={theme.dark}>
                   {children}
                 </MobileView>

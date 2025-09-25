@@ -90,7 +90,7 @@ const DateTimePicker = ({
             inputStyle,
           ]}
         >
-          <FlexView justifyContent="center">
+          <FlexView style={{ justifyContent: "center" }}>
             {value ? (
               <Text
                 numberOfLines={1}

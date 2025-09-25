@@ -45,7 +45,7 @@ const LoginScreen = () => {
         <Text variant="titleLarge">Stocky</Text>
         <Text variant="bodyMedium">Login to your account</Text>
       </Center>
-      <FlexView gap={15} padding={10}>
+      <FlexView style={{ gap: 15, padding: 10 }}>
         <TextInput
           ref={emailRef}
           label="Email"
@@ -92,7 +92,7 @@ const LoginScreen = () => {
             </Text>
           </FlexView>
         </Row>
-        <Button buttonStyle={{ marginTop: 10 }} onPress={handleSignIn}>
+        <Button style={{ marginTop: 10 }} onPress={handleSignIn}>
           Sign In
         </Button>
         <Center paddingVertical={20}>

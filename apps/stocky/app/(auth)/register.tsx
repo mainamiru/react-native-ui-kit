@@ -1,4 +1,4 @@
-import { createEmployee } from "@/actions";
+import { createProfile } from "@/actions";
 import { auth } from "@/firebase";
 import MaterialIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import {
@@ -39,7 +39,7 @@ const RegisterScreen = () => {
   // handle sign in
   const { mutateAsync: handleSignUp, isPending } = useMutation({
     onSuccess: () => {
-      router.replace("/(main)/index");
+      router.replace("/(main)/a/(tabs)");
       toast.success("User created successfully");
     },
     mutationFn: async () => {
@@ -50,16 +50,16 @@ const RegisterScreen = () => {
           password
         );
         await updateProfile(user, { displayName: name });
-        return await createEmployee({
+        return await createProfile({
           name,
           email,
-          role: "admin",
           active: true,
           address: null,
           phone: phone,
-          salaryAmount: 0,
           userId: user.uid,
-          salaryType: "monthly",
+          role: "admin",
+          avatar: null,
+          managerId: null,
         });
       } else {
         throw new Error("Please fill all details to continue");
@@ -75,7 +75,7 @@ const RegisterScreen = () => {
           <Text variant="titleLarge">Stocky</Text>
           <Text variant="bodyMedium">Create your account</Text>
         </Center>
-        <FlexView gap={10} padding={10}>
+        <FlexView style={{ gap: 10, padding: 10 }}>
           <TextInput
             ref={nameRef}
             label="Name"
@@ -146,7 +146,7 @@ const RegisterScreen = () => {
             </FlexView>
           </Row>
           <Button
-            buttonStyle={{ marginTop: 10 }}
+            style={{ marginTop: 10 }}
             onPress={() => {
               handleSignUp().catch((error) => {
                 toast.error(error.message);
