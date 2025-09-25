@@ -49,7 +49,7 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
   return (
     <>
       <Head>
-        <title>{`${title} | React Native UI Kit`}</title>
+        <title>{`${title} | React Native UI Kit – Ready-Made Components for Fast App Development`}</title>
         <meta name="description" content={description} />
       </Head>
       <Container style={{ flex: 1, backgroundColor: theme.colors.card }}>
