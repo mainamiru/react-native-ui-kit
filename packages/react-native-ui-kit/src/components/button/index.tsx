@@ -72,7 +72,7 @@ export const Button: React.FC<ButtonProps> = ({
         mode === "contained" && {
           backgroundColor: buttonColor || primary,
         },
-        mode === "outlined" && { borderColor: buttonColor },
+        mode === "outlined" && { borderColor: buttonColor || primary },
         disabled && styles.disabled,
       ]}
     >

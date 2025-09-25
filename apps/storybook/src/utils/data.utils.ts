@@ -87,6 +87,11 @@ export const navigations: NavLink[] = [
     description: "Radio component",
   },
   {
+    label: "Text",
+    path: "/docs/text",
+    description: "Text component",
+  },
+  {
     label: "SmartImage",
     path: "/docs/smart-image",
     description: "SmartImage component",
@@ -95,6 +100,11 @@ export const navigations: NavLink[] = [
     label: "Spinner",
     path: "/docs/spinner",
     description: "Spinner component",
+  },
+  {
+    label: "Sidebar",
+    path: "/docs/sidebar",
+    description: "Sidebar component",
   },
   {
     label: "Table",

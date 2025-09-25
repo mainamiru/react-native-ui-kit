@@ -91,7 +91,7 @@ export default function App() {
         },
       }}
     >
-      <View style={{ gap: 16 }}>
+      <View style={{ gap: 16, padding: 10 }}>
         <Button mode="contained" onPress={() => sheetRef.current?.open()}>
           Open Bottom Sheet
         </Button>
@@ -105,7 +105,9 @@ export default function App() {
           )}
         >
           <View style={{ padding: 20, gap: 12 }}>
-            <Text variant="titleMedium">Hello Bottom Sheet!</Text>
+            <Text variant="titleMedium" style={{ color: "black" }}>
+              Hello Bottom Sheet!
+            </Text>
             <Text variant="bodyMedium">
               This bottom sheet is controlled with a ref. Tap the button below
               to hide it.

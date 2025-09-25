@@ -58,6 +58,7 @@ const DocsLayout = () => {
       <Drawer.Screen name="spinner" options={{ title: "Spinner" }} />
       <Drawer.Screen name="table" options={{ title: "Table" }} />
       <Drawer.Screen name="tabs" options={{ title: "Tabs" }} />
+      <Drawer.Screen name="text" options={{ title: "Text" }} />
       <Drawer.Screen name="text-input" options={{ title: "Text Input" }} />
       <Drawer.Screen name="typography" options={{ title: "Typography" }} />
       <Drawer.Screen name="touch-ripple" options={{ title: "Touch Ripple" }} />

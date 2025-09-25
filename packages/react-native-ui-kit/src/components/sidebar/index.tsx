@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import {
   Animated,
-  Dimensions,
   Modal,
   Pressable,
   StyleProp,
@@ -38,20 +37,17 @@ export type SidebarRef = {
   isOpen: () => boolean;
 };
 
-// default width = 80% of screen
-const SCREEN_WIDTH = Dimensions.get("window").width;
-
 export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
   const {
     style,
     children,
+    width = 300,
     onOpenChange,
     type = "default",
     position = "left",
     defaultOpen = false,
     open: controlledOpen,
     animationDuration = 250,
-    width = SCREEN_WIDTH * 0.8,
     backdropColor = "rgba(0,0,0,0.4)",
   } = props;
 
