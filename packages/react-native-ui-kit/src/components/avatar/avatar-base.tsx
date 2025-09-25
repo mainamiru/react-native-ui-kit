@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
-import { SmartImage } from "./smart-image";
+import SmartImage from "../smart-image";
 
 export type AvatarSize = "sm" | "md" | "lg" | number;
 
@@ -20,7 +20,7 @@ const SIZE_MAP = {
   lg: 64,
 };
 
-export const Avatar: React.FC<AvatarProps> = ({
+const AvatarBase: React.FC<AvatarProps> = ({
   style,
   source,
   testID,
@@ -86,7 +86,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   );
 };
 
-Avatar.displayName = "Avatar";
+AvatarBase.displayName = "AvatarBase";
 
 const styles = StyleSheet.create({
   fallbackContainer: {
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Avatar;
+export default AvatarBase;
