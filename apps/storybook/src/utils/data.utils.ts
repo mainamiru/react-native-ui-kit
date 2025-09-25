@@ -79,6 +79,11 @@ export const navigations: NavLink[] = [
     description: "FlexView component",
   },
   {
+    label: "Icon",
+    path: "/docs/icon",
+    description: "Icon component",
+  },
+  {
     label: "SearchBar",
     path: "/docs/searchbar",
     description: "SearchBar component",
@@ -162,5 +167,15 @@ export const navigations: NavLink[] = [
     label: "Typography",
     path: "/docs/typography",
     description: "Typography component",
+  },
+  {
+    label: "Portal",
+    path: "/docs/portal",
+    description: "Portal component",
+  },
+  {
+    label: "Tooltip",
+    path: "/docs/tooltip",
+    description: "Tooltip component",
   },
 ];

@@ -2,8 +2,8 @@ import React, { ReactNode } from "react";
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
 export interface BadgeProps {
-  children: ReactNode;
   color?: string;
+  children: ReactNode;
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;
 }

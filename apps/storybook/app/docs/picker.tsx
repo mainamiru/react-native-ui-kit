@@ -26,12 +26,6 @@ const PickerDocsScreen = () => {
         <Picker.Item value="male" label="Male" />
         <Picker.Item value="female" label="Female" />
       </Picker.Select>
-
-      {/* DateTime Picker */}
-      <Picker.DateTime
-        label="Date of Birth"
-        helperText="This is DateTime Picker"
-      />
     </View>
   );
 };
@@ -57,10 +51,6 @@ export default PickerDocsScreen;
           <Picker.Item value="male" label="Male" />
           <Picker.Item value="female" label="Female" />
         </Picker.Select>
-        <Picker.DateTime
-          label="Date of Birth"
-          helperText="This is DateTime Picker"
-        />
       </View>
     </DocsViewer>
   );

@@ -2,9 +2,9 @@ import React, { createContext, useContext, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 type PortalHostContextProps = {
+  unmount: (key: string) => void;
   mount: (key: string, node: React.ReactNode) => void;
   update: (key: string, node: React.ReactNode) => void;
-  unmount: (key: string) => void;
 };
 
 const PortalHostContext = createContext<PortalHostContextProps | null>(null);
@@ -44,9 +44,7 @@ export const PortalHost: React.FC<{ children: React.ReactNode }> = ({
 
 let globalPortalHost: PortalHostContextProps | null = null;
 
-export const Portal: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const Portal: React.FC<React.PropsWithChildren> = ({ children }) => {
   const key = React.useId();
   const context = useContext(PortalHostContext);
 
