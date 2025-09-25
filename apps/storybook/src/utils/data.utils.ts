@@ -92,6 +92,11 @@ export const navigations: NavLink[] = [
     description: "Text component",
   },
   {
+    label: "Skeleton",
+    path: "/docs/skeleton",
+    description: "Skeleton component",
+  },
+  {
     label: "SmartImage",
     path: "/docs/smart-image",
     description: "SmartImage component",

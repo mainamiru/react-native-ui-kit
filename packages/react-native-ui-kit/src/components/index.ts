@@ -21,6 +21,7 @@ export * from "./radio-button";
 export * from "./row";
 export * from "./searchbar";
 export * from "./sidebar";
+export * from "./skeleton";
 export * from "./smart-image";
 export * from "./spacer";
 export * from "./spinner";
