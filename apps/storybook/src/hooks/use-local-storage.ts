@@ -43,11 +43,11 @@ export function useLocalStorage<T>(key: string, initialValue?: T) {
 
   // Set value in storage
   const setValue = React.useCallback(
-    (newValue: T) => {
+    (value: T) => {
       setError(null);
-      AsyncStorage.setItem(key, JSON.stringify(newValue), (error) => {
+      AsyncStorage.setItem(key, JSON.stringify(value), (error) => {
         if (error) return setError(error);
-        setInternalValue(newValue);
+        setInternalValue(value);
       });
     },
     [key]

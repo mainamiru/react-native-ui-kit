@@ -52,8 +52,7 @@ const DocsLayout = () => {
       <Drawer.Screen name="radio" options={{ title: "Radio" }} />
       <Drawer.Screen name="switch" options={{ title: "Switch" }} />
       <Drawer.Screen name="tab-bar" options={{ title: "Tab Bar" }} />
-      <Drawer.Screen name="toast" options={{ title: "Toast" }} />
-      <Drawer.Screen name="tooltip" options={{ title: "Tooltip" }} />
+      <Drawer.Screen name="toaster" options={{ title: "Toaster" }} />
     </Drawer>
   );
 };

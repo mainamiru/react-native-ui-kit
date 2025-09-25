@@ -1,3 +1,4 @@
+import { useTheme } from "@/hooks";
 import { Entypo } from "@expo/vector-icons";
 import { List } from "@mainamiru/react-native-ui-kit";
 import { Href, Link, router, usePathname } from "expo-router";
@@ -9,6 +10,8 @@ import { navigations } from "../utils/data.utils";
 export const DrawerContents = () => {
   const pathName = usePathname();
   const { height } = useWindowDimensions();
+  const { colors } = useTheme();
+  const activeBackground = colors.card;
   return (
     <SafeAreaView style={{ height }}>
       <FlatList
@@ -27,7 +30,7 @@ export const DrawerContents = () => {
                   width: "100%",
                   borderWidth: 0,
                   borderRadius: 0,
-                  backgroundColor: isActive ? "#f5f5f5" : "transparent",
+                  backgroundColor: isActive ? activeBackground : "transparent",
                 }}
                 contentStyle={{ padding: 0 }}
                 description={item.description}
@@ -38,7 +41,9 @@ export const DrawerContents = () => {
                     key={section.path}
                     href={section.path as Href}
                     style={{
-                      backgroundColor: isActive ? "#f5f5f5" : "transparent",
+                      backgroundColor: isActive
+                        ? activeBackground
+                        : "transparent",
                     }}
                   >
                     <List.Item
@@ -61,7 +66,9 @@ export const DrawerContents = () => {
             <Link
               asChild={true}
               href={item.path as Href}
-              style={{ backgroundColor: isActive ? "#f5f5f5" : "transparent" }}
+              style={{
+                backgroundColor: isActive ? activeBackground : "transparent",
+              }}
             >
               <List.Item
                 title={item.label}

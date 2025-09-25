@@ -1,10 +1,8 @@
-import { DarkTheme, DefaultTheme, Theme } from "@react-navigation/native";
-import { useColorScheme } from "./use-color-scheme";
-import { useLocalStorage } from "./use-local-storage";
+import { Theme } from "@react-navigation/native";
+import { useContext } from "react";
+import { AppThemeProviderContext } from "../providers/app-theme-provider";
 
 export function useTheme(): Theme {
-  const colorScheme = useColorScheme();
-  const { value } = useLocalStorage("theme", colorScheme);
-  const isDark = value === "dark";
-  return isDark ? DarkTheme : DefaultTheme;
+  const context = useContext(AppThemeProviderContext);
+  return context.theme;
 }
