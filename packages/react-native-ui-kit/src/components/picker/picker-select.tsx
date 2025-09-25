@@ -130,7 +130,11 @@ const PickerSelect = <T extends string | number>({
       </View>
       {position === "bottom" ? (
         <BottomSheet ref={bottomSheetRef} contentStyle={containerStyle}>
-          <Text variant="titleMedium" style={{ padding: 10 }} numberOfLines={1}>
+          <Text
+            numberOfLines={1}
+            variant="titleMedium"
+            style={{ padding: 10, color: "black" }}
+          >
             Selected: {value}
           </Text>
           <Divider />
@@ -138,7 +142,11 @@ const PickerSelect = <T extends string | number>({
         </BottomSheet>
       ) : (
         <Sidebar width={sidebarWidth} ref={sidebarRef} position={position}>
-          <Text variant="titleMedium" style={{ padding: 10 }} numberOfLines={1}>
+          <Text
+            numberOfLines={1}
+            variant="titleMedium"
+            style={{ padding: 10, color: "black" }}
+          >
             Selected: {value}
           </Text>
           <Divider />

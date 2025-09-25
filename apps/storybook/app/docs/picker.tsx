@@ -40,8 +40,12 @@ export default PickerDocsScreen;
 `}
       usage="Use the Picker component to allow users to select a value from a list of options. You can customize the picker by passing props to it. The picker component accepts the following props:"
     >
-      <View>
-        <Picker.Select label="Gender" helperText="This is BottomSheet Picker">
+      <View style={{ padding: 10 }}>
+        <Picker.Select
+          label="Gender"
+          containerStyle={{ height: 300 }}
+          helperText="This is BottomSheet Picker"
+        >
           <Picker.Item value="male" label="Male" />
           <Picker.Item value="female" label="Female" />
         </Picker.Select>

@@ -10,12 +10,6 @@ const DatePicker = () => {
   const months = Array.from({ length: 12 }, (_, i) => {
     return (i + 1).toString().padStart(2, "0");
   });
-  const hours = Array.from({ length: 24 }, (_, i) => {
-    return i.toString().padStart(2, "0");
-  });
-  const minutes = Array.from({ length: 60 }, (_, i) => {
-    return i.toString().padStart(2, "0");
-  });
 
   return (
     <Row>
