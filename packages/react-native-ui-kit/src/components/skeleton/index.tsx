@@ -30,7 +30,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
         toValue: 1,
         duration: 1000,
         useNativeDriver: Platform.OS !== "web",
-      })
+      }),
     ).start();
   }, [shimmer]);
 

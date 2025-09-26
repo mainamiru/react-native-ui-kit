@@ -38,7 +38,7 @@ try {
 } catch (err) {
   console.warn(
     `\n⚠️  ${pkg} is not installed!\n` +
-      `   It is required to use @mainamiru/react-native-ui-kit.\n`
+      `   It is required to use @mainamiru/react-native-ui-kit.\n`,
   );
   const manager = detectPackageManager();
   installPackage(manager, pkg);

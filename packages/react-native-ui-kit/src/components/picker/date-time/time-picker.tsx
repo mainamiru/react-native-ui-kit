@@ -48,7 +48,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       isHourSelection
         ? Array.from({ length: clockType === "12h" ? 12 : 24 }, (_, i) => i + 1)
         : Array.from({ length: 12 }, (_, i) => i * 5),
-    [isHourSelection, clockType]
+    [isHourSelection, clockType],
   );
 
   // Update internal state when props change
@@ -66,12 +66,12 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   const hourAngle = useMemo(
     () =>
       isHourSelection ? 0 : (displayHour % 12) * 30 + selectedMinute * 0.5,
-    [displayHour, selectedMinute, isHourSelection]
+    [displayHour, selectedMinute, isHourSelection],
   );
 
   const minuteAngle = useMemo(
     () => (isHourSelection ? 0 : selectedMinute * 6),
-    [selectedMinute, isHourSelection]
+    [selectedMinute, isHourSelection],
   );
 
   // Handle touch events
@@ -113,7 +113,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
       selectedHour,
       selectedMinute,
       onChange,
-    ]
+    ],
   );
 
   // Toggle between hour and minute selection
@@ -141,7 +141,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         onPanResponderGrant: handleTouch,
         onPanResponderMove: handleTouch,
       }),
-    [handleTouch]
+    [handleTouch],
   );
 
   return (

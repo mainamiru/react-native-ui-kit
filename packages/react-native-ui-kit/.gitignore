@@ -1,0 +1,9 @@
+dist/
+node_modules/
+
+# lock files
+bun.lock
+bun.lockb
+yarn.lock
+package-lock.yml
+package-lock.json

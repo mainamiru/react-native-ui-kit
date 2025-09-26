@@ -79,7 +79,7 @@ const FallbackIcon = ({ name, color, size, ...rest }: IconProps) => {
     `To fix this, please install one of the following:\n` +
       `- @expo/vector-icons\n` +
       `- @react-native-vector-icons/evil-icons\n` +
-      `- react-native-vector-icons\n\n`
+      `- react-native-vector-icons\n\n`,
   );
 
   return (

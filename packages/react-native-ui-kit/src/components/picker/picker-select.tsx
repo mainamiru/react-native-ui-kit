@@ -96,7 +96,7 @@ const PickerSelect = <T extends string | number>({
             inputStyle,
           ]}
         >
-          <FlexView justifyContent="center">
+          <FlexView style={{ justifyContent: "center" }}>
             {value ? (
               <Text
                 numberOfLines={1}

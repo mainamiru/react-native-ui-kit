@@ -53,7 +53,7 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
 
   const isControlled = typeof controlledOpen === "boolean";
   const [internalOpen, setInternalOpen] = useState<boolean>(
-    isControlled ? (controlledOpen as boolean) : defaultOpen
+    isControlled ? (controlledOpen as boolean) : defaultOpen,
   );
   const anim = useRef(new Animated.Value(internalOpen ? 1 : 0)).current;
 
@@ -81,7 +81,7 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
       if (!isControlled) setInternalOpen(next);
       onOpenChange?.(next);
     },
-    [isControlled, onOpenChange]
+    [isControlled, onOpenChange],
   );
 
   // Start animation
@@ -93,7 +93,7 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
         duration: animationDuration,
       }).start(() => setValueInternal(toValue > 0));
     },
-    [anim, animationDuration]
+    [anim, animationDuration],
   );
 
   // Open
@@ -119,7 +119,7 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
       toggle: toggleFn,
       isOpen: () => (isControlled ? (controlledOpen as boolean) : internalOpen),
     }),
-    [openFn, closeFn, toggleFn, controlledOpen, isControlled, internalOpen]
+    [openFn, closeFn, toggleFn, controlledOpen, isControlled, internalOpen],
   );
 
   // Interpolations

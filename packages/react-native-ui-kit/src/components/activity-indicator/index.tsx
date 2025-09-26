@@ -20,7 +20,7 @@ export const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({
         duration: 1000,
         easing: Easing.linear,
         useNativeDriver: Platform.OS !== "web", // ✅ Fix for web
-      })
+      }),
     );
     loop.start();
     return () => loop.stop();

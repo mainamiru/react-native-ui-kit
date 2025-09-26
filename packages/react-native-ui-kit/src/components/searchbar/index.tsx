@@ -35,7 +35,7 @@ export const SearchBar = forwardRef<TextInput, SearchBarProps>(
       placeholder = "Search...",
       showClearButton = true,
     },
-    ref
+    ref,
   ) => {
     const [text, setText] = useState(value || "");
 
@@ -76,7 +76,7 @@ export const SearchBar = forwardRef<TextInput, SearchBarProps>(
         )}
       </View>
     );
-  }
+  },
 );
 
 export default SearchBar;

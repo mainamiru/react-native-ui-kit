@@ -48,7 +48,7 @@ type ToasterContextProps = {
 };
 
 const ToasterContext = createContext<ToasterContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 export const Toaster: React.FC<{ children: React.ReactNode }> = ({
@@ -56,7 +56,7 @@ export const Toaster: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const idRef = useRef(1);
-  const timers = useRef<Record<number, NodeJS.Timeout>>({});
+  const timers = useRef<Record<number, number>>({});
 
   const defaultOptions: Required<ToasterOptions> = {
     position: "bottom-center",
@@ -77,7 +77,7 @@ export const Toaster: React.FC<{ children: React.ReactNode }> = ({
         removeToast(toast.id);
       }, toast.duration);
     },
-    [removeToast]
+    [removeToast],
   );
 
   const show = useCallback(
@@ -88,7 +88,7 @@ export const Toaster: React.FC<{ children: React.ReactNode }> = ({
       setToasts((prev) => [...prev, toast]);
       scheduleRemove(toast);
     },
-    [scheduleRemove]
+    [scheduleRemove],
   );
 
   const api: ToasterContextProps = {
@@ -144,8 +144,8 @@ const ToastContainer: React.FC<{
   const align = position.includes("left")
     ? "flex-start"
     : position.includes("right")
-    ? "flex-end"
-    : "center";
+      ? "flex-end"
+      : "center";
 
   const verticalStyle = position.includes("top") ? { top: 40 } : { bottom: 40 };
 
@@ -224,7 +224,7 @@ const ToastItem: React.FC<{
           });
         }
       },
-    })
+    }),
   ).current;
 
   const handleTap = (e: GestureResponderEvent) => {

@@ -48,7 +48,7 @@ export const Container: React.FC<ContainerProps> = React.memo(
         </Modal>
       </View>
     );
-  }
+  },
 );
 
 export default Container;

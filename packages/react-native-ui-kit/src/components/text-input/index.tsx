@@ -60,7 +60,7 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
       focusedOutlineColor = "orange",
       ...props
     },
-    ref
+    ref,
   ) => {
     const [error, setError] = useState<Error | null>(null);
     const { text, border, placeholder } = useThemeColor();
@@ -80,7 +80,7 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
         }).start();
         onFocus?.(event);
       },
-      [animatedValue, onFocus]
+      [animatedValue, onFocus],
     );
 
     // handle blur event
@@ -93,7 +93,7 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
         }).start();
         onBlur?.(event);
       },
-      [animatedValue, onBlur]
+      [animatedValue, onBlur],
     );
 
     const mutedColor = (placeholderTextColor || placeholder) as string;
@@ -173,7 +173,7 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
         )}
       </View>
     );
-  }
+  },
 );
 
 TextInput.displayName = "TextInput";

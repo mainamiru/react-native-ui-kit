@@ -65,7 +65,7 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
 
   const isControlled = typeof controlledValue === "boolean";
   const [internalValue, setInternalValue] = useState<boolean>(
-    isControlled ? (controlledValue as boolean) : defaultValue
+    isControlled ? (controlledValue as boolean) : defaultValue,
   );
 
   useEffect(() => {
@@ -112,7 +112,7 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
       if (!isControlled) setInternalValue(next);
       onValueChange?.(next);
     },
-    [isControlled, onValueChange]
+    [isControlled, onValueChange],
   );
 
   const toggle = useCallback(() => {
@@ -127,7 +127,7 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
       getValue: () =>
         isControlled ? (controlledValue as boolean) : internalValue,
     }),
-    [toggle, internalValue, isControlled, controlledValue]
+    [toggle, internalValue, isControlled, controlledValue],
   );
 
   // ✅ allow keyboard toggle on web
@@ -160,7 +160,7 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
           useNativeDriver: true,
         }).start();
       },
-    })
+    }),
   ).current;
 
   const containerStyle: ViewStyle = {

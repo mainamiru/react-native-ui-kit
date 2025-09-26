@@ -46,7 +46,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       statusBarTranslucent = true,
       closeOnPressBackdrop = true,
     },
-    ref
+    ref,
   ) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [contentHeight, setContentHeight] = React.useState(0);
@@ -112,7 +112,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
         open: openModal,
         close: closeModal,
       }),
-      [closeModal, openModal]
+      [closeModal, openModal],
     );
 
     //handle auto open
@@ -120,7 +120,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       if (isOpen && hasMeasured) {
         openModal();
       }
-    }, [isOpen, hasMeasured]);
+    }, [isOpen, hasMeasured, openModal]);
 
     return (
       <>
@@ -157,19 +157,21 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
         </Modal>
       </>
     );
-  }
+  },
 );
+
+BottomSheet.displayName = "BottomSheet";
 
 const styles = StyleSheet.create({
   content: {
-    left: 0,
-    right: 0,
-    bottom: 0,
-    position: "absolute",
-    overflow: "hidden",
+    backgroundColor: "#fff",
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
-    backgroundColor: "white",
+    bottom: 0,
+    left: 0,
+    overflow: "hidden",
+    position: "absolute",
+    right: 0,
   },
 });
 

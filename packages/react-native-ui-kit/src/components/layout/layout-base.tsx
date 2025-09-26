@@ -38,7 +38,7 @@ const LayoutBase: React.FC<LayoutBaseProps> = ({ children, style }) => {
         setMode(newMode);
       }
     },
-    [mode, getMode]
+    [mode, getMode],
   );
 
   return (

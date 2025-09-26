@@ -22,7 +22,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 }) => {
   const [visible, setVisible] = useState(false);
   const [anchorLayout, setAnchorLayout] = useState<LayoutRectangle | null>(
-    null
+    null,
   );
   const anchorRef = useRef<View>(null);
 

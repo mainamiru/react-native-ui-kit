@@ -56,7 +56,7 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
 
   const isControlled = typeof controlledStatus === "string";
   const [internalStatus, setInternalStatus] = useState<CheckboxStatus>(
-    isControlled ? (controlledStatus as CheckboxStatus) : defaultStatus
+    isControlled ? (controlledStatus as CheckboxStatus) : defaultStatus,
   );
 
   // Sync controlled → state
@@ -68,7 +68,7 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
 
   // Animate scale for mark
   const scaleAnim = useRef(
-    new Animated.Value(internalStatus === "unchecked" ? 0 : 1)
+    new Animated.Value(internalStatus === "unchecked" ? 0 : 1),
   ).current;
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
       if (!isControlled) setInternalStatus(next);
       onChange?.(next);
     },
-    [isControlled, onChange]
+    [isControlled, onChange],
   );
 
   const toggle = useCallback(() => {
@@ -110,7 +110,7 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
       getStatus: () =>
         isControlled ? (controlledStatus as CheckboxStatus) : internalStatus,
     }),
-    [toggle, internalStatus, isControlled, controlledStatus]
+    [toggle, internalStatus, isControlled, controlledStatus],
   );
 
   const onPressHandler = (e?: GestureResponderEvent) => {

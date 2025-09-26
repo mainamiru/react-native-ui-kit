@@ -66,7 +66,7 @@ const highlight = (code: string) => {
 
       lastIndex = offset + match.length;
       return match;
-    }
+    },
   );
 
   if (lastIndex < code.length) {

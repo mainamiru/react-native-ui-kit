@@ -18,7 +18,7 @@ export interface TabsContextType<T extends string> {
 }
 
 export const TabsContext = React.createContext<TabsContextType<any> | null>(
-  null
+  null,
 );
 
 const TabsBase = <T extends string>({

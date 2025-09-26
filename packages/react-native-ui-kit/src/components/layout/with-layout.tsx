@@ -13,7 +13,7 @@ export interface WithLayoutOptions {
  */
 export function withLayout<P>(
   WrappedComponent: React.ComponentType<P>,
-  options: WithLayoutOptions
+  options: WithLayoutOptions,
 ) {
   const { mode: targetMode } = options;
 

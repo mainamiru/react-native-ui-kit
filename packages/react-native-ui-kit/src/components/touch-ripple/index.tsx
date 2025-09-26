@@ -18,7 +18,7 @@ export interface TouchRippleProps extends PressableProps {
    * Custom hover style using animated value
    */
   hoverStyle?: (
-    animatedValue: Animated.Value
+    animatedValue: Animated.Value,
   ) => Animated.WithAnimatedObject<ViewStyle> | StyleProp<ViewStyle>;
 }
 
@@ -43,7 +43,7 @@ export const TouchRipple: React.FC<TouchRippleProps> = ({
         useNativeDriver,
       }).start();
     },
-    [animatedValue, useNativeDriver]
+    [animatedValue, useNativeDriver],
   );
 
   //handle hover in
@@ -53,7 +53,7 @@ export const TouchRipple: React.FC<TouchRippleProps> = ({
       onHoverIn?.(event);
       onPressIn?.(event);
     },
-    [animateTo, onHoverIn, onPressIn]
+    [animateTo, onHoverIn, onPressIn],
   );
 
   // handle hover out
@@ -63,7 +63,7 @@ export const TouchRipple: React.FC<TouchRippleProps> = ({
       onHoverOut?.(event);
       onPressOut?.(event);
     },
-    [animateTo, onHoverOut, onPressOut]
+    [animateTo, onHoverOut, onPressOut],
   );
 
   const backgroundColor = animatedValue.interpolate({

@@ -50,8 +50,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
     placement === "top" && anchorLayout
       ? anchorLayout.y - 40
       : anchorLayout
-      ? anchorLayout.y + anchorLayout.height + 8
-      : 0;
+        ? anchorLayout.y + anchorLayout.height + 8
+        : 0;
 
   const left =
     anchorLayout && anchorLayout.x + anchorLayout.width / 2 < screenWidth / 2
