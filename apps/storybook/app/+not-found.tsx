@@ -1,12 +1,9 @@
+import { Link } from "expo-router";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export interface NotFoundScreenProps {
-  onGoHome?: () => void;
-}
-
-const NotFoundScreen: React.FC<NotFoundScreenProps> = ({ onGoHome }) => {
+const NotFoundScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -23,11 +20,9 @@ const NotFoundScreen: React.FC<NotFoundScreenProps> = ({ onGoHome }) => {
           The page you’re looking for doesn’t exist or has been moved.
         </Text>
 
-        {onGoHome && (
-          <TouchableOpacity style={styles.button} onPress={onGoHome}>
-            <Text style={styles.buttonText}>Go Home</Text>
-          </TouchableOpacity>
-        )}
+        <Link href="/docs" style={styles.button}>
+          <Text style={styles.buttonText}>Go Home</Text>
+        </Link>
       </View>
     </SafeAreaView>
   );

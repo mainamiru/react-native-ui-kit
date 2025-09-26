@@ -45,10 +45,10 @@ export const accessibilityProps: AccessibilityProps =
  */
 const loadIconModule = () => {
   try {
-    return require("@react-native-vector-icons/evil-icons").default;
+    return require("@expo/vector-icons/EvilIcons").default;
   } catch {
     try {
-      return require("@expo/vector-icons/EvilIcons").default;
+      return require("@react-native-vector-icons/evil-icons").default;
     } catch {
       try {
         return require("react-native-vector-icons/EvilIcons").default;
