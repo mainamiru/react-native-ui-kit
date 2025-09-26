@@ -13,24 +13,23 @@ const GridViewDocsScreen = () => (
 import { Text, View } from "react-native";
 import { GridView } from "@mainamiru/react-native-ui-kit";
 
-const data = Array.from({ length: 12 }, (_, i) => \`Item \${i + 1}\`);
+const data = Array.from({ length: 5 }, (_, i) => \`Item \${i + 1}\`);
 
 export default function App() {
   return (
     <GridView
       data={data}
       itemWidth={100}
-      spacing={10}
+      itemSpacing={10}
       style={{ padding: 16 }}
-      renderItem={({ item, size }) => (
+      renderItem={({ item }) => (
         <View
           style={{
-            width: size,
-            height: size,
-            backgroundColor: "skyblue",
+            aspectRatio: 1,
+            borderRadius: 8,
             alignItems: "center",
             justifyContent: "center",
-            borderRadius: 8,
+            backgroundColor: "skyblue",
           }}
         >
           <Text>{item}</Text>
@@ -51,7 +50,7 @@ export default function App() {
         description:
           "Desired base item width (used to calculate columns & adjust size).",
       },
-      spacing: {
+      itemSpacing: {
         type: "number",
         required: false,
         default: "0",
