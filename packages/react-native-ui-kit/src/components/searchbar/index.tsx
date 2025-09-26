@@ -103,5 +103,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     minHeight: 50,
+    outlineWidth: 0,
   },
 });

@@ -9,7 +9,7 @@ export const RadioGroupContext = React.createContext<
   onValueChange: () => {},
 });
 
-const RadioGroup = <T extends unknown>({
+const RadioGroup = <T,>({
   style,
   children,
   selectedValue,

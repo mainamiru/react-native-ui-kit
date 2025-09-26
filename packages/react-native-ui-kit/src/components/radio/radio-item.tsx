@@ -10,7 +10,7 @@ export interface RadioItemProps<T> extends RadioProps<T> {
   labelStyle?: StyleProp<TextStyle>;
 }
 
-const RadioItem = <T extends unknown>({
+const RadioItem = <T,>({
   label,
   style,
   value,
@@ -26,7 +26,7 @@ const RadioItem = <T extends unknown>({
   //handle change
   const handleChange = (val: T) => {
     onValueChange(val);
-    onChange && onChange(val);
+    onChange(val);
   };
 
   return (

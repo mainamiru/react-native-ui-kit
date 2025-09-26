@@ -109,7 +109,6 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
       getStatus: () =>
         isControlled ? (controlledStatus as CheckboxStatus) : internalStatus,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [toggle, internalStatus, isControlled, controlledStatus],
   );
 
