@@ -1,6 +1,7 @@
 import React from "react";
 import {
   ActivityIndicator,
+  ColorValue,
   PressableProps,
   StyleProp,
   StyleSheet,
@@ -13,11 +14,11 @@ import { getContrastColor } from "../../utils/color.utils";
 import Text from "../text";
 import TouchRipple from "../touch-ripple";
 
-export type ButtonMode = "contained" | "outlined" | "text";
+export type ButtonMode = "contained" | "outlined" | "text" | "elevated";
 
 export interface ButtonIconProps {
   size: number;
-  color: string;
+  color: ColorValue;
 }
 
 export interface ButtonProps extends PressableProps {
@@ -49,17 +50,20 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const { primary, text } = useThemeColor();
 
-  //computed text color
-  const computedTextColor = React.useMemo(() => {
-    if (textColor) return textColor;
-    if (mode === "contained" && buttonColor) {
-      return getContrastColor(buttonColor);
-    } else if (mode === "contained") {
-      return getContrastColor(primary);
-    } else if (mode === "outlined") {
-      return text;
+  const defualtStyle = React.useMemo(() => {
+    const textStyle: TextStyle = { color: text };
+    const buttonStyle: ViewStyle = {};
+    if (mode == "contained") {
+      buttonStyle.backgroundColor = buttonColor || primary;
+      textStyle.color = getContrastColor(buttonColor || primary);
+    } else if (mode == "outlined") {
+      buttonStyle.borderColor = buttonColor || primary;
+    } else if (mode == "elevated") {
+      buttonStyle.backgroundColor = buttonColor;
     }
-  }, [mode, textColor, buttonColor, text, primary]);
+
+    return { textStyle, buttonStyle };
+  }, [mode, text, primary, buttonColor]);
 
   return (
     <TouchRipple
@@ -69,31 +73,38 @@ export const Button: React.FC<ButtonProps> = ({
         styles.base,
         styles[mode],
         style,
-        mode === "contained" && {
-          backgroundColor: buttonColor || primary,
-        },
-        mode === "outlined" && { borderColor: buttonColor || primary },
+        defualtStyle.buttonStyle,
         disabled && styles.disabled,
       ]}
     >
       <View style={[styles.container, containerStyle]}>
         {loading ? (
-          <ActivityIndicator size={16} color={computedTextColor} />
+          <ActivityIndicator size={16} color={defualtStyle.textStyle.color} />
         ) : (
-          leadingIcon && leadingIcon({ size: 16, color: computedTextColor })
+          leadingIcon &&
+          leadingIcon({
+            size: 16,
+            color: defualtStyle.textStyle.color,
+          })
         )}
-        <Text
-          style={[{ color: computedTextColor, fontWeight: "500" }, textStyle]}
-        >
+        <Text style={[styles.textStyle, defualtStyle.textStyle, textStyle]}>
           {children}
         </Text>
-        {trailingIcon && trailingIcon({ size: 16, color: computedTextColor })}
+        {trailingIcon &&
+          trailingIcon({
+            size: 16,
+            color: defualtStyle.textStyle.color,
+          })}
       </View>
     </TouchRipple>
   );
 };
 
 const styles = StyleSheet.create({
+  textStyle: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
   base: {
     borderRadius: 20,
     overflow: "hidden",
@@ -124,6 +135,11 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.5,
+  },
+  elevated: {
+    elevation: 3,
+    backgroundColor: "#f2f7f6",
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
   },
 });
 

@@ -39,13 +39,14 @@ export const TouchRipple: React.FC<TouchRippleProps> = ({
     (toValue: number) => {
       Animated.timing(animatedValue, {
         toValue,
-        duration: 250,
+        duration: 200,
         useNativeDriver,
       }).start();
     },
     [animatedValue, useNativeDriver]
   );
 
+  //handle hover in
   const handleIn = React.useCallback(
     (event: any) => {
       animateTo(1);
@@ -55,6 +56,7 @@ export const TouchRipple: React.FC<TouchRippleProps> = ({
     [animateTo, onHoverIn, onPressIn]
   );
 
+  // handle hover out
   const handleOut = React.useCallback(
     (event: any) => {
       animateTo(0);
@@ -73,10 +75,10 @@ export const TouchRipple: React.FC<TouchRippleProps> = ({
     <Pressable
       {...props}
       style={style}
-      onHoverIn={handleIn}
-      onHoverOut={handleOut}
       onPressIn={handleIn}
+      onHoverIn={handleIn}
       onPressOut={handleOut}
+      onHoverOut={handleOut}
     >
       <Animated.View
         pointerEvents="none"

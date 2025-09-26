@@ -91,6 +91,7 @@ export default function App() {
     <Button mode="outlined" buttonColor="#ff6347">
       Cancel
     </Button>
+    <Button mode="elevated">Elevated</Button>
     <Button mode="text">Skip</Button>
     <Button mode="contained" loading>
       Loading
