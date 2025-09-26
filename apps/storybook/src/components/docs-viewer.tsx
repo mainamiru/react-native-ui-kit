@@ -6,9 +6,9 @@ import {
   FlexView,
   Layout,
   Row,
-  Table,
   Text,
 } from "@mainamiru/react-native-ui-kit";
+import { Href, Link } from "expo-router";
 import Head from "expo-router/head";
 import React from "react";
 import {
@@ -21,6 +21,7 @@ import {
 
 export interface PropOption {
   type: string;
+  href?: string;
   default?: string;
   required: boolean;
   description?: string;
@@ -98,60 +99,33 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
           {/* Props Table */}
           {props && (
             <Layout>
-              <Layout.SmallView>
+              <Layout.View>
                 <Text style={styles.sectionTitle}>Props</Text>
                 {Object.entries(props).map(([name, details]) => (
                   <View key={name} style={styles.propRow}>
-                    <Text style={styles.propName}>{name}</Text>
-                    <Text style={styles.propDetails}>
-                      {details.type}{" "}
-                      {details.required ? "(required)" : "(optional)"}
-                      {details.default ? ` | default: ${details.default}` : ""}
-                    </Text>
+                    <Row alignItems="center" gap={10}>
+                      <Text variant="titleMedium" style={styles.propName}>
+                        {name}:
+                      </Text>
+                      {details.href ? (
+                        <Link href={details.href as Href}>
+                          <Text style={styles.propType}>{details.type}</Text>
+                        </Link>
+                      ) : (
+                        <Text style={styles.propType}>{details.type}</Text>
+                      )}
+                      <Text style={styles.propDetails}>
+                        {details.required ? "(required)" : "(optional)"}
+                        {details.default
+                          ? ` | default: ${details.default}`
+                          : ""}
+                      </Text>
+                    </Row>
                     <Text style={styles.propDescription}>
                       {details.description}
                     </Text>
                   </View>
                 ))}
-              </Layout.SmallView>
-              <Layout.View
-                modes={["md", "lg", "xlg"]}
-                style={{ padding: 10, gap: 15 }}
-              >
-                <Text variant="titleLarge" style={{ fontSize: 30 }}>
-                  Props
-                </Text>
-                <Text variant="bodyLarge">
-                  The {title} component accepts the following props:
-                </Text>
-                <Table>
-                  <Table.Header>
-                    <Table.Title>Prop</Table.Title>
-                    <Table.Title>Type</Table.Title>
-                    <Table.Title>Required</Table.Title>
-                    <Table.Title>Default</Table.Title>
-                    <Table.Title colsSpan={2}>Description</Table.Title>
-                  </Table.Header>
-                  <Table.Body>
-                    {Object.entries(props).map(([name, prop]) => (
-                      <Table.Row key={name}>
-                        <Table.Cell>{name}</Table.Cell>
-                        <Table.Cell style={{ justifyContent: "center" }}>
-                          {prop.type}
-                        </Table.Cell>
-                        <Table.Cell style={{ justifyContent: "center" }}>
-                          {prop.required ? "Yes" : "No"}
-                        </Table.Cell>
-                        <Table.Cell style={{ justifyContent: "center" }}>
-                          {prop.default || "-"}
-                        </Table.Cell>
-                        <Table.Cell colsSpan={2}>
-                          {prop.description || "-"}
-                        </Table.Cell>
-                      </Table.Row>
-                    ))}
-                  </Table.Body>
-                </Table>
               </Layout.View>
             </Layout>
           )}
@@ -187,12 +161,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   code: {
+    padding: 8,
+    fontSize: 14,
+    color: "#222",
+    borderRadius: 6,
     fontFamily: "monospace",
     backgroundColor: "#f5f5f5",
-    padding: 8,
-    borderRadius: 6,
-    fontSize: 13,
-    color: "#222",
   },
   propRow: {
     marginBottom: 12,
@@ -202,12 +176,22 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   propDetails: {
-    fontSize: 13,
+    fontSize: 14,
     color: "#666",
   },
   propDescription: {
-    fontSize: 13,
+    fontSize: 14,
     color: "#444",
     marginTop: 4,
+  },
+  propType: {
+    padding: 4,
+    fontSize: 14,
+    borderWidth: 1,
+    color: "black",
+    borderRadius: 5,
+    paddingHorizontal: 8,
+    borderColor: "#98a1a6",
+    backgroundColor: "#d9f1ff",
   },
 });

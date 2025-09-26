@@ -30,23 +30,40 @@ export default function App() {
   );
 }`}
     props={{
-      Avatar: {
-        type: "{ size?: number; style?: StyleProp<ViewStyle>; children?: React.ReactNode }",
+      size: {
+        type: "number",
         required: false,
-        description:
-          "Base Avatar container. Can be used to wrap custom content.",
+        description: "The size of the avatar in pixels.",
       },
-      "Avatar.Image": {
-        type: "{ source: ImageSourcePropType; size?: number; style?: StyleProp<ImageStyle>; placeholderSource?: ImageSourcePropType }",
-        required: true,
-        description:
-          "Displays an image inside a circular avatar. Supports optional placeholder image.",
+      source: {
+        type: "string | number | null | undefined | ImageSourcePropType",
+        required: false,
+        description: "The source of the image to display.",
       },
-      "Avatar.Text": {
-        type: "{ text: string; size?: number; backgroundColor?: string; textColor?: string; style?: StyleProp<ViewStyle>; textStyle?: StyleProp<TextStyle> }",
-        required: true,
-        description:
-          "Displays initials or text inside a circular avatar with customizable background and text color.",
+      fallback: {
+        type: "string",
+        required: false,
+        description: "The fallback text to display if the image fails to load.",
+      },
+      backgroundColor: {
+        type: "string",
+        required: false,
+        description: "The background color of the avatar.",
+      },
+      textColor: {
+        type: "string",
+        required: false,
+        description: "The text color of the avatar.",
+      },
+      style: {
+        type: "StyleProp<ViewStyle>",
+        required: false,
+        description: "The style of the avatar.",
+      },
+      textStyle: {
+        type: "StyleProp<TextStyle>",
+        required: false,
+        description: "The style of the text.",
       },
     }}
   >

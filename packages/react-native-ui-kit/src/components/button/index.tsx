@@ -50,8 +50,9 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const { primary, text } = useThemeColor();
 
+  // default styles
   const defualtStyle = React.useMemo(() => {
-    const textStyle: TextStyle = { color: text };
+    const textStyle: TextStyle = { color: textColor || text };
     const buttonStyle: ViewStyle = {};
     if (mode == "contained") {
       buttonStyle.backgroundColor = buttonColor || primary;
@@ -59,11 +60,11 @@ export const Button: React.FC<ButtonProps> = ({
     } else if (mode == "outlined") {
       buttonStyle.borderColor = buttonColor || primary;
     } else if (mode == "elevated") {
+      textStyle.color = textColor || "black";
       buttonStyle.backgroundColor = buttonColor;
     }
-
     return { textStyle, buttonStyle };
-  }, [mode, text, primary, buttonColor]);
+  }, [mode, text, primary, buttonColor, textColor]);
 
   return (
     <TouchRipple
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   elevated: {
-    elevation: 3,
+    elevation: 0,
     backgroundColor: "#f2f7f6",
     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
   },
