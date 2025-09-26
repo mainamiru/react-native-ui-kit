@@ -10,6 +10,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+import Container from "../container";
 
 type OmittedFlatListProps =
   | "renderItem"
@@ -24,13 +25,20 @@ export type DefaultFlatListProps = Omit<
   OmittedFlatListProps
 >;
 
+export interface GridViewItemProps<T> extends ListRenderItemInfo<T> {
+  /**
+   * The width of the item.
+   */
+  width: number;
+}
+
 export interface GridViewProps<T> extends DefaultFlatListProps {
   data: T[];
   itemWidth: number;
   itemSpacing?: number;
   style?: StyleProp<ViewStyle>;
   itemStyle?: StyleProp<ViewStyle>;
-  renderItem: (props: ListRenderItemInfo<T>) => React.ReactElement;
+  renderItem: (props: GridViewItemProps<T>) => React.ReactElement;
 }
 
 export function GridView<T>({
@@ -59,37 +67,43 @@ export function GridView<T>({
   // adjusted item width
   const adjustedItemWidth = React.useMemo(() => {
     if (containerWidth <= 0) return itemWidth;
-    return (containerWidth - itemSpacing * (numColumns - 1)) / numColumns;
+    const spacing = itemSpacing * (numColumns - 1);
+    return (containerWidth - spacing) / numColumns - itemSpacing;
   }, [containerWidth, numColumns, itemWidth, itemSpacing]);
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayout}>
-      <FlatList
-        data={data}
-        {...restProps}
-        key={numColumns}
-        numColumns={numColumns}
-        keyExtractor={(_, index) => String(index)}
-        contentContainerStyle={[style, { gap: itemSpacing }]}
-        columnWrapperStyle={numColumns > 1 ? { gap: itemSpacing } : undefined}
-        renderItem={({ item, index, separators }) => (
-          <View
-            style={[
-              itemStyle,
-              {
-                flex: 1,
-                width: undefined,
-                height: undefined,
-                minWidth: undefined,
-                minHeight: undefined,
-                maxWidth: adjustedItemWidth - itemSpacing,
-              },
-            ]}
-          >
-            {renderItem({ item, index, separators })}
-          </View>
-        )}
-      />
+      <Container isLoading={containerWidth <= 0}>
+        <FlatList
+          data={data}
+          {...restProps}
+          key={numColumns}
+          numColumns={numColumns}
+          keyExtractor={(_, index) => String(index)}
+          contentContainerStyle={[style, { gap: itemSpacing }]}
+          columnWrapperStyle={numColumns > 1 ? { gap: itemSpacing } : undefined}
+          renderItem={({ item, index, separators }) => {
+            const itemWidth = adjustedItemWidth;
+            return (
+              <View
+                style={[
+                  itemStyle,
+                  {
+                    flex: 1,
+                    width: undefined,
+                    height: undefined,
+                    minWidth: undefined,
+                    minHeight: undefined,
+                    maxWidth: itemWidth,
+                  },
+                ]}
+              >
+                {renderItem({ item, index, separators, width: itemWidth })}
+              </View>
+            );
+          }}
+        />
+      </Container>
     </View>
   );
 }

@@ -22,10 +22,11 @@ export default function App() {
       itemWidth={100}
       itemSpacing={10}
       style={{ padding: 16 }}
-      renderItem={({ item }) => (
+      renderItem={({ item, width }) => (
         <View
           style={{
-            aspectRatio: 1,
+            width,
+            height: width,
             borderRadius: 8,
             alignItems: "center",
             justifyContent: "center",
@@ -71,7 +72,7 @@ export default function App() {
         type: "(props: GridViewItemProps<T>) => React.ReactElement",
         required: true,
         description:
-          "Function to render each item. Receives an extra `size` prop (calculated).",
+          "Function to render each item. Receives an extra `width` prop (calculated).",
       },
     }}
   >
@@ -80,11 +81,12 @@ export default function App() {
       itemWidth={90}
       itemSpacing={10}
       scrollEnabled={false}
-      style={{ margin: 10 }}
-      renderItem={({ item }) => (
+      style={{ padding: 10 }}
+      renderItem={({ item, width }) => (
         <View
           style={{
-            aspectRatio: 1,
+            width,
+            height: width,
             borderRadius: 8,
             alignItems: "center",
             justifyContent: "center",
