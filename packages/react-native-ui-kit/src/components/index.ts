@@ -11,6 +11,7 @@ export * from "./container";
 export * from "./divider";
 export * from "./documentation-viewer";
 export * from "./flex-view";
+export * from "./grid-view";
 export * from "./icon";
 export * from "./layout";
 export * from "./list";

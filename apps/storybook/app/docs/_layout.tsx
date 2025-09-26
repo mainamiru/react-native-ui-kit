@@ -47,6 +47,7 @@ const DocsLayout = () => {
       <Drawer.Screen name="bottom-sheet" options={{ title: "Bottom Sheet" }} />
       <Drawer.Screen name="badge" options={{ title: "Badge" }} />
       <Drawer.Screen name="container" options={{ title: "Container" }} />
+      <Drawer.Screen name="grid-view" options={{ title: "Grid View" }} />
       <Drawer.Screen name="button" options={{ title: "Button" }} />
       <Drawer.Screen name="card" options={{ title: "Card" }} />
       <Drawer.Screen name="checkbox" options={{ title: "Checkbox" }} />

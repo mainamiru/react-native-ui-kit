@@ -79,6 +79,11 @@ export const navigations: NavLink[] = [
     description: "FlexView component",
   },
   {
+    label: "GridView",
+    path: "/docs/grid-view",
+    description: "GridView component",
+  },
+  {
     label: "Icon",
     path: "/docs/icon",
     description: "Icon component",
