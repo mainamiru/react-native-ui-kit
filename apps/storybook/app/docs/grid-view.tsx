@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
       spacing={12}
       itemWidth={90}
       scrollEnabled={false}
-      contentContainerStyle={{ padding: 10 }}
+      style={{ padding: 10 }}
       data={Array.from({ length: 12 }, (_, i) => `Box ${i + 1}`)}
       renderItem={({ item, size }) => (
         <View style={[styles.item, { width: size, height: size }]}>
