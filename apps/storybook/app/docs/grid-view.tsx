@@ -76,16 +76,15 @@ export default function App() {
     }}
   >
     <GridView
-      spacing={10}
       itemWidth={90}
+      itemSpacing={10}
       scrollEnabled={false}
-      style={{ padding: 10 }}
+      style={{ margin: 10 }}
       data={Array.from({ length: 6 }, (_, i) => `Item ${i + 1}`)}
-      renderItem={({ item, size }) => (
+      renderItem={({ item }) => (
         <View
           style={{
-            width: size,
-            height: size,
+            aspectRatio: 1,
             borderRadius: 8,
             alignItems: "center",
             justifyContent: "center",

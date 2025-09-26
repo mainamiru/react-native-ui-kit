@@ -10,7 +10,6 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import { extractPadding } from "./utils";
 
 type OmittedFlatListProps =
   | "renderItem"
@@ -20,10 +19,6 @@ type OmittedFlatListProps =
   | "columnWrapperStyle"
   | "contentContainerStyle";
 
-export interface GridViewItemProps<T> extends ListRenderItemInfo<T> {
-  size: number;
-}
-
 export type DefaultFlatListProps = Omit<
   FlatListProps<any>,
   OmittedFlatListProps
@@ -31,11 +26,11 @@ export type DefaultFlatListProps = Omit<
 
 export interface GridViewProps<T> extends DefaultFlatListProps {
   data: T[];
-  spacing?: number;
   itemWidth: number;
+  itemSpacing?: number;
   style?: StyleProp<ViewStyle>;
   itemStyle?: StyleProp<ViewStyle>;
-  renderItem: (props: GridViewItemProps<T>) => React.ReactElement;
+  renderItem: (props: ListRenderItemInfo<T>) => React.ReactElement;
 }
 
 export function GridView<T>({
@@ -44,30 +39,29 @@ export function GridView<T>({
   itemWidth,
   itemStyle,
   renderItem,
-  spacing = 0,
+  itemSpacing = 0,
   ...restProps
 }: GridViewProps<T>) {
   const [containerWidth, setContainerWidth] = React.useState<number>(0);
-  const { paddingHorizontal } = extractPadding(style);
 
   // on layout change
   const onLayout = (e: LayoutChangeEvent) => {
     const { width } = e.nativeEvent.layout;
     // subtract horizontal padding for calculation
-    setContainerWidth(width - paddingHorizontal);
+    setContainerWidth(width);
   };
 
   // number of columns
   const numColumns = React.useMemo(() => {
     if (containerWidth <= 0) return 1;
-    return Math.floor(containerWidth / (itemWidth + spacing));
-  }, [containerWidth, itemWidth, spacing]);
+    return Math.floor(containerWidth / (itemWidth + itemSpacing));
+  }, [containerWidth, itemWidth, itemSpacing]);
 
   // adjusted item width
   const adjustedItemWidth = React.useMemo(() => {
     if (containerWidth <= 0) return itemWidth;
-    return (containerWidth - spacing * (numColumns - 1)) / numColumns;
-  }, [containerWidth, numColumns, itemWidth, spacing]);
+    return (containerWidth - itemSpacing * (numColumns - 1)) / numColumns;
+  }, [containerWidth, numColumns, itemWidth, itemSpacing]);
 
   return (
     <View style={[{ flex: 1 }]} onLayout={onLayout}>
@@ -77,11 +71,23 @@ export function GridView<T>({
         key={numColumns}
         numColumns={numColumns}
         keyExtractor={(_, index) => String(index)}
-        contentContainerStyle={[style, { gap: spacing }]}
-        columnWrapperStyle={numColumns > 1 ? { gap: spacing } : undefined}
+        contentContainerStyle={[style, { gap: itemSpacing }]}
+        columnWrapperStyle={numColumns > 1 ? { gap: itemSpacing } : undefined}
         renderItem={({ item, index, separators }) => (
-          <View style={[itemStyle, { flex: 1, maxWidth: adjustedItemWidth }]}>
-            {renderItem({ item, index, separators, size: adjustedItemWidth })}
+          <View
+            style={[
+              itemStyle,
+              {
+                flex: 1,
+                width: undefined,
+                height: undefined,
+                minWidth: undefined,
+                minHeight: undefined,
+                maxWidth: adjustedItemWidth,
+              },
+            ]}
+          >
+            {renderItem({ item, index, separators })}
           </View>
         )}
       />
