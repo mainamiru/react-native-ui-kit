@@ -3,15 +3,19 @@ import { StyleProp, TextStyle } from "react-native";
 import { EvilIcons } from "../evil-icons";
 
 export type IconName = React.ComponentProps<typeof EvilIcons>["name"];
+export type DefaultIconProps = Omit<
+  React.ComponentProps<typeof EvilIcons>,
+  "name" | "color"
+>;
 
-export type IconProps = {
-  color?: string;
+export interface IconProps extends DefaultIconProps {
   size: number;
+  color?: string;
   testID?: string;
   direction?: "rtl" | "ltr";
   allowFontScaling?: boolean;
   style?: StyleProp<TextStyle>;
-};
+}
 
 //create icon
 const createIcon = (name: IconName): React.FC<IconProps> => {

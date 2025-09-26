@@ -57,12 +57,12 @@ export function MobileView({
 
 const styles = StyleSheet.create({
   frame: {
-    alignSelf: "center",
-    aspectRatio: 8 / 16,
     borderWidth: 10,
     borderRadius: 30,
+    aspectRatio: 8 / 16,
     borderColor: "#222426",
     overflow: "hidden",
+    alignSelf: "center",
     backgroundColor: "white",
     shadowColor: "#000",
     shadowOpacity: 0.2,
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    overflow: "hidden",
     position: "relative",
   },
   header: {

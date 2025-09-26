@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import * as React from "react";
 import {
   Dimensions,
   LayoutRectangle,
@@ -13,62 +13,51 @@ import {
 import Portal from "../portal";
 
 export interface TooltipProps {
-  children: React.ReactNode;
   text: string;
+  children: React.ReactNode;
+  placement?: "top" | "bottom";
   textStyle?: StyleProp<TextStyle>;
   tooltipStyle?: StyleProp<ViewStyle>;
-  placement?: "top" | "bottom";
-  visible?: boolean;
-  onVisibleChange?: (visible: boolean) => void;
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({
-  children,
   text,
+  children,
   textStyle,
   tooltipStyle,
   placement = "top",
-  visible,
-  onVisibleChange,
 }) => {
-  const [internalVisible, setInternalVisible] = useState(false);
-  const [anchorLayout, setAnchorLayout] = useState<LayoutRectangle | null>(
-    null
-  );
+  const triggerRef = React.useRef<View>(null);
+  const [internalVisible, setInternalVisible] = React.useState(false);
+  const [anchorLayout, setAnchorLayout] =
+    React.useState<LayoutRectangle | null>(null);
 
-  const isVisible = visible !== undefined ? visible : internalVisible;
-  const triggerRef = useRef<View>(null);
-
-  useEffect(() => {
-    if (isVisible && triggerRef.current) {
+  //handle visibility
+  React.useEffect(() => {
+    if (internalVisible && triggerRef.current) {
       triggerRef.current.measure((_x, _y, width, height, pageX, pageY) => {
         setAnchorLayout({ x: pageX, y: pageY, width, height });
       });
     }
-  }, [isVisible]);
+  }, [internalVisible]);
 
   const handleToggle = () => {
-    const newValue = !isVisible;
-    if (visible === undefined) {
-      setInternalVisible(newValue);
-    }
-    onVisibleChange?.(newValue);
+    setInternalVisible(!internalVisible);
   };
 
   const screenWidth = Dimensions.get("window").width;
 
   const top =
     placement === "top" && anchorLayout
-      ? anchorLayout.y
+      ? anchorLayout.y - 40
       : anchorLayout
-      ? anchorLayout.y + anchorLayout.height
+      ? anchorLayout.y + anchorLayout.height + 8
       : 0;
 
   const left =
     anchorLayout && anchorLayout.x + anchorLayout.width / 2 < screenWidth / 2
       ? anchorLayout.x
-      : Math.max(8, screenWidth - 200);
-  console.log(left);
+      : Math.max(8, screenWidth - 300);
 
   return (
     <View collapsable={false} ref={triggerRef}>
@@ -81,10 +70,18 @@ export const Tooltip: React.FC<TooltipProps> = ({
         {children}
       </Pressable>
 
-      {isVisible && anchorLayout && (
+      {internalVisible && anchorLayout && (
         <Portal>
           <View
-            style={[styles.tooltip, { top, left, maxWidth: 200 }, tooltipStyle]}
+            style={[
+              styles.tooltip,
+              {
+                top,
+                left,
+                maxWidth: 200,
+              },
+              tooltipStyle,
+            ]}
           >
             <Text style={[styles.tooltipText, textStyle]}>{text}</Text>
           </View>
