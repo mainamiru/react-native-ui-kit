@@ -2,6 +2,7 @@ import { DocsViewer } from "@/components";
 import { GridView } from "@mainamiru/react-native-ui-kit";
 import React from "react";
 import { Text, View } from "react-native";
+const data = Array.from({ length: 5 }, (_, i) => `Item ${i + 1}`);
 
 const GridViewDocsScreen = () => (
   <DocsViewer
@@ -76,11 +77,11 @@ export default function App() {
     }}
   >
     <GridView
+      data={data}
       itemWidth={90}
       itemSpacing={10}
       scrollEnabled={false}
       style={{ margin: 10 }}
-      data={Array.from({ length: 6 }, (_, i) => `Item ${i + 1}`)}
       renderItem={({ item }) => (
         <View
           style={{

@@ -47,7 +47,6 @@ export function GridView<T>({
   // on layout change
   const onLayout = (e: LayoutChangeEvent) => {
     const { width } = e.nativeEvent.layout;
-    // subtract horizontal padding for calculation
     setContainerWidth(width);
   };
 
@@ -64,7 +63,7 @@ export function GridView<T>({
   }, [containerWidth, numColumns, itemWidth, itemSpacing]);
 
   return (
-    <View style={[{ flex: 1 }]} onLayout={onLayout}>
+    <View style={{ flex: 1 }} onLayout={onLayout}>
       <FlatList
         data={data}
         {...restProps}
@@ -83,7 +82,7 @@ export function GridView<T>({
                 height: undefined,
                 minWidth: undefined,
                 minHeight: undefined,
-                maxWidth: adjustedItemWidth,
+                maxWidth: adjustedItemWidth - itemSpacing,
               },
             ]}
           >
