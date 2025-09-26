@@ -90,15 +90,15 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 };
 
 const styles = StyleSheet.create({
-  overlay: { flex: 1 },
   menu: {
-    position: "absolute",
     backgroundColor: "#fff",
     borderRadius: 8,
-    padding: 8,
     elevation: 6,
+    padding: 8,
+    position: "absolute",
   },
   option: { marginVertical: 4 },
+  overlay: { flex: 1 },
 });
 
 export default ContextMenu;

@@ -48,8 +48,16 @@ export default [
       "react-native/no-inline-styles": "off",
       "react-native/no-raw-text": "off",
       "no-console": "warn",
+      "react-native/no-unused-styles": "off",
       "react-native/no-color-literals": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "react-hooks/exhaustive-deps": "off",
     },
-    settings: { react: { version: "detect" } },
+    settings: {
+      react: {
+        version: "19.1.0",
+      },
+    },
   },
 ];

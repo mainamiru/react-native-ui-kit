@@ -20,8 +20,8 @@ type OmittedFlatListProps =
   | "columnWrapperStyle"
   | "contentContainerStyle";
 
-export type DefaultFlatListProps = Omit<
-  FlatListProps<any>,
+export type DefaultFlatListProps<T> = Omit<
+  FlatListProps<T>,
   OmittedFlatListProps
 >;
 
@@ -32,7 +32,7 @@ export interface GridViewItemProps<T> extends ListRenderItemInfo<T> {
   width: number;
 }
 
-export interface GridViewProps<T> extends DefaultFlatListProps {
+export interface GridViewProps<T> extends DefaultFlatListProps<T> {
   data: T[];
   itemWidth: number;
   itemSpacing?: number;

@@ -97,8 +97,8 @@ AvatarBase.displayName = "AvatarBase";
 
 const styles = StyleSheet.create({
   fallbackContainer: {
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
   fallbackText: {
     color: "#555",

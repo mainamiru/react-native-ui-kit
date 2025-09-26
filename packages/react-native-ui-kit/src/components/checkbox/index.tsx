@@ -9,7 +9,6 @@ import React, {
 import {
   Animated,
   Easing,
-  GestureResponderEvent,
   Pressable,
   StyleSheet,
   Text,
@@ -110,10 +109,11 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
       getStatus: () =>
         isControlled ? (controlledStatus as CheckboxStatus) : internalStatus,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [toggle, internalStatus, isControlled, controlledStatus],
   );
 
-  const onPressHandler = (e?: GestureResponderEvent) => {
+  const onPressHandler = () => {
     toggle();
   };
 
@@ -130,19 +130,17 @@ export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
       testID={testID}
     >
       <Animated.View
-        style={[
-          {
-            width: size,
-            height: size,
-            borderWidth: 2,
-            borderRadius: 4,
-            overflow: "hidden",
-            alignItems: "center",
-            justifyContent: "center",
-            borderColor: active ? color : uncheckedColor,
-            backgroundColor: active ? color : "transparent",
-          },
-        ]}
+        style={{
+          width: size,
+          height: size,
+          borderWidth: 2,
+          borderRadius: 4,
+          overflow: "hidden",
+          alignItems: "center",
+          justifyContent: "center",
+          borderColor: active ? color : uncheckedColor,
+          backgroundColor: active ? color : "transparent",
+        }}
       >
         {internalStatus === "checked" && (
           <Animated.Image
@@ -180,14 +178,14 @@ Checkbox.displayName = "Checkbox";
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
     alignItems: "center",
+    flexDirection: "row",
     gap: 8,
   },
   label: {
-    marginLeft: 8,
-    fontSize: 16,
     color: "#111827",
+    fontSize: 16,
+    marginLeft: 8,
   },
 });
 

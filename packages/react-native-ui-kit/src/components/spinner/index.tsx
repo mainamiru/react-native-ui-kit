@@ -91,13 +91,11 @@ export const Spinner = <T extends string | number>({
       )}
       <Divider margin={0} />
       <View
-        style={[
-          {
+        style={{
             width: "100%",
             height: contentHeight,
             justifyContent: "center",
-          },
-        ]}
+          }}
       >
         <View
           style={[
@@ -160,13 +158,13 @@ export const Spinner = <T extends string | number>({
 
 const styles = StyleSheet.create({
   highlight: {
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-    position: "absolute",
+    borderBottomColor: "gray",
     borderBottomWidth: 1,
     borderTopColor: "gray",
-    borderBottomColor: "gray",
+    borderTopWidth: 1,
+    left: 0,
+    position: "absolute",
+    right: 0,
   },
   item: {
     alignItems: "center",

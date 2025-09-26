@@ -74,6 +74,7 @@ const IconModule = loadIconModule();
  * Fallback component displayed when no icon library is available
  */
 const FallbackIcon = ({ name, color, size, ...rest }: IconProps) => {
+  // eslint-disable-next-line no-console
   console.warn(
     `Tried to use the icon '${name}' in a component from '@mainamiru/react-native-ui-kit', but none of the required icon libraries are installed.`,
     `To fix this, please install one of the following:\n` +

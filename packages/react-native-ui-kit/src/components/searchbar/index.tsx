@@ -78,30 +78,30 @@ export const SearchBar = forwardRef<TextInput, SearchBarProps>(
     );
   },
 );
-
+SearchBar.displayName = "SearchBar";
 export default SearchBar;
 
 const styles = StyleSheet.create({
+  closeIcon: {
+    height: 16,
+    width: 16,
+  },
   container: {
-    gap: 10,
+    alignItems: "center",
+    backgroundColor: "#d3eef2",
     borderRadius: 8,
     flexDirection: "row",
-    alignItems: "center",
+    gap: 10,
     paddingHorizontal: 15,
-    backgroundColor: "#d3eef2",
-  },
-  input: {
-    flex: 1,
-    fontSize: 16,
-    color: "#333",
-    minHeight: 50,
   },
   icon: {
-    width: 20,
     height: 20,
+    width: 20,
   },
-  closeIcon: {
-    width: 16,
-    height: 16,
+  input: {
+    color: "#333",
+    flex: 1,
+    fontSize: 16,
+    minHeight: 50,
   },
 });

@@ -78,32 +78,37 @@ Card.Description = ({ children, style }) => {
   return <Text style={[styles.description, style]}>{children}</Text>;
 };
 
+Card.Image.displayName = "CardImage";
+Card.Title.displayName = "CartTitle";
+Card.Content.displayName = "CardContent";
+Card.Description.displayName = "CardDescription";
+
 const styles = StyleSheet.create({
   card: {
-    elevation: 3,
-    shadowRadius: 6,
+    backgroundColor: "#fff",
     borderRadius: 10,
+    elevation: 3,
     overflow: "hidden",
     shadowColor: "#000",
     shadowOpacity: 0.08,
-    backgroundColor: "#fff",
-  },
-  image: {
-    width: "100%",
-    height: 160,
+    shadowRadius: 6,
   },
   content: {
     padding: 12,
+  },
+  description: {
+    color: "#555",
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  image: {
+    height: 160,
+    width: "100%",
   },
   title: {
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 6,
-  },
-  description: {
-    fontSize: 14,
-    color: "#555",
-    lineHeight: 20,
   },
 });
 

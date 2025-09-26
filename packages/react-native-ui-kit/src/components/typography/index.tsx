@@ -31,6 +31,14 @@ export const Typography: React.FC<TypographyProps> = ({
 };
 
 const styles = StyleSheet.create({
+  body: {
+    fontSize: 16,
+    fontWeight: "400",
+  },
+  caption: {
+    fontSize: 12,
+    fontWeight: "300",
+  },
   h1: {
     fontSize: 32,
     fontWeight: "700",
@@ -42,14 +50,6 @@ const styles = StyleSheet.create({
   h3: {
     fontSize: 20,
     fontWeight: "600",
-  },
-  body: {
-    fontSize: 16,
-    fontWeight: "400",
-  },
-  caption: {
-    fontSize: 12,
-    fontWeight: "300",
   },
 });
 

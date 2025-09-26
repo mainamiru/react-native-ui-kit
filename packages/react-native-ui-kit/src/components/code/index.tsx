@@ -1,6 +1,13 @@
 import * as Clipboard from "expo-clipboard"; // For Expo projects
 import React, { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+} from "react-native";
 
 export interface CodeProps {
   code: string;
@@ -42,7 +49,7 @@ const highlight = (code: string) => {
   const regex =
     /(\/\/.*$)|("(?:[^"\\]|\\.)*")|('(?:[^'\\]|\\.)*')|(`(?:[^`\\]|\\.)*`)|\b(\d+)\b|\b([a-zA-Z_]\w*)\b/gm;
 
-  const parts: { text: string; style?: any }[] = [];
+  const parts: { text: string; style?: TextStyle }[] = [];
   let lastIndex = 0;
 
   code.replace(
@@ -113,47 +120,47 @@ export const Code: React.FC<CodeProps> = ({
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    borderRadius: 8,
-    overflow: "hidden",
-    flexDirection: "row",
-    backgroundColor: "#1e1e1e",
-  },
-  container: {
-    padding: 15,
-  },
   code: {
-    fontSize: 14,
     color: "#d4d4d4",
     fontFamily: "monospace",
-  },
-  keyword: {
-    color: "#3b388f",
-  },
-  string: {
-    color: "#D69D85",
-  },
-  number: {
-    color: "#B5CEA8",
+    fontSize: 14,
   },
   comment: {
     color: "#6A9955",
     fontStyle: "italic",
   },
+  container: {
+    padding: 15,
+  },
   copyButton: {
-    borderRadius: 10,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
     backgroundColor: "#2d2d2d",
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     position: "absolute",
-    top: 0,
     right: 0,
+    top: 0,
     zIndex: 10,
   },
   copyText: {
-    fontSize: 12,
     color: "#569CD6",
+    fontSize: 12,
     fontWeight: "500",
+  },
+  keyword: {
+    color: "#3b388f",
+  },
+  number: {
+    color: "#B5CEA8",
+  },
+  string: {
+    color: "#D69D85",
+  },
+  wrapper: {
+    backgroundColor: "#1e1e1e",
+    borderRadius: 8,
+    flexDirection: "row",
+    overflow: "hidden",
   },
 });
 

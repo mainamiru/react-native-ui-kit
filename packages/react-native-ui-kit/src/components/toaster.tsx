@@ -9,7 +9,6 @@ import React, {
 import {
   Animated,
   Easing,
-  GestureResponderEvent,
   PanResponder,
   StyleSheet,
   Text,
@@ -88,7 +87,7 @@ export const Toaster: React.FC<{ children: React.ReactNode }> = ({
       setToasts((prev) => [...prev, toast]);
       scheduleRemove(toast);
     },
-    [scheduleRemove],
+    [scheduleRemove, defaultOptions],
   );
 
   const api: ToasterContextProps = {
@@ -195,7 +194,7 @@ const ToastItem: React.FC<{
         useNativeDriver: true,
       }),
     ]).start();
-  }, []);
+  }, [opacity, translateY]);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -227,7 +226,7 @@ const ToastItem: React.FC<{
     }),
   ).current;
 
-  const handleTap = (e: GestureResponderEvent) => {
+  const handleTap = () => {
     // quick taps (no move) → dismiss
     onRemove();
   };
@@ -258,23 +257,23 @@ export const useToaster = () => {
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
     left: 0,
-    right: 0,
     paddingHorizontal: 16,
-  },
-  toast: {
-    marginVertical: 6,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    borderRadius: 8,
-    minWidth: "60%",
-    elevation: 4,
+    position: "absolute",
+    right: 0,
   },
   text: {
     color: "white",
-    fontWeight: "500",
     flexShrink: 1,
+    fontWeight: "500",
+  },
+  toast: {
+    borderRadius: 8,
+    elevation: 4,
+    marginVertical: 6,
+    minWidth: "60%",
+    paddingHorizontal: 14,
+    paddingVertical: 12,
   },
 });
 

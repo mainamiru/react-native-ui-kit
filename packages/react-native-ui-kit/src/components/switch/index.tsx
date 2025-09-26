@@ -130,14 +130,6 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
     [toggle, internalValue, isControlled, controlledValue],
   );
 
-  // ✅ allow keyboard toggle on web
-  const handleKeyPress = (e: any) => {
-    if (e.nativeEvent.key === "Enter" || e.nativeEvent.key === " ") {
-      e.preventDefault();
-      toggle();
-    }
-  };
-
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => !disabled,
@@ -210,24 +202,22 @@ export const Switch = forwardRef<SwitchRef, SwitchProps>((props, ref) => {
         {/* thumb */}
         <Animated.View
           {...panResponder.panHandlers}
-          style={[
-            {
-              width: thumbSize,
-              height: thumbSize,
-              borderRadius: thumbSize / 2,
-              backgroundColor: thumbColor,
-              transform: [{ translateX }],
-              ...Platform.select({
-                ios: {
-                  shadowColor: "#000",
-                  shadowOpacity: 0.12,
-                  shadowRadius: 2,
-                  shadowOffset: { width: 0, height: 1 },
-                },
-                android: { elevation: 2 },
-              }),
-            },
-          ]}
+          style={{
+            width: thumbSize,
+            height: thumbSize,
+            borderRadius: thumbSize / 2,
+            backgroundColor: thumbColor,
+            transform: [{ translateX }],
+            ...Platform.select({
+              ios: {
+                shadowColor: "#000",
+                shadowOpacity: 0.12,
+                shadowRadius: 2,
+                shadowOffset: { width: 0, height: 1 },
+              },
+              android: { elevation: 2 },
+            }),
+          }}
         />
       </Animated.View>
     </Pressable>

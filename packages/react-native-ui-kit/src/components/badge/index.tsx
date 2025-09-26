@@ -23,13 +23,13 @@ export const Badge: React.FC<BadgeProps> = ({
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
+    alignSelf: "flex-start",
+    borderRadius: 12,
+    justifyContent: "center",
+    minWidth: 40,
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 12,
-    alignSelf: "flex-start",
-    minWidth: 40,
-    alignItems: "center",
-    justifyContent: "center",
   },
   text: {
     fontSize: 12,

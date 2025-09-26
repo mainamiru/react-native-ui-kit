@@ -51,6 +51,7 @@ export const Container: React.FC<ContainerProps> = React.memo(
   },
 );
 
+Container.displayName = "Container";
 export default Container;
 
 const styles = StyleSheet.create({
@@ -59,14 +60,14 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   loadingWrapper: {
-    flex: 1,
     alignItems: "center",
+    flex: 1,
     justifyContent: "center",
   },
   modalOverlay: {
-    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "rgba(0,0,0,0.3)",
+    flex: 1,
+    justifyContent: "center",
   },
 });

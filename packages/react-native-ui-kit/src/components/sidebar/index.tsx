@@ -179,20 +179,20 @@ export const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
 Sidebar.displayName = "Sidebar";
 
 const styles = StyleSheet.create({
-  sidebar: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    backgroundColor: "white",
-    elevation: 8,
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-  },
   content: {
     flex: 1,
     padding: 16,
+  },
+  sidebar: {
+    backgroundColor: "white",
+    bottom: 0,
+    elevation: 8,
+    position: "absolute",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    top: 0,
   },
 });
 

@@ -3,7 +3,7 @@ import { Pressable, View } from "react-native";
 import { useRadioGroupContext } from "./radio-group";
 import { RadioProps } from "./types";
 
-const RadioBase = <T extends unknown>({
+const RadioBase = <T,>({
   value,
   size = 20,
   selected,
@@ -20,7 +20,7 @@ const RadioBase = <T extends unknown>({
       disabled={disabled || isSelected}
       onPress={() => {
         onValueChange(value);
-        onChange && onChange(value);
+        onChange(value);
       }}
       style={{
         width: size,

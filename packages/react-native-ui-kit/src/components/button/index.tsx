@@ -102,45 +102,45 @@ export const Button: React.FC<ButtonProps> = ({
 };
 
 const styles = StyleSheet.create({
-  textStyle: {
-    fontSize: 14,
-    fontWeight: "500",
-  },
   base: {
-    borderRadius: 20,
-    overflow: "hidden",
     alignItems: "center",
+    borderRadius: 20,
     justifyContent: "center",
-  },
-  text: {
-    borderWidth: 0,
-    borderColor: "transparent",
-    backgroundColor: "transparent",
-  },
-  outlined: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor: "transparent",
+    overflow: "hidden",
   },
   contained: {
-    borderColor: "#645ff5",
     backgroundColor: "#645ff5",
+    borderColor: "#645ff5",
   },
   container: {
+    alignItems: "center",
+    flexDirection: "row",
     gap: 8,
+    justifyContent: "center",
     paddingHorizontal: 16,
     paddingVertical: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
   },
   disabled: {
     opacity: 0.5,
   },
   elevated: {
-    elevation: 0,
     backgroundColor: "#f2f7f6",
     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+    elevation: 0,
+  },
+  outlined: {
+    backgroundColor: "transparent",
+    borderColor: "#ccc",
+    borderWidth: 1,
+  },
+  text: {
+    backgroundColor: "transparent",
+    borderColor: "transparent",
+    borderWidth: 0,
+  },
+  textStyle: {
+    fontSize: 14,
+    fontWeight: "500",
   },
 });
 

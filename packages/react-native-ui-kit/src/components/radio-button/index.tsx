@@ -39,33 +39,33 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 6,
-  },
   circle: {
-    height: 22,
-    width: 22,
+    alignItems: "center",
+    borderColor: "#555",
     borderRadius: 11,
     borderWidth: 2,
-    borderColor: "#555",
-    alignItems: "center",
+    height: 22,
     justifyContent: "center",
     marginRight: 10,
+    width: 22,
   },
   circleSelected: {
     borderColor: "#007AFF",
   },
+  container: {
+    alignItems: "center",
+    flexDirection: "row",
+    paddingVertical: 6,
+  },
   innerCircle: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
     backgroundColor: "#007AFF",
+    borderRadius: 5,
+    height: 10,
+    width: 10,
   },
   label: {
-    fontSize: 16,
     color: "#333",
+    fontSize: 16,
   },
 });
 

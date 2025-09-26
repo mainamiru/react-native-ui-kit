@@ -19,6 +19,7 @@ export interface IconProps extends DefaultIconProps {
 
 //create icon
 const createIcon = (name: IconName): React.FC<IconProps> => {
+  // eslint-disable-next-line react/display-name
   return ({ size = 24, color = "#000", ...props }) => {
     return <EvilIcons name={name} size={size} color={color} {...props} />;
   };

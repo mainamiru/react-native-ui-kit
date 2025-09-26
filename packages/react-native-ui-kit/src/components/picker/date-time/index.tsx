@@ -35,7 +35,6 @@ const DateTimePicker = ({
   inputStyle,
   selectedValue,
   onValueChange,
-  containerStyle,
   autoClose = true,
   helperTextStyle,
   placeholderText = "Select",
@@ -54,7 +53,7 @@ const DateTimePicker = ({
       sidebarRef.current?.close();
       bottomSheetRef.current?.close();
     }
-  }, [value]);
+  }, [value, autoClose, onValueChange]);
 
   return (
     <PickerSelectContext.Provider value={{ value, setValue }}>

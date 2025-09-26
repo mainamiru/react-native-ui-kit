@@ -83,19 +83,38 @@ export const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
 };
 
 const styles = StyleSheet.create({
+  code: {
+    backgroundColor: "#f5f5f5",
+    borderRadius: 6,
+    color: "#222",
+    fontFamily: "monospace",
+    fontSize: 13,
+    padding: 8,
+  },
   container: {
     flex: 1,
     padding: 16,
   },
-  title: {
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 8,
-  },
   description: {
-    fontSize: 14,
     color: "#444",
+    fontSize: 14,
     marginBottom: 16,
+  },
+  propDescription: {
+    color: "#444",
+    fontSize: 13,
+    marginTop: 4,
+  },
+  propDetails: {
+    color: "#666",
+    fontSize: 13,
+  },
+  propName: {
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  propRow: {
+    marginBottom: 12,
   },
   section: {
     marginBottom: 20,
@@ -105,29 +124,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 8,
   },
-  code: {
-    fontFamily: "monospace",
-    backgroundColor: "#f5f5f5",
-    padding: 8,
-    borderRadius: 6,
-    fontSize: 13,
-    color: "#222",
-  },
-  propRow: {
-    marginBottom: 12,
-  },
-  propName: {
-    fontSize: 15,
-    fontWeight: "600",
-  },
-  propDetails: {
-    fontSize: 13,
-    color: "#666",
-  },
-  propDescription: {
-    fontSize: 13,
-    color: "#444",
-    marginTop: 4,
+  title: {
+    fontSize: 22,
+    fontWeight: "700",
+    marginBottom: 8,
   },
 });
 

@@ -3,7 +3,7 @@ import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import Text from "../text";
 import TouchRipple, { TouchRippleProps } from "../touch-ripple";
 
-export interface ListItemProps extends TouchRippleProps {
+export interface ListItemProps extends Omit<TouchRippleProps, "children"> {
   title: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   description?: React.ReactNode;
@@ -21,7 +21,6 @@ const ListItem: React.FC<ListItemProps> = ({
   right,
   title,
   style,
-  children,
   titleStyle,
   description,
   containerStyle,

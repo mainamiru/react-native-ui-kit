@@ -166,7 +166,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         {/* Clock face */}
         <View style={[StyleSheet.absoluteFill, styles.clockFace]}>
           {showNumbers &&
-            numbers.map((num, i) => {
+            numbers.map((num) => {
               const isSelected =
                 (isHourSelection &&
                   ((clockType === "12h" && num === (selectedHour % 12 || 12)) ||
@@ -342,85 +342,85 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    padding: 16,
-  },
-  clockContainer: {
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-    borderWidth: 1,
-    borderColor: "#eee",
-  },
-  clockFace: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  numberContainer: {
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  number: {
-    textAlign: "center",
-    textAlignVertical: "center",
-  },
-  hand: {
-    position: "absolute",
-    borderRadius: 4,
-  },
-  centerDot: {
-    position: "absolute",
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    zIndex: 10,
-  },
-  timeDisplayContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 20,
-    padding: 10,
-    borderRadius: 8,
-    backgroundColor: "#f8f8f8",
-  },
-  timeDisplayButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-  },
   activeTimeDisplayButton: {
     backgroundColor: "#e0e0e0",
-  },
-  timeDisplayText: {
-    fontSize: 24,
-    fontWeight: "500",
-    color: "#666",
   },
   activeTimeDisplayText: {
     color: "#000",
     fontWeight: "bold",
   },
-  timeSeparator: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginHorizontal: 4,
-  },
   ampmButton: {
+    backgroundColor: "#f0f0f0",
+    borderRadius: 6,
     flexDirection: "row",
     marginLeft: 12,
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 6,
-    backgroundColor: "#f0f0f0",
   },
   ampmText: {
     fontSize: 16,
     fontWeight: "500",
     marginHorizontal: 4,
     opacity: 0.7,
+  },
+  centerDot: {
+    borderRadius: 8,
+    height: 16,
+    position: "absolute",
+    width: 16,
+    zIndex: 10,
+  },
+  clockContainer: {
+    alignItems: "center",
+    borderColor: "#eee",
+    borderWidth: 1,
+    justifyContent: "center",
+    overflow: "hidden",
+    position: "relative",
+  },
+  clockFace: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  container: {
+    alignItems: "center",
+    padding: 16,
+  },
+  hand: {
+    borderRadius: 4,
+    position: "absolute",
+  },
+  number: {
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
+  numberContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+  },
+  timeDisplayButton: {
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
+  timeDisplayContainer: {
+    alignItems: "center",
+    backgroundColor: "#f8f8f8",
+    borderRadius: 8,
+    flexDirection: "row",
+    marginTop: 20,
+    padding: 10,
+  },
+  timeDisplayText: {
+    color: "#666",
+    fontSize: 24,
+    fontWeight: "500",
+  },
+  timeSeparator: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginHorizontal: 4,
   },
 });
 

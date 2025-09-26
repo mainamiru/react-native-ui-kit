@@ -50,7 +50,7 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
       duration: 200,
       useNativeDriver: true,
     }).start();
-  }, [isExpanded]);
+  }, [isExpanded, rotationAnim]);
 
   //toggle accordion
   const toggleAccordion = (e: GestureResponderEvent) => {
@@ -111,28 +111,28 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: "#ccc",
-    backgroundColor: "#fff",
-  },
-  titleContainer: {
-    padding: 16,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  titleText: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
   arrow: {
     fontSize: 16,
+  },
+  container: {
+    backgroundColor: "#fff",
+    borderColor: "#ccc",
+    borderRadius: 8,
+    borderWidth: 1,
   },
   contentContainer: {
     paddingHorizontal: 16,
     paddingVertical: 8,
+  },
+  titleContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 16,
+  },
+  titleText: {
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
 

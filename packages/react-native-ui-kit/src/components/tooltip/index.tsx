@@ -93,10 +93,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
 const styles = StyleSheet.create({
   tooltip: {
-    position: "absolute",
     backgroundColor: "#333",
-    padding: 8,
     borderRadius: 6,
+    padding: 8,
+    position: "absolute",
   },
   tooltipText: {
     color: "#fff",

@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   shimmer: {
-    width: "50%",
-    height: "100%",
     backgroundColor: "#f6f6f6",
+    height: "100%",
+    left: 0,
     opacity: 0.5,
     position: "absolute",
     top: 0,
-    left: 0,
+    width: "50%",
   },
 });
 
