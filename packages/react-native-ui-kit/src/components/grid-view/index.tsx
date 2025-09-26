@@ -70,14 +70,14 @@ export function GridView<T>({
   }, [containerWidth, numColumns, itemWidth, spacing]);
 
   return (
-    <View style={[{ flex: 1 }, style]} onLayout={onLayout}>
+    <View style={[{ flex: 1 }]} onLayout={onLayout}>
       <FlatList
         data={data}
         {...restProps}
         key={numColumns}
         numColumns={numColumns}
-        contentContainerStyle={{ gap: spacing }}
         keyExtractor={(_, index) => String(index)}
+        contentContainerStyle={[style, { gap: spacing }]}
         columnWrapperStyle={numColumns > 1 ? { gap: spacing } : undefined}
         renderItem={({ item, index, separators }) => (
           <View style={[itemStyle, { flex: 1, maxWidth: adjustedItemWidth }]}>

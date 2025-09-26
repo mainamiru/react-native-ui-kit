@@ -1,79 +1,97 @@
 import { DocsViewer } from "@/components";
 import { GridView } from "@mainamiru/react-native-ui-kit";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 const GridViewDocsScreen = () => (
   <DocsViewer
     title="GridView"
-    description="A responsive GridView that adjusts columns dynamically using container width."
-    usage="GridView uses onLayout to measure available space and automatically calculate the number of columns."
+    description="A responsive grid component that dynamically calculates item width and number of columns."
+    usage="Use GridView when you need a flexible, responsive grid layout with automatic column calculation."
     exampleCode={`import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, View } from "react-native";
 import { GridView } from "@mainamiru/react-native-ui-kit";
 
-const data = Array.from({ length: 12 }, (_, i) => \`Box \${i + 1}\`);
+const data = Array.from({ length: 12 }, (_, i) => \`Item \${i + 1}\`);
 
 export default function App() {
   return (
     <GridView
       data={data}
-      itemWidth={90}
-      spacing={12}
-      renderItem={(item, index, size) => (
-        <View style={[styles.item, { width: size, height: size }]}>
+      itemWidth={100}
+      spacing={10}
+      style={{ padding: 16 }}
+      renderItem={({ item, size }) => (
+        <View
+          style={{
+            width: size,
+            height: size,
+            backgroundColor: "skyblue",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 8,
+          }}
+        >
           <Text>{item}</Text>
         </View>
       )}
     />
   );
-}
-
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: "#ddd",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 6,
-  },
-});`}
+}`}
     props={{
       data: {
         type: "T[]",
         required: true,
-        description: "Array of items to render in the grid.",
-      },
-      renderItem: {
-        type: "(item: T, index: number, itemSize: number) => React.ReactNode",
-        required: true,
-        description: "Function to render each grid item with dynamic width.",
+        description: "The list of items to render.",
       },
       itemWidth: {
         type: "number",
         required: true,
         description:
-          "Base width for each item, used to calculate column count.",
+          "Desired base item width (used to calculate columns & adjust size).",
       },
       spacing: {
         type: "number",
         required: false,
-        description: "Spacing between grid items. Default is 8.",
+        default: "0",
+        description:
+          "Gap between items (applies to both horizontal & vertical spacing).",
       },
       style: {
         type: "StyleProp<ViewStyle>",
         required: false,
-        description: "Optional container style.",
+        description: "Style for the outer container. Supports padding safely.",
+      },
+      itemStyle: {
+        type: "StyleProp<ViewStyle>",
+        required: false,
+        description: "Style for each item wrapper.",
+      },
+      renderItem: {
+        type: "(props: GridViewItemProps<T>) => React.ReactElement",
+        required: true,
+        description:
+          "Function to render each item. Receives an extra `size` prop (calculated).",
       },
     }}
   >
     <GridView
-      spacing={12}
+      spacing={10}
       itemWidth={90}
       scrollEnabled={false}
       style={{ padding: 10 }}
-      data={Array.from({ length: 12 }, (_, i) => `Box ${i + 1}`)}
+      data={Array.from({ length: 6 }, (_, i) => `Item ${i + 1}`)}
       renderItem={({ item, size }) => (
-        <View style={[styles.item, { width: size, height: size }]}>
+        <View
+          style={{
+            width: size,
+            height: size,
+            borderRadius: 8,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "skyblue",
+          }}
+        >
           <Text>{item}</Text>
         </View>
       )}
@@ -82,12 +100,3 @@ const styles = StyleSheet.create({
 );
 
 export default GridViewDocsScreen;
-
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: "#ddd",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 6,
-  },
-});
