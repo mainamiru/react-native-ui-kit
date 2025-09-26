@@ -52,6 +52,7 @@ const DocsLayout = () => {
       <Drawer.Screen name="checkbox" options={{ title: "Checkbox" }} />
       <Drawer.Screen name="code" options={{ title: "Code" }} />
       <Drawer.Screen name="divider" options={{ title: "Divider" }} />
+      <Drawer.Screen name="icon" options={{ title: "Icon" }} />
       <Drawer.Screen name="list" options={{ title: "List" }} />
       <Drawer.Screen name="picker" options={{ title: "Picker" }} />
       <Drawer.Screen name="radio" options={{ title: "Radio" }} />
@@ -63,6 +64,7 @@ const DocsLayout = () => {
       <Drawer.Screen name="tabs" options={{ title: "Tabs" }} />
       <Drawer.Screen name="text" options={{ title: "Text" }} />
       <Drawer.Screen name="text-input" options={{ title: "Text Input" }} />
+      <Drawer.Screen name="tooltip" options={{ title: "Tooltip" }} />
       <Drawer.Screen name="typography" options={{ title: "Typography" }} />
       <Drawer.Screen name="touch-ripple" options={{ title: "Touch Ripple" }} />
       <Drawer.Screen name="smart-image" options={{ title: "Smart Image" }} />

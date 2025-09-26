@@ -11,7 +11,7 @@ export const DrawerContents = () => {
   const pathName = usePathname();
   const { height } = useWindowDimensions();
   const { theme } = useTheme();
-  const activeBackground = theme.colors.card;
+  const activeBackground = theme.dark ? "#333d3b" : "#dfe6e4";
   return (
     <SafeAreaView style={{ height }}>
       <FlatList

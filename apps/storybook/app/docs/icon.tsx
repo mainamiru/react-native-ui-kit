@@ -47,10 +47,7 @@ export default function App() {
     >
       {Object.entries(Icon).map(([name, Component]) => (
         <Center flex={1} key={name} minWidth={50}>
-          <Tooltip
-            text="Got it 👍 — the issue you’re hitting is because measure gives absolute screen coordinates, but the tooltip itself is positioned absolutely inside the Portal host. That means your top and left offsets need to account for both tooltip size and the placement spacing (distance from the trigger)."
-            placement="bottom"
-          >
+          <Tooltip text={name} placement="bottom">
             <Component
               size={28}
               color="blue"

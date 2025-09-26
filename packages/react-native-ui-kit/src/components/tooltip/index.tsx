@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  Dimensions,
   LayoutRectangle,
   Pressable,
   StyleProp,
@@ -9,6 +8,7 @@ import {
   TextStyle,
   View,
   ViewStyle,
+  useWindowDimensions,
 } from "react-native";
 import Portal from "../portal";
 
@@ -27,6 +27,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   tooltipStyle,
   placement = "top",
 }) => {
+  const { width: screenWidth } = useWindowDimensions();
   const triggerRef = React.useRef<View>(null);
   const [internalVisible, setInternalVisible] = React.useState(false);
   const [anchorLayout, setAnchorLayout] =
@@ -45,8 +46,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
     setInternalVisible(!internalVisible);
   };
 
-  const screenWidth = Dimensions.get("window").width;
-
   const top =
     placement === "top" && anchorLayout
       ? anchorLayout.y - 40
@@ -57,11 +56,12 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const left =
     anchorLayout && anchorLayout.x + anchorLayout.width / 2 < screenWidth / 2
       ? anchorLayout.x
-      : Math.max(8, screenWidth - 300);
+      : Math.max(8, screenWidth - 200);
 
   return (
     <View collapsable={false} ref={triggerRef}>
       <Pressable
+        pointerEvents="box-only"
         onHoverIn={handleToggle}
         onPressIn={handleToggle}
         onPressOut={handleToggle}
@@ -78,7 +78,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
               {
                 top,
                 left,
-                maxWidth: 200,
+                maxWidth: 300,
               },
               tooltipStyle,
             ]}
