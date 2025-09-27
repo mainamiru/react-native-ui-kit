@@ -14,18 +14,35 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default function App() {
   return (
-    <>
+    <View style={{ padding:10, gap:10 }}>
       <Button mode="contained">Save</Button>
-      <Button mode="outlined">Cancel</Button>
-      <Button mode="text">Skip</Button>
-      <Button mode="contained" loading>Loading</Button>
+      <Button mode="outlined" buttonColor="#ff6347">
+        Cancel
+      </Button>
+      <Button mode="elevated">Elevated</Button>
+      <Button mode="text">Text Button</Button>
+      <Button mode="contained" loading>
+        Loading
+      </Button>
       <Button
         mode="contained"
-        icon={({ size, color }) => <Ionicons name="add" size={size} color={color} />}
+        iconPosition="leading"
+        icon={({ size, color }) => (
+          <Ionicons name="add" size={size} color={color} />
+        )}
       >
         Add Item
       </Button>
-    </>
+      <Button
+        mode="contained"
+        iconPosition="trailing"
+        icon={({ size, color }) => (
+          <Ionicons name="camera" size={size} color={color} />
+        )}
+      >
+        Take a selfie
+      </Button>
+    </View>
   );
 }`}
     props={{
@@ -70,15 +87,15 @@ export default function App() {
         required: false,
         description: "Custom style for button label.",
       },
-      leadingIcon: {
+      icon: {
         type: "(props: { size: number; color: string }) => JSX.Element",
         required: false,
         description: "Function that renders an icon inside the button.",
       },
-      trailingIcon: {
-        type: "(props: { size: number; color: string }) => JSX.Element",
+      iconPosition: {
+        type: "'leading' | 'trailing'",
         required: false,
-        description: "Function that renders an icon inside the button.",
+        description: "Position of the icon inside the button.",
       },
       disabled: {
         type: "boolean",
@@ -93,17 +110,27 @@ export default function App() {
       Cancel
     </Button>
     <Button mode="elevated">Elevated</Button>
-    <Button mode="text">Skip</Button>
+    <Button mode="text">Text Button</Button>
     <Button mode="contained" loading>
       Loading
     </Button>
     <Button
       mode="contained"
-      leadingIcon={({ size, color }) => (
+      iconPosition="leading"
+      icon={({ size, color }) => (
         <Ionicons name="add" size={size} color={color} />
       )}
     >
       Add Item
+    </Button>
+    <Button
+      mode="contained"
+      iconPosition="trailing"
+      icon={({ size, color }) => (
+        <Ionicons name="camera" size={size} color={color} />
+      )}
+    >
+      Take a selfie
     </Button>
   </DocsViewer>
 );

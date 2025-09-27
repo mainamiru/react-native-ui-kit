@@ -30,11 +30,12 @@ export interface ButtonProps extends PressableProps {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   containerStyle?: StyleProp<ViewStyle>;
-  leadingIcon?: (props: ButtonIconProps) => React.ReactNode;
-  trailingIcon?: (props: ButtonIconProps) => React.ReactNode;
+  iconPosition?: "leading" | "trailing";
+  icon?: (props: ButtonIconProps) => React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({
+  icon,
   style,
   children,
   textStyle,
@@ -44,8 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   containerStyle,
   mode = "text",
-  leadingIcon,
-  trailingIcon,
+  iconPosition = "leading",
   ...props
 }) => {
   const { primary, text } = useThemeColor();
@@ -82,8 +82,9 @@ export const Button: React.FC<ButtonProps> = ({
         {loading ? (
           <ActivityIndicator size={16} color={defualtStyle.textStyle.color} />
         ) : (
-          leadingIcon &&
-          leadingIcon({
+          iconPosition === "leading" &&
+          icon &&
+          icon({
             size: 16,
             color: defualtStyle.textStyle.color,
           })
@@ -91,8 +92,9 @@ export const Button: React.FC<ButtonProps> = ({
         <Text style={[styles.textStyle, defualtStyle.textStyle, textStyle]}>
           {children}
         </Text>
-        {trailingIcon &&
-          trailingIcon({
+        {iconPosition === "trailing" &&
+          icon &&
+          icon({
             size: 16,
             color: defualtStyle.textStyle.color,
           })}
