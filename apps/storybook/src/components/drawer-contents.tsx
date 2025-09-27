@@ -41,9 +41,10 @@ export const DrawerContents = () => {
                     key={section.path}
                     href={section.path as Href}
                     style={{
-                      backgroundColor: isActive
-                        ? activeBackground
-                        : "transparent",
+                      backgroundColor:
+                        section.path === pathName
+                          ? activeBackground
+                          : "transparent",
                     }}
                   >
                     <List.Item

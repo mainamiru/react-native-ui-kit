@@ -41,9 +41,10 @@ const HomeScreen = () => {
               View Components
             </Button>
             <Button
-              onPress={() => router.push("/docs")}
               mode="outlined"
+              textColor="black"
               style={styles.secondaryButton}
+              onPress={() => router.push("/docs")}
             >
               Get Started
             </Button>
@@ -86,14 +87,27 @@ const HomeScreen = () => {
                 <View style={styles.componentDemo}>
                   <Text style={styles.componentTitle}>Avatars</Text>
                   <Row gap={10} alignItems="center" justifyContent="center">
-                    <Avatar fallback="JD" />
-                    <Avatar fallback="AB" />
-                    <Avatar fallback="XY" />
+                    <Avatar
+                      fallback="JD"
+                      source="https://via.placeholder.com/48"
+                    />
+                    <Avatar
+                      source="https://via.placeholder.com/48"
+                      fallback="AB"
+                    />
+                    <Avatar
+                      source="https://via.placeholder.com/48"
+                      fallback="XY"
+                    />
                   </Row>
                   <View style={{ marginTop: 10 }}>
                     <Row gap={10} alignItems="center" justifyContent="center">
                       <Avatar source="https://via.placeholder.com/48" />
-                      <Avatar fallback="?" backgroundColor="#4F46E5" />
+                      <Avatar
+                        source={null}
+                        fallback="?"
+                        backgroundColor="#4F46E5"
+                      />
                     </Row>
                   </View>
                 </View>

@@ -46,7 +46,7 @@ export default function App() {
 }`}
       props={{
         anchor: {
-          type: "() => React.ReactNode",
+          type: "(props: AnchorProps) => React.ReactNode",
           required: false,
           description: "Custom anchor component for the sheet.",
         },
@@ -112,7 +112,11 @@ export default function App() {
               This bottom sheet is controlled with a ref. Tap the button below
               to hide it.
             </Text>
-            <Button mode="outlined" onPress={() => sheetRef.current?.close()}>
+            <Button
+              mode="outlined"
+              textColor="black"
+              onPress={() => sheetRef.current?.close()}
+            >
               Close Sheet
             </Button>
           </View>

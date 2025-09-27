@@ -103,13 +103,28 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
                 <Text style={styles.sectionTitle}>Props</Text>
                 {Object.entries(props).map(([name, details]) => (
                   <View key={name} style={styles.propRow}>
-                    <Row alignItems="center" gap={10}>
+                    <Row
+                      gap={10}
+                      flexWrap="wrap"
+                      maxWidth="100%"
+                      alignItems="center"
+                    >
                       <Text variant="titleMedium" style={styles.propName}>
                         {name}:
                       </Text>
                       {details.href ? (
-                        <Link href={details.href as Href}>
-                          <Text style={styles.propType}>{details.type}</Text>
+                        <Link
+                          target="_blank"
+                          href={details.href as Href}
+                          style={[
+                            styles.propType,
+                            {
+                              textDecorationLine: "underline",
+                              textDecorationColor: theme.colors.primary,
+                            },
+                          ]}
+                        >
+                          {details.type}
                         </Link>
                       ) : (
                         <Text style={styles.propType}>{details.type}</Text>

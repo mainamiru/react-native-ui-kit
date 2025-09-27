@@ -19,9 +19,8 @@ import {
 } from "react-native";
 import { useThemeColor } from "../../hooks";
 
-export interface LeftProps {
+export interface IconProps {
   color: string;
-  style: ViewStyle;
 }
 
 export type TextInputRef = DefaultTextInput;
@@ -30,14 +29,13 @@ export interface TextInputProps extends DefaultTextInputProps {
   label?: string | null;
   helperText?: string;
   style?: StyleProp<ViewStyle>;
-  focusedOutlineColor?: string;
   mode?: "outlined" | "underline";
   labelStyle?: StyleProp<TextStyle>;
   inputStyle?: StyleProp<TextStyle>;
   containerStyle?: StyleProp<ViewStyle>;
   validate?: (text: string) => Error | null;
-  left?: (props: LeftProps) => React.ReactElement;
-  right?: (props: LeftProps) => React.ReactElement;
+  left?: (props: IconProps) => React.ReactElement;
+  right?: (props: IconProps) => React.ReactElement;
 }
 
 export const TextInput = forwardRef<TextInputRef, TextInputProps>(
@@ -57,13 +55,12 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
       containerStyle,
       mode = "outlined",
       placeholderTextColor,
-      focusedOutlineColor = "orange",
       ...props
     },
     ref,
   ) => {
     const [error, setError] = useState<Error | null>(null);
-    const { text, border, placeholder } = useThemeColor();
+    const { text, border, placeholder, primary } = useThemeColor();
     const animatedValue = useRef(new Animated.Value(0)).current;
     const inputRef = useRef<DefaultTextInput>(null);
 
@@ -122,24 +119,29 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
         <Animated.View
           style={[
             containerStyle,
-            mode === "outlined" && { borderWidth: 1 },
-            mode === "underline" && { borderBottomWidth: 1.5 },
             {
+              gap: 10,
+              borderWidth: 0,
               borderRadius: 5,
               flexDirection: "row",
               alignItems: "center",
               borderColor: animatedValue.interpolate({
                 inputRange: [0, 1],
-                outputRange: [border, focusedOutlineColor],
+                outputRange: [border, primary],
               }),
+            },
+            mode === "outlined" && {
+              borderWidth: 1,
+              paddingHorizontal: 10,
+            },
+            mode === "underline" && {
+              borderRadius: 0,
+              paddingHorizontal: 0,
+              borderBottomWidth: 1,
             },
           ]}
         >
-          {left &&
-            left({
-              style: { padding: 10 },
-              color: mutedColor,
-            })}
+          {left && left({ color: mutedColor })}
           <DefaultTextInput
             ref={inputRef}
             {...props}
@@ -154,17 +156,11 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
                 color: text,
                 outlineWidth: 0,
                 paddingVertical: 10,
-                paddingLeft: left ? 0 : 10,
-                paddingRight: right ? 0 : 10,
               },
               inputStyle,
             ]}
           />
-          {right &&
-            right({
-              style: { padding: 10 },
-              color: mutedColor,
-            })}
+          {right && right({ color: mutedColor })}
         </Animated.View>
         {error ? (
           <Text style={{ color: "red" }}>{error.message}</Text>

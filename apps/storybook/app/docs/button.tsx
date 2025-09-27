@@ -66,6 +66,7 @@ export default function App() {
       },
       textStyle: {
         type: "StyleProp<TextStyle>",
+        href: "https://reactnative.dev/docs/view-style-props",
         required: false,
         description: "Custom style for button label.",
       },

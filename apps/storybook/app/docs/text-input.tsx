@@ -1,6 +1,5 @@
 import { DocsViewer } from "@/components";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { TextInput } from "@mainamiru/react-native-ui-kit";
+import { Icon, TextInput } from "@mainamiru/react-native-ui-kit";
 import React from "react";
 import { View } from "react-native";
 
@@ -18,13 +17,13 @@ const TextInputDocsScreen = () => {
       usage="Use TextInput for forms where you need validation feedback and optional left/right icons. Control the value via state and provide helper text for guidance."
       exampleCode={`import React, { useState } from "react";
 import { View, Button } from "react-native";
-import { TextInput } from "@mainamiru/react-native-ui-kit";
+import { Icon, TextInput } from "@mainamiru/react-native-ui-kit";
 
 export default function App() {
   const [value, setValue] = useState("");
 
   return (
-    <View style={{ padding: 20 }}>
+    <View style={{ padding: 10 }}>
       <TextInput
         label="Email"
         placeholder="Enter your email"
@@ -32,8 +31,8 @@ export default function App() {
         validate={(text) =>
           !text.includes("@") ? new Error("Invalid email address") : null
         }
-        left={({ color, style }) => (
-          <KitIcon.Envelope color={color} size={20} style={style} />
+        left={({ color }) => (
+          <Icon.Envelope color={color} size={20} />
         )}
         value={value}
         onChangeText={setValue}
@@ -54,16 +53,19 @@ export default function App() {
         },
         style: {
           type: "StyleProp<ViewStyle>",
+          href: "https://reactnative.dev/docs/view-style-props",
           required: false,
           description: "Wrapper style for the component.",
         },
         containerStyle: {
           type: "StyleProp<ViewStyle>",
+          href: "https://reactnative.dev/docs/view-style-props",
           required: false,
           description: "Custom style for the input container.",
         },
         inputStyle: {
           type: "StyleProp<TextStyle>",
+          href: "https://reactnative.dev/docs/text-style-props",
           required: false,
           description: "Style applied to the native TextInput.",
         },
@@ -73,12 +75,6 @@ export default function App() {
           default: '"outlined"',
           description: "Determines the visual style of the input border.",
         },
-        focusedOutlineColor: {
-          type: "string",
-          required: false,
-          default: '"orange"',
-          description: "Border color when the input is focused.",
-        },
         validate: {
           type: "(text: string) => Error | null",
           required: false,
@@ -86,13 +82,13 @@ export default function App() {
             "Validation function returning an Error when input is invalid.",
         },
         left: {
-          type: "(props: { color: string; style: ViewStyle }) => React.ReactNode",
+          type: "(props: { color: string; }) => React.ReactNode",
           required: false,
           description:
             "Render prop to display an element on the left side of the input.",
         },
         right: {
-          type: "(props: { color: string; style: ViewStyle }) => React.ReactNode",
+          type: "(props: { color: string; }) => React.ReactNode",
           required: false,
           description:
             "Render prop to display an element on the right side of the input.",
@@ -112,28 +108,14 @@ export default function App() {
           }}
           value={value}
           onChangeText={handleChange}
-          left={({ color }) => (
-            <MaterialCommunityIcons
-              name="email"
-              color={color}
-              size={18}
-              style={{ marginLeft: 10 }}
-            />
-          )}
+          left={({ color }) => <Icon.Envelope size={20} color={color} />}
         />
         <TextInput
           mode="underline"
           label="Password"
           placeholder="Enter password"
           secureTextEntry
-          right={({ color }) => (
-            <MaterialCommunityIcons
-              name="eye"
-              size={18}
-              color={color}
-              style={{ marginRight: 10 }}
-            />
-          )}
+          right={({ color }) => <Icon.Eye size={20} color={color} />}
           validate={(value) => {
             if (value.length < 6) {
               return new Error("Password must be at least 6 characters");
