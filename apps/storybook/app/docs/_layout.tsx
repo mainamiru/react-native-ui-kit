@@ -47,12 +47,13 @@ const DocsLayout = () => {
       <Drawer.Screen name="bottom-sheet" options={{ title: "Bottom Sheet" }} />
       <Drawer.Screen name="badge" options={{ title: "Badge" }} />
       <Drawer.Screen name="container" options={{ title: "Container" }} />
-      <Drawer.Screen name="grid-view" options={{ title: "Grid View" }} />
+      <Drawer.Screen name="dialog" options={{ title: "Dialog" }} />
       <Drawer.Screen name="button" options={{ title: "Button" }} />
       <Drawer.Screen name="card" options={{ title: "Card" }} />
       <Drawer.Screen name="checkbox" options={{ title: "Checkbox" }} />
       <Drawer.Screen name="code" options={{ title: "Code" }} />
       <Drawer.Screen name="divider" options={{ title: "Divider" }} />
+      <Drawer.Screen name="grid-view" options={{ title: "Grid View" }} />
       <Drawer.Screen name="icon" options={{ title: "Icon" }} />
       <Drawer.Screen name="list" options={{ title: "List" }} />
       <Drawer.Screen name="picker" options={{ title: "Picker" }} />

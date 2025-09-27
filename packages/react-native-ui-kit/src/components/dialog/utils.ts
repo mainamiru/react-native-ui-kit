@@ -1,11 +1,16 @@
 import * as React from "react";
 
+interface AnchorProps {
+  open: () => void;
+  close: () => void;
+}
+
 export interface DialogProps {
-  title: string;
   open?: boolean;
-  description?: string;
   defaultValue?: boolean;
   children?: React.ReactNode;
+  onValueChange?: (status: boolean) => void;
+  anchor?: (props: AnchorProps) => React.ReactNode;
 }
 
 export interface DialogContextType {

@@ -1,13 +1,34 @@
+import { DocsViewer } from "@/components";
 import { Button, Dialog, Divider, Row } from "@mainamiru/react-native-ui-kit";
 import React from "react";
 import { Text, View } from "react-native";
 
 const DialogDocsScreen = () => {
+  const [open, setIsOpen] = React.useState(false);
+  return (
+    <DocsViewer
+      title="Dialog"
+      description="A flexible dialog component with support for trigger, header, content, and action buttons."
+      exampleCode={`import React from "react";
+import { View, Text } from "react-native";
+import { Button, Dialog, Divider, Row } from "@mainamiru/react-native-ui-kit";
+
+export default function App() {
+  const [open, setIsOpen] = React.useState(false);
+
   return (
     <View>
-      <Dialog title="Dialog Title">
-        <Dialog.Trigger mode="contained" style={{ margin: 10 }}>
-          Hello
+      <Dialog
+        open={open}
+        onValueChange={(status) => setIsOpen(status)}
+        anchor={({ open }) => (
+          <Button mode="outlined" onPress={open} style={{ margin: 10 }}>
+            Anchor
+          </Button>
+        )}
+      >
+        <Dialog.Trigger style={{ margin: 10 }} asChild={true}>
+          <Button mode="contained">Trigger</Button>
         </Dialog.Trigger>
         <Dialog.Content>
           <Dialog.Header>
@@ -18,21 +39,22 @@ const DialogDocsScreen = () => {
           <View>
             <Text>
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
+              industry. It has survived for centuries and is still used in
+              design and publishing today.
             </Text>
             <Row gap={10} justifyContent="flex-end" marginTop={20}>
-              <Button mode="outlined" style={{ width: 100 }}>
+              <Button
+                mode="outlined"
+                style={{ width: 100 }}
+                onPress={() => setIsOpen(false)}
+              >
                 Close
               </Button>
-              <Button mode="contained" style={{ width: 100 }}>
+              <Button
+                mode="contained"
+                style={{ width: 100 }}
+                onPress={() => setIsOpen(false)}
+              >
                 Save
               </Button>
             </Row>
@@ -40,6 +62,68 @@ const DialogDocsScreen = () => {
         </Dialog.Content>
       </Dialog>
     </View>
+  );
+}`}
+      props={{
+        open: {
+          type: "boolean",
+          description: "Controls the visibility of the dialog.",
+          required: false,
+        },
+        onValueChange: {
+          type: "function",
+          description:
+            "Callback function to be called when the dialog's visibility changes.",
+          required: false,
+        },
+      }}
+    >
+      <View>
+        <Dialog
+          open={open}
+          onValueChange={(status) => setIsOpen(status)}
+          anchor={({ open }) => (
+            <Button mode="outlined" onPress={open} style={{ margin: 10 }}>
+              Anchor
+            </Button>
+          )}
+        >
+          <Dialog.Trigger style={{ margin: 10 }} asChild={true}>
+            <Button mode="contained">Trigger</Button>
+          </Dialog.Trigger>
+          <Dialog.Content>
+            <Dialog.Header>
+              <Dialog.Title>Dialog Title</Dialog.Title>
+              <Dialog.Description>Dialog Description</Dialog.Description>
+            </Dialog.Header>
+            <Divider style={{ marginVertical: 10 }} />
+            <View>
+              <Text>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text for centuries.
+              </Text>
+              <Row gap={10} justifyContent="flex-end" marginTop={20}>
+                <Button
+                  mode="outlined"
+                  style={{ width: 100 }}
+                  onPress={() => setIsOpen(false)}
+                >
+                  Close
+                </Button>
+                <Button
+                  mode="contained"
+                  style={{ width: 100 }}
+                  onPress={() => setIsOpen(false)}
+                >
+                  Save
+                </Button>
+              </Row>
+            </View>
+          </Dialog.Content>
+        </Dialog>
+      </View>
+    </DocsViewer>
   );
 };
 

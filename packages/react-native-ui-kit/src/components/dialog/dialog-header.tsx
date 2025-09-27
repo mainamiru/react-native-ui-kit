@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import Icon from "../icon";
-import TouchRipple from "../touch-ripple";
+import IconButton from "../icon-button";
 import { DialogContext } from "./utils";
 
 export interface DialogHeaderProps {
@@ -15,15 +14,7 @@ const DialogHeader = ({ children, style }: DialogHeaderProps) => {
       {({ setIsOpen }) => (
         <View style={[style, { flexDirection: "row", alignItems: "center" }]}>
           <View style={{ flex: 1 }}>{children}</View>
-          <TouchRipple
-            onPress={() => setIsOpen(false)}
-            style={{
-              padding: 10,
-              borderRadius: 10,
-            }}
-          >
-            <Icon.Close size={20} color="#000" />
-          </TouchRipple>
+          <IconButton name="close" onPress={() => setIsOpen(false)} />
         </View>
       )}
     </DialogContext.Consumer>

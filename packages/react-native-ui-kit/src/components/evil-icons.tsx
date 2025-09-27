@@ -11,8 +11,8 @@ import {
 
 export type IconProps = {
   name: ComponentProps<typeof EvilIcons>["name"];
-  color?: string;
   size: number;
+  color?: string;
   testID?: string;
   direction?: "rtl" | "ltr";
   allowFontScaling?: boolean;

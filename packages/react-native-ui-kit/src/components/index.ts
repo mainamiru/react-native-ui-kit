@@ -14,6 +14,7 @@ export * from "./documentation-viewer";
 export * from "./flex-view";
 export * from "./grid-view";
 export * from "./icon";
+export * from "./icon-button";
 export * from "./layout";
 export * from "./list";
 export * from "./menu";

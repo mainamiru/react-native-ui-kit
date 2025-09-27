@@ -1,26 +1,34 @@
 import React from "react";
-import { StyleProp, ViewStyle } from "react-native";
-import Button, { ButtonMode } from "../button";
+import { PressableProps, StyleProp, ViewStyle } from "react-native";
+import TouchRipple from "../touch-ripple";
 import { DialogContext } from "./utils";
 
 export interface DialogTriggerProps {
-  children: string;
-  mode?: ButtonMode;
+  asChild?: boolean;
   style?: StyleProp<ViewStyle>;
+  children: React.ReactElement<PressableProps>;
 }
 
-const DialogTrigger = ({
-  style,
-  children,
-  mode = "text",
-}: DialogTriggerProps) => {
+const DialogTrigger = ({ style, children, asChild }: DialogTriggerProps) => {
   return (
     <DialogContext.Consumer>
-      {({ setIsOpen }) => (
-        <Button mode={mode} style={style} onPress={() => setIsOpen(true)}>
-          {children}
-        </Button>
-      )}
+      {({ setIsOpen }) => {
+        const handlePress = (event: any) => {
+          children.props.onPress?.(event);
+          setIsOpen(true);
+        };
+        if (asChild) {
+          return React.cloneElement(children, {
+            style: style,
+            onPress: handlePress,
+          });
+        }
+        return (
+          <TouchRipple style={style} onPress={handlePress}>
+            {children}
+          </TouchRipple>
+        );
+      }}
     </DialogContext.Consumer>
   );
 };
