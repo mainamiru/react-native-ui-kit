@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
+import { useThemeColor } from "../../hooks";
 import { getContrastColor } from "../../utils/color.utils";
 
 export interface AvatarTextProps {
@@ -17,8 +18,12 @@ const AvatarText = ({
   style,
   textStyle,
   textColor,
-  backgroundColor = "#62bd6e",
+  backgroundColor,
 }: AvatarTextProps) => {
+  const { primary } = useThemeColor();
+  const bgColor = backgroundColor || primary;
+  const txtColor = textColor || getContrastColor(bgColor);
+
   return (
     <View
       style={[
@@ -26,20 +31,20 @@ const AvatarText = ({
         {
           width: size,
           height: size,
-          backgroundColor,
           overflow: "hidden",
           alignItems: "center",
           borderRadius: size / 2,
           justifyContent: "center",
+          backgroundColor: bgColor,
         },
       ]}
     >
       <Text
         style={[
           {
+            color: txtColor,
             fontWeight: "bold",
             fontSize: size / 2,
-            color: textColor || getContrastColor(backgroundColor),
           },
           textStyle,
         ]}

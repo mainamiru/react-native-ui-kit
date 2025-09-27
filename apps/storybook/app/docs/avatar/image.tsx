@@ -8,33 +8,40 @@ const AvatarImageDocsScreen = () => {
     {
       description: "Default size",
       element: (
-        <Avatar.Image source={{ uri: "https://via.placeholder.com/150" }} />
+        <Avatar.Image
+          alt="John Doe"
+          source={{ uri: "https://randomuser.me/api/portraits/women/1.jpg" }}
+        />
       ),
-      code: `<Avatar.Image source={{ uri: "https://via.placeholder.com/150" }} />`,
+      code: `<Avatar.Image source={{ uri: "https://randomuser.me/api/portraits/women/1.jpg" }} />`,
     },
     {
       description: "Custom size",
       element: (
         <Avatar.Image
-          source={{ uri: "https://via.placeholder.com/150" }}
+          alt="John Doe"
+          source={{ uri: "https://randomuser.me/api/portraits/women/5.jpg" }}
           size={60}
         />
       ),
-      code: `<Avatar.Image source={{ uri: "https://via.placeholder.com/150" }} size={60} />`,
+      code: `<Avatar.Image source={{ uri: "https://randomuser.me/api/portraits/women/5.jpg" }} size={60} />`,
     },
     {
       description: "With placeholder fallback",
       element: (
         <Avatar.Image
-          source={{ uri: "https://invalid-url.com/image.png" }}
-          placeholderSource={{ uri: "https://via.placeholder.com/50" }}
+          alt="John Doe"
+          source={{ uri: "https://randomuser.me/api/portraits/men/5.jpg" }}
+          placeholder={{
+            uri: "https://randomuser.me/api/portraits/men/5.jpg",
+          }}
           size={50}
         />
       ),
       code: `
 <Avatar.Image
-  source={{ uri: "https://invalid-url.com/image.png" }}
-  placeholderSource={{ uri: "https://via.placeholder.com/50" }}
+  source={{ uri: "https://randomuser.me/api/portraits/men/5.jpg" }}
+  placeholderSource={{ uri: "https://randomuser.me/api/portraits/men/5.jpg" }}
   size={50}
 />
       `.trim(),
@@ -43,14 +50,15 @@ const AvatarImageDocsScreen = () => {
       description: "Large avatar with custom style",
       element: (
         <Avatar.Image
-          source={{ uri: "https://via.placeholder.com/150" }}
+          alt="John Doe"
+          source={{ uri: "https://randomuser.me/api/portraits/men/5.jpg" }}
           size={80}
           style={{ borderWidth: 2, borderColor: "#000" }}
         />
       ),
       code: `
 <Avatar.Image
-  source={{ uri: "https://via.placeholder.com/150" }}
+  source={{ uri: "https://randomuser.me/api/portraits/men/5.jpg" }}
   size={80}
   style={{ borderWidth: 2, borderColor: "#000" }}
 />
@@ -91,9 +99,9 @@ const AvatarImageDocsScreen = () => {
       <View
         style={{
           gap: 16,
-          padding: 20 ,
+          padding: 20,
           flexWrap: "wrap",
-          flexDirection: "row", 
+          flexDirection: "row",
         }}
       >
         {examples.map((ex, idx) => (

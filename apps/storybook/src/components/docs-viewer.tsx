@@ -4,7 +4,6 @@ import {
   Code,
   Container,
   FlexView,
-  Layout,
   Row,
   Text,
 } from "@mainamiru/react-native-ui-kit";
@@ -98,51 +97,47 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
 
           {/* Props Table */}
           {props && (
-            <Layout>
-              <Layout.View>
-                <Text style={styles.sectionTitle}>Props</Text>
-                {Object.entries(props).map(([name, details]) => (
-                  <View key={name} style={styles.propRow}>
-                    <Row
-                      gap={10}
-                      flexWrap="wrap"
-                      maxWidth="100%"
-                      alignItems="center"
-                    >
-                      <Text variant="titleMedium" style={styles.propName}>
-                        {name}:
-                      </Text>
-                      {details.href ? (
-                        <Link
-                          target="_blank"
-                          href={details.href as Href}
-                          style={[
-                            styles.propType,
-                            {
-                              textDecorationLine: "underline",
-                              textDecorationColor: theme.colors.primary,
-                            },
-                          ]}
-                        >
-                          {details.type}
-                        </Link>
-                      ) : (
-                        <Text style={styles.propType}>{details.type}</Text>
-                      )}
-                      <Text style={styles.propDetails}>
-                        {details.required ? "(required)" : "(optional)"}
-                        {details.default
-                          ? ` | default: ${details.default}`
-                          : ""}
-                      </Text>
-                    </Row>
-                    <Text style={styles.propDescription}>
-                      {details.description}
+            <View>
+              <Text style={styles.sectionTitle}>Props</Text>
+              {Object.entries(props).map(([name, details]) => (
+                <View key={name} style={styles.propRow}>
+                  <Row
+                    gap={10}
+                    flexWrap="wrap"
+                    maxWidth="100%"
+                    alignItems="center"
+                  >
+                    <Text variant="titleMedium" style={styles.propName}>
+                      {name}:
                     </Text>
-                  </View>
-                ))}
-              </Layout.View>
-            </Layout>
+                    {details.href ? (
+                      <Link
+                        target="_blank"
+                        href={details.href as Href}
+                        style={[
+                          styles.propType,
+                          {
+                            textDecorationLine: "underline",
+                            textDecorationColor: theme.colors.primary,
+                          },
+                        ]}
+                      >
+                        {details.type}
+                      </Link>
+                    ) : (
+                      <Text style={styles.propType}>{details.type}</Text>
+                    )}
+                    <Text style={styles.propDetails}>
+                      {details.required ? "(required)" : "(optional)"}
+                      {details.default ? ` | default: ${details.default}` : ""}
+                    </Text>
+                  </Row>
+                  <Text style={styles.propDescription}>
+                    {details.description}
+                  </Text>
+                </View>
+              ))}
+            </View>
           )}
         </ScrollView>
       </Container>
