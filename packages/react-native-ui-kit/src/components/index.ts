@@ -8,6 +8,7 @@ export * from "./center";
 export * from "./checkbox";
 export * from "./code";
 export * from "./container";
+export * from "./dialog";
 export * from "./divider";
 export * from "./documentation-viewer";
 export * from "./flex-view";

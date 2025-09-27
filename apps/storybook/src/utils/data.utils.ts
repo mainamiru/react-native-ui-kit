@@ -69,6 +69,11 @@ export const navigations: NavLink[] = [
     description: "Container component",
   },
   {
+    label: "Dialog",
+    path: "/docs/dialog",
+    description: "Dialog component",
+  },
+  {
     label: "Divider",
     path: "/docs/divider",
     description: "Divider component",
@@ -122,11 +127,6 @@ export const navigations: NavLink[] = [
     label: "Skeleton",
     path: "/docs/skeleton",
     description: "Skeleton component",
-  },
-  {
-    label: "SmartImage",
-    path: "/docs/smart-image",
-    description: "SmartImage component",
   },
   {
     label: "Spinner",

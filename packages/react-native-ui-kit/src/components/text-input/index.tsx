@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+
 import {
   Animated,
   BlurEvent,
@@ -19,8 +20,10 @@ import {
 } from "react-native";
 import { useThemeColor } from "../../hooks";
 
-export interface IconProps {
+interface IconProps {
   color: string;
+  marginLeft: number;
+  marginRight: number;
 }
 
 export type TextInputRef = DefaultTextInput;
@@ -141,7 +144,12 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
             },
           ]}
         >
-          {left && left({ color: mutedColor })}
+          {left &&
+            left({
+              marginLeft: 10,
+              marginRight: 10,
+              color: mutedColor,
+            })}
           <DefaultTextInput
             ref={inputRef}
             {...props}
@@ -152,15 +160,20 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
             style={[
               {
                 flex: 1,
-                height: 45,
                 color: text,
+                minHeight: 45,
                 outlineWidth: 0,
                 paddingVertical: 10,
               },
               inputStyle,
             ]}
           />
-          {right && right({ color: mutedColor })}
+          {right &&
+            right({
+              marginLeft: 10,
+              marginRight: 10,
+              color: mutedColor,
+            })}
         </Animated.View>
         {error ? (
           <Text style={{ color: "red" }}>{error.message}</Text>

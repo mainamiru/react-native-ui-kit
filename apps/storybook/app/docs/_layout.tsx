@@ -65,10 +65,11 @@ const DocsLayout = () => {
       <Drawer.Screen name="tabs" options={{ title: "Tabs" }} />
       <Drawer.Screen name="text" options={{ title: "Text" }} />
       <Drawer.Screen name="text-input" options={{ title: "Text Input" }} />
+      <Drawer.Screen name="sidebar" options={{ title: "Sidebar" }} />
       <Drawer.Screen name="tooltip" options={{ title: "Tooltip" }} />
+      <Drawer.Screen name="portal" options={{ title: "Portal" }} />
       <Drawer.Screen name="typography" options={{ title: "Typography" }} />
       <Drawer.Screen name="touch-ripple" options={{ title: "Touch Ripple" }} />
-      <Drawer.Screen name="smart-image" options={{ title: "Smart Image" }} />
     </Drawer>
   );
 };
