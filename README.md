@@ -22,13 +22,37 @@ A comprehensive, customizable, and accessible UI kit for React Native applicatio
 Using npm:
 
 ```bash
-npm install react-native-ui-kit
+npm install @mainamiru/react-native-ui-kit @expo/vector-icons
 ```
 
 Or using yarn:
 
 ```bash
-yarn add react-native-ui-kit
+yarn add @mainamiru/react-native-ui-kit
+```
+
+Or using bun:
+
+```bash
+bun add @mainamiru/react-native-ui-kit
+```
+
+Or using expo:
+
+```bash
+npx expo install @mainamiru/react-native-ui-kit
+```
+
+## Icon for Expo Project
+
+```bash
+npx expo install @expo/vector-icons
+```
+
+## Icon for React Native Project
+
+```bash
+npm install @react-native-vector-icons/evil-icons
 ```
 
 ## Getting Started
@@ -38,16 +62,24 @@ yarn add react-native-ui-kit
 Wrap your app with the `ThemeProvider` to enable theming and access to the UI components:
 
 ```jsx
-import { ThemeProvider, Button, Text } from "react-native-ui-kit";
+import * as React from "react";
+import { AppRegistry } from "react-native";
+import {
+  DefaultTheme,
+  ReactNativeUIKitProvider,
+} from "@mainamiru/react-native-ui-kit";
+import { name as appName } from "./app.json";
+import App from "./src/App";
 
-export default function App() {
+export default function Main() {
   return (
-    <ThemeProvider>
-      <Text>Welcome to React Native UI Kit</Text>
-      <Button onPress={() => console.log("Pressed!")}>Press Me</Button>
-    </ThemeProvider>
+    <ReactNativeUIKitProvider theme={DefaultTheme}>
+      <App />
+    </ReactNativeUIKitProvider>
   );
 }
+
+AppRegistry.registerComponent(appName, () => Main);
 ```
 
 ## Components
@@ -103,41 +135,13 @@ export default function App() {
 - **SearchBar** - Search input field
 - **Switch** - Toggle switch
 
-## Theming
-
-Customize the look and feel of components using the theme system:
-
-```jsx
-import { ThemeProvider, createTheme } from "react-native-ui-kit";
-
-const theme = createTheme({
-  colors: {
-    primary: "#6200ee",
-    secondary: "#03dac6",
-    error: "#b00020",
-  },
-  spacing: {
-    small: 8,
-    medium: 16,
-    large: 24,
-  },
-  // ... other theme properties
-});
-
-function App() {
-  return (
-    <ThemeProvider theme={theme}>{/* Your app components */}</ThemeProvider>
-  );
-}
-```
-
 ## Customization
 
 All components are highly customizable through props. You can also extend the default theme or create your own component variants.
 
 ## Documentation
 
-For detailed documentation and examples, please visit our [documentation website](#).
+For detailed documentation and examples, please visit our [documentation website](https://expo-react-native-ui-kit.web.app).
 
 ## Contributing
 
@@ -149,7 +153,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-If you find this library useful, please consider giving it a ⭐️ on [GitHub](https://github.com/yourusername/react-native-ui-kit).
+If you find this library useful, please consider giving it a ⭐️ on [GitHub](https://github.com/mainamiru/react-native-ui-kit).
 
 ## Roadmap
 
@@ -166,4 +170,8 @@ If you find this library useful, please consider giving it a ⭐️ on [GitHub](
 
 ---
 
-💡 **Tip**: Check out our [examples directory](/examples) for more usage examples.
+💡 **Tip**: Check out our [examples directory](/apps/docs) for more usage examples.
+
+```
+
+```
