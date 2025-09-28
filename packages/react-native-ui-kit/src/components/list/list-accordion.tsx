@@ -38,8 +38,8 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
   expanded = false,
   descriptionStyle,
 }) => {
-  const [isExpanded, setIsExpanded] = React.useState(expanded);
   const [contentHeight, setContentHeight] = React.useState(0);
+  const [isExpanded, setIsExpanded] = React.useState(expanded);
   const animatedHeight = React.useRef(new Animated.Value(0)).current;
   const rotationAnim = React.useRef(new Animated.Value(0)).current;
 
@@ -99,9 +99,9 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
       >
         <ScrollView
           scrollEnabled={false}
+          contentContainerStyle={contentStyle}
           showsVerticalScrollIndicator={false}
           onContentSizeChange={onContentSizeChange}
-          contentContainerStyle={[{ padding: 10 }, contentStyle]}
         >
           {children}
         </ScrollView>

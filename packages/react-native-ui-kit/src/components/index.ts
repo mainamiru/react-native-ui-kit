@@ -15,7 +15,7 @@ export * from "./flex-view";
 export * from "./grid-view";
 export * from "./icon";
 export * from "./icon-button";
-export * from "./layout";
+export * from "./layout-view";
 export * from "./list";
 export * from "./menu";
 export * from "./picker";
@@ -38,3 +38,4 @@ export * from "./toaster";
 export * from "./tooltip";
 export * from "./touch-ripple";
 export * from "./typography";
+

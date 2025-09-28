@@ -8,10 +8,10 @@ import {
 } from "./responsive-views";
 export { withLayout } from "./with-layout";
 
-export const Layout = Object.assign(LayoutBase, {
+export const LayoutView = Object.assign(LayoutBase, {
   View: BaseView,
-  SmallView,
-  MediumView,
-  LargeView,
-  XLargeView,
+  Small: SmallView,
+  Large: LargeView,
+  Medium: MediumView,
+  XLarge: XLargeView,
 });

@@ -18,26 +18,27 @@ import {
   ViewStyle,
 } from "react-native";
 
-export interface PropOption {
+export interface DocumentPropOption {
+  title: string;
   type: string;
   href?: string;
   default?: string;
   required: boolean;
   description?: string;
-  props?: Record<string, PropOption>;
+  props?: DocumentPropOption[];
 }
 
-export interface DocsViewerProps {
+export interface DocumentViewerProps {
   title: string;
   usage?: string;
   description?: string;
   exampleCode: string;
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
-  props?: Record<string, PropOption>;
+  props?: DocumentPropOption[];
 }
 
-export const DocsViewer: React.FC<DocsViewerProps> = ({
+export const DocumentViewer: React.FC<DocumentViewerProps> = ({
   title,
   usage,
   props,
@@ -48,12 +49,13 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
 }) => {
   const { theme } = useTheme();
 
-  const renderProps = (props: Record<string, PropOption> = {}) => {
-    return Object.entries(props).map(([name, details]) => (
-      <View key={name} style={{ gap: 5 }}>
+  const renderProps = (props: DocumentPropOption[] = []) => {
+    return props.map((details) => (
+      <View key={details.title}>
+        <Text variant="titleLarge">{details.title}</Text>
         <Row gap={10} flexWrap="wrap" maxWidth="100%" alignItems="center">
           <Text variant="titleMedium" style={styles.propName}>
-            {name}:
+            {details.title}:
           </Text>
           {details.href ? (
             <Link
@@ -78,7 +80,9 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
           </Text>
         </Row>
         <Text style={styles.propDescription}>{details.description}</Text>
-        {details.props && renderProps(details.props)}
+        <View style={{ marginTop: 10 }}>
+          {details.props && renderProps(details.props)}
+        </View>
       </View>
     ));
   };
@@ -140,7 +144,7 @@ export const DocsViewer: React.FC<DocsViewerProps> = ({
   );
 };
 
-export default DocsViewer;
+export default DocumentViewer;
 
 const styles = StyleSheet.create({
   container: {
@@ -172,9 +176,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     fontFamily: "monospace",
     backgroundColor: "#f5f5f5",
-  },
-  propRow: {
-    marginBottom: 12,
   },
   propName: {
     fontSize: 15,

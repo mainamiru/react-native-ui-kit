@@ -99,14 +99,26 @@ export const navigations: NavLink[] = [
     description: "SearchBar component",
   },
   {
-    label: "Layout",
-    path: "/docs/layout",
-    description: "Layout component",
+    label: "Layout View",
+    path: "/docs/layout-view",
+    description: "LayoutView component",
   },
   {
     label: "List",
     path: "/docs/list",
     description: "List component",
+    sections: [
+      {
+        label: "List.Item",
+        path: "/docs/list/item",
+        description: "List.Item component",
+      },
+      {
+        label: "List.Accordion",
+        path: "/docs/list/accordion",
+        description: "List.Accordion component",
+      },
+    ],
   },
   {
     label: "Picker",

@@ -35,7 +35,7 @@ const data: User[] = [
   },
 ];
 
-const ListDocsScreen = () => (
+const ListItemDocsScreen = () => (
   <DocsViewer
     title="List.Accordion"
     description="A dynamic accordion that measures content height for smooth expand and collapse animations."
@@ -101,4 +101,4 @@ export default function App() {
   </DocsViewer>
 );
 
-export default ListDocsScreen;
+export default ListItemDocsScreen;
