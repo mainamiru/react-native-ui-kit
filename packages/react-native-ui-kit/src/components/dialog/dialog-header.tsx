@@ -12,9 +12,16 @@ const DialogHeader = ({ children, style }: DialogHeaderProps) => {
   return (
     <DialogContext.Consumer>
       {({ setIsOpen }) => (
-        <View style={[style, { flexDirection: "row", alignItems: "center" }]}>
+        <View style={[style, { flexDirection: "row" }]}>
           <View style={{ flex: 1 }}>{children}</View>
-          <IconButton name="close" onPress={() => setIsOpen(false)} />
+          <IconButton
+            name="close"
+            style={{ elevation: 0 }}
+            onPress={() => setIsOpen(false)}
+            hoverStyle={() => ({
+              backgroundColor: "transparent",
+            })}
+          />
         </View>
       )}
     </DialogContext.Consumer>

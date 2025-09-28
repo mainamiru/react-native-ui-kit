@@ -27,7 +27,6 @@ export const IconButton = ({
         {
           width: size,
           height: size,
-          elevation: 2,
           backgroundColor,
           borderRadius: 5,
           overflow: "hidden",

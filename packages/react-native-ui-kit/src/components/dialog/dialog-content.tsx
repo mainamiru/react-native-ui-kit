@@ -13,7 +13,7 @@ const DialogContent = ({ children, style }: DialogContentProps) => {
     <Modal
       visible={isOpen}
       transparent={true}
-      animationType="fade"
+      animationType="none"
       statusBarTranslucent={true}
       onRequestClose={() => setIsOpen(false)}
     >
@@ -29,7 +29,8 @@ const DialogContent = ({ children, style }: DialogContentProps) => {
         <Pressable
           style={[
             {
-              width: "80%",
+              gap: 15,
+              width: "90%",
               padding: 10,
               cursor: "auto",
               maxWidth: 500,

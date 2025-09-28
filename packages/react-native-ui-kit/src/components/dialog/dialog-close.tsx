@@ -8,19 +8,19 @@ import {
 import TouchRipple from "../touch-ripple";
 import { DialogContext } from "./utils";
 
-export interface DialogTriggerProps {
+export interface DialogCloseProps {
   asChild?: boolean;
   style?: StyleProp<ViewStyle>;
   children: React.ReactElement<PressableProps>;
 }
 
-const DialogTrigger = ({ style, children, asChild }: DialogTriggerProps) => {
+const DialogClose = ({ style, children, asChild }: DialogCloseProps) => {
   return (
     <DialogContext.Consumer>
       {({ setIsOpen }) => {
         const handlePress = (event: GestureResponderEvent) => {
           children.props.onPress?.(event);
-          setIsOpen(true);
+          setIsOpen(false);
         };
         if (asChild) {
           return React.cloneElement(children, {
@@ -38,4 +38,4 @@ const DialogTrigger = ({ style, children, asChild }: DialogTriggerProps) => {
   );
 };
 
-export default DialogTrigger;
+export default DialogClose;
