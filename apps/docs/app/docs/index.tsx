@@ -58,6 +58,23 @@ const Index = () => {
             />
           </Tabs.Content>
         </Tabs>
+
+        {/* Icon Installation */}
+        <View style={{ gap: 15 }}>
+          <Text variant="titleMedium">Icon for Expo Project</Text>
+          <Code
+            textColor="#000"
+            backgroundColor="#f5f5f5"
+            code="npx expo install @expo/vector-icons"
+          />
+          <Text variant="titleMedium">Icon for React Native Project</Text>
+          <Code
+            textColor="#000"
+            backgroundColor="#f5f5f5"
+            code="npm install @react-native-vector-icons/evil-icons"
+          />
+        </View>
+
         <View style={{ gap: 20 }}>
           <Text variant="titleLarge" style={{ fontSize: 30 }}>
             Usage

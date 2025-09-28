@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
-    "@mainamiru/react-native-ui-kit": "^1.0.0",
+    "@mainamiru/react-native-ui-kit": "../../packages/react-native-ui-kit",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/drawer": "^7.5.0",
