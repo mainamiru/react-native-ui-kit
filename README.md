@@ -1,15 +1,7 @@
-# mainamiru
+# React Native UI Kit
 
-To install dependencies:
+React Native UI Kit is a library that provides a set of customizable, accessible, and performant UI components for React Native. It aims to provide a consistent look and feel across different platforms and devices.
 
-```bash
-bun install
-```
+## Installation
 
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.2.8. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+You can install React Native UI Kit using npm or yarn:

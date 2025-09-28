@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start:app": "cd apps/stocky && bun start",
-    "start:storybook": "cd apps/storybook && bun start"
+    "start": "cd apps/docs && bun start"
   },
   "workspaces": [
     "apps/*",

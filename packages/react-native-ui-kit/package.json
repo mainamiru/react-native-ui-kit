@@ -1,14 +1,25 @@
 {
   "name": "@mainamiru/react-native-ui-kit",
   "version": "1.0.0",
-  "main": "src/index",
-  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "npx rimraf dist && tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write"
   },
+  "files": [
+    "dist",
+    "assets",
+    "README.md",
+    "package.json",
+    "tsconfig.json",
+    ".prettierrc",
+    ".eslintrc.js",
+    "eslint.config.js",
+    "prettier.config.js"
+  ],
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.36.0",
