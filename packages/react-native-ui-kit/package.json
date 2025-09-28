@@ -1,7 +1,31 @@
 {
   "name": "@mainamiru/react-native-ui-kit",
   "version": "1.0.0",
-  "main": "src/index",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": {
+    "name": "LUCKY BABU",
+    "url": "https://lucky-babu.vercel.app",
+    "email": "dev.luckybabu@gmail.com"
+  },
+  "homepage": "https://github.com/mainamiru/react-native-ui-kit",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "directory": "packages/react-native-ui-kit",
+    "url": "https://github.com/mainamiru/react-native-ui-kit.git"
+  },
+  "keywords": [
+    "react-native",
+    "expo-ui-kit",
+    "ui-kit",
+    "components",
+    "ready-made",
+    "react-native-paper",
+    "react-native-ui-kit",
+    "fast-app-development",
+    "react-native-ui-library"
+  ],
   "scripts": {
     "build": "npx rimraf dist && tsc",
     "lint": "eslint .",
@@ -12,18 +36,14 @@
     "dist",
     "assets",
     "README.md",
-    "package.json",
-    "tsconfig.json",
-    ".prettierrc",
-    ".eslintrc.js",
-    "eslint.config.js",
-    "prettier.config.js"
+    "package.json"
   ],
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.36.0",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",
+    "@react-native-vector-icons/evil-icons": "^12.3.0",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",

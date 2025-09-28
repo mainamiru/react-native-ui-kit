@@ -9,7 +9,7 @@ import {
 } from "@mainamiru/react-native-ui-kit";
 import { Href, Link } from "expo-router";
 import Head from "expo-router/head";
-import React from "react";
+import * as React from "react";
 import {
   ScrollView,
   StyleProp,
