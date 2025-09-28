@@ -21,7 +21,7 @@ export default function App() {
       Item: {
         type: "List.Item",
         required: true,
-        description: "Title text displayed in the accordion header.",
+        description: "Content rendered inside the accordion when expanded.",
       },
       Accordion: {
         type: "List.Accordion",

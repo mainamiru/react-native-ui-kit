@@ -64,7 +64,7 @@ const DocsLayout = () => {
       <Drawer.Screen name="picker" options={{ title: "Picker" }} />
       <Drawer.Screen name="radio" options={{ title: "Radio" }} />
       <Drawer.Screen name="switch" options={{ title: "Switch" }} />
-      <Drawer.Screen name="layout" options={{ title: "Layout" }} />
+      <Drawer.Screen name="layout-view" options={{ title: "Layout View" }} />
       <Drawer.Screen name="toaster" options={{ title: "Toaster" }} />
       <Drawer.Screen name="spinner" options={{ title: "Spinner" }} />
       <Drawer.Screen name="table" options={{ title: "Table" }} />
