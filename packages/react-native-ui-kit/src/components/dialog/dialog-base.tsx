@@ -1,11 +1,25 @@
 import * as React from "react";
-import { DialogContext, DialogProps } from "./utils";
+import { DialogContext } from "./utils";
+interface AnchorProps {
+  open: () => void;
+  close: () => void;
+}
+
+export interface DialogProps {
+  open?: boolean;
+  defaultValue?: boolean;
+  animation?: "fade" | "none";
+  children?: React.ReactNode;
+  onValueChange?: (status: boolean) => void;
+  anchor?: (props: AnchorProps) => React.ReactNode;
+}
 
 const DialogBase = ({
   open,
   anchor,
   children,
   onValueChange,
+  animation = "none",
   defaultValue = false,
 }: DialogProps) => {
   const [isOpen, setIsOpen] = React.useState(defaultValue);
@@ -30,7 +44,7 @@ const DialogBase = ({
   return (
     <>
       {anchor && anchor({ open: openDialog, close: closeDialog })}
-      <DialogContext.Provider value={{ isOpen, setIsOpen }}>
+      <DialogContext.Provider value={{ isOpen, setIsOpen, animation }}>
         {children}
       </DialogContext.Provider>
     </>

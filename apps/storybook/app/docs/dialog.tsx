@@ -109,9 +109,10 @@ export default function App() {
                 text for centuries.
               </Text>
             </View>
-            <Dialog.Footer>
+            <Dialog.Footer spacing={20}>
               <Button
                 mode="outlined"
+                textColor="black"
                 style={{ width: 100 }}
                 onPress={() => setIsOpen(false)}
               >

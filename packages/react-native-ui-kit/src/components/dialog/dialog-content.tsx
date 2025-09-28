@@ -8,12 +8,12 @@ export interface DialogContentProps {
 }
 
 const DialogContent = ({ children, style }: DialogContentProps) => {
-  const { isOpen, setIsOpen } = React.useContext(DialogContext);
+  const { isOpen, animation, setIsOpen } = React.useContext(DialogContext);
   return (
     <Modal
       visible={isOpen}
       transparent={true}
-      animationType="none"
+      animationType={animation}
       statusBarTranslucent={true}
       onRequestClose={() => setIsOpen(false)}
     >
