@@ -69,7 +69,7 @@ export default function App() {
         },
       }}
     >
-      <View style={{ gap: 16 }}>
+      <View style={{ gap: 16, margin: 10 }}>
         <Text variant="titleMedium">Try typing below</Text>
         <SearchBar
           value={value}

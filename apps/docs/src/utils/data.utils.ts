@@ -94,6 +94,11 @@ export const navigations: NavLink[] = [
     description: "Icon component",
   },
   {
+    label: "IconButton",
+    path: "/docs/icon-button",
+    description: "IconButton component",
+  },
+  {
     label: "SearchBar",
     path: "/docs/searchbar",
     description: "SearchBar component",

@@ -6,14 +6,14 @@ import TouchRipple, { TouchRippleProps } from "../touch-ripple";
 
 export interface IconButtonProps extends TouchRippleProps {
   size?: number;
-  name: IconName;
+  icon: IconName;
   color?: string;
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;
 }
 
 export const IconButton = ({
-  name,
+  icon,
   style,
   size = 30,
   color = "black",
@@ -37,7 +37,7 @@ export const IconButton = ({
         style,
       ]}
     >
-      <EvilIcons name={name} size={size / 1.5} color={color} />
+      <EvilIcons name={icon} size={size / 1.5} color={color} />
     </TouchRipple>
   );
 };

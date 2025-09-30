@@ -55,6 +55,7 @@ const DocsLayout = () => {
       <Drawer.Screen name="divider" options={{ title: "Divider" }} />
       <Drawer.Screen name="grid-view" options={{ title: "Grid View" }} />
       <Drawer.Screen name="icon" options={{ title: "Icon" }} />
+      <Drawer.Screen name="icon-button" options={{ title: "Icon Button" }} />
       <Drawer.Screen name="list/index" options={{ title: "List" }} />
       <Drawer.Screen name="list/item" options={{ title: "List.Item" }} />
       <Drawer.Screen

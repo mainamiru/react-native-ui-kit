@@ -15,7 +15,7 @@ const DialogHeader = ({ children, style }: DialogHeaderProps) => {
         <View style={[style, { flexDirection: "row" }]}>
           <View style={{ flex: 1 }}>{children}</View>
           <IconButton
-            name="close"
+            icon="close"
             style={{ elevation: 0 }}
             onPress={() => setIsOpen(false)}
             hoverStyle={() => ({
