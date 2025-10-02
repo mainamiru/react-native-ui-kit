@@ -37,7 +37,7 @@ export default PickerDocsScreen;
       <View style={{ padding: 10 }}>
         <Picker.Select
           label="Gender"
-          containerStyle={{ height: 300 }}
+          contentStyle={{ height: 300 }}
           helperText="This is BottomSheet Picker"
         >
           <Picker.Item value="male" label="Male" />
@@ -45,8 +45,9 @@ export default PickerDocsScreen;
         </Picker.Select>
         <Picker.Select
           label="Gender"
-          position="right"
-          helperText="This is Sidebar Picker"
+          mode="dialog"
+          contentStyle={{ height: 300 }}
+          helperText="This is Dialog Picker"
         >
           <Picker.Item value="male" label="Male" />
           <Picker.Item value="female" label="Female" />

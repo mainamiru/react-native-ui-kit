@@ -29,7 +29,6 @@ const DialogContent = ({ children, style }: DialogContentProps) => {
         <Pressable
           style={[
             {
-              gap: 15,
               width: "90%",
               padding: 10,
               cursor: "auto",

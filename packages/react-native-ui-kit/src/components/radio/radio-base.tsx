@@ -20,7 +20,7 @@ const RadioBase = <T,>({
       disabled={disabled || isSelected}
       onPress={() => {
         onValueChange(value);
-        onChange(value);
+        onChange?.(value);
       }}
       style={{
         width: size,
