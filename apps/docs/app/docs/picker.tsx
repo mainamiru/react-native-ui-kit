@@ -1,7 +1,9 @@
 import { DocsViewer } from "@/components";
 import { Picker } from "@mainamiru/react-native-ui-kit";
 import React from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
+
+const data = Array.from({ length: 20 }).map((_, i) => `Item ${i + 1}`);
 
 const PickerDocsScreen = () => {
   return (
@@ -52,6 +54,29 @@ export default PickerDocsScreen;
           <Picker.Item value="male" label="Male" />
           <Picker.Item value="female" label="Female" />
         </Picker.Select>
+        <Picker mode="sidebar">
+          <Picker.Trigger
+            label="Select City"
+            helperText="Custom Picker"
+            placeholderText="Select City"
+          />
+          <Picker.Content style={{ padding: 0 }}>
+            <ScrollView>
+              {data.map((label) => (
+                <Picker.Item
+                  key={label}
+                  label={label}
+                  value={label}
+                  style={{
+                    paddingVertical: 15,
+                    borderBottomWidth: 1,
+                    borderBottomColor: "#f5f5f5",
+                  }}
+                />
+              ))}
+            </ScrollView>
+          </Picker.Content>
+        </Picker>
       </View>
     </DocsViewer>
   );

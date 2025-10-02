@@ -1,13 +1,15 @@
 import * as React from "react";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import { isNil } from "../../utils";
+import PickerBase from "./picker-base";
 import PickerContent from "./picker-content";
 import PickerTrigger from "./picker-trigger";
-import { PickerContext } from "./utils";
+import { PickerMode, PickerSelectContext } from "./utils";
 
 export interface PickerSelectProps<T extends string | number> {
   label?: string;
   selectedValue?: T;
-  autoClose?: boolean;
+  mode?: PickerMode;
   helperText?: string;
   placeholderText?: string;
   children: React.ReactNode;
@@ -15,7 +17,6 @@ export interface PickerSelectProps<T extends string | number> {
   contentStyle?: StyleProp<ViewStyle>;
   onValueChange?: (value: T) => void;
   helperTextStyle?: StyleProp<TextStyle>;
-  mode?: "dialog" | "sidebar" | "bottom-sheet";
 }
 
 const PickerSelect = <T extends string | number>({
@@ -27,45 +28,37 @@ const PickerSelect = <T extends string | number>({
   selectedValue,
   onValueChange,
   helperTextStyle,
-  autoClose = true,
-  placeholderText = "Select",
   mode = "bottom-sheet",
+  placeholderText = "Select",
 }: PickerSelectProps<T>) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [value, setValue] = React.useState<T | undefined>(selectedValue);
+  const [internalValue, setInternalValue] = React.useState<T | undefined>(
+    selectedValue,
+  );
+
+  const setValue = (value: T) => {
+    setInternalValue(value);
+  };
 
   //handle change
   React.useEffect(() => {
-    if (value && onValueChange) {
-      onValueChange(value);
+    if (!isNil(internalValue) && onValueChange) {
+      onValueChange(internalValue);
     }
-    if (autoClose) {
-      setIsOpen(false);
-    }
-  }, [value]);
+  }, [internalValue]);
 
   return (
-    <PickerContext.Provider
-      value={{
-        value,
-        mode,
-        isOpen,
-        setValue,
-        setIsOpen,
-      }}
-    >
-      <PickerTrigger
-        label={label}
-        value={value}
-        helperText={helperText}
-        labelStyle={labelStyle}
-        placeholderText={placeholderText}
-        helperTextStyle={helperTextStyle}
-      />
-      <PickerContent mode={mode} style={contentStyle}>
-        {children}
-      </PickerContent>
-    </PickerContext.Provider>
+    <PickerBase mode={mode}>
+      <PickerSelectContext.Provider value={{ value: internalValue, setValue }}>
+        <PickerTrigger
+          label={label}
+          helperText={helperText}
+          labelStyle={labelStyle}
+          placeholderText={placeholderText}
+          helperTextStyle={helperTextStyle}
+        />
+        <PickerContent style={contentStyle}>{children}</PickerContent>
+      </PickerSelectContext.Provider>
+    </PickerBase>
   );
 };
 

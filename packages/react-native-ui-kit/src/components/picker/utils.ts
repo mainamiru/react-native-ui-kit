@@ -1,20 +1,40 @@
-import React from "react";
+import * as React from "react";
 
-export interface PickerContextType<T> {
-  value: T;
+export type PickerMode = "dialog" | "sidebar" | "bottom-sheet";
+
+export interface PickerContextType {
+  mode: PickerMode;
   isOpen: boolean;
-  setValue: (value: T) => void;
   setIsOpen: (isOpen: boolean) => void;
-  mode: "dialog" | "sidebar" | "bottom-sheet";
 }
 
-export const PickerContext =
-  React.createContext<PickerContextType<unknown> | null>(null);
+export const PickerContext = React.createContext<PickerContextType | null>(
+  null,
+);
 
-export function usePickerContext<T extends string | number>() {
-  const context = React.useContext<PickerContextType<T>>(PickerContext);
+export function usePickerContext() {
+  const context = React.useContext(PickerContext);
   if (!context) {
     throw new Error("usePickerContext must be used within a PickerContext");
+  }
+  return context;
+}
+
+export interface PickerSelectContextType<T> {
+  value: T;
+  setValue: (value: T) => void;
+}
+
+export const PickerSelectContext =
+  React.createContext<PickerSelectContextType<unknown> | null>(null);
+
+export function usePickerSelectContext<T>() {
+  const context =
+    React.useContext<PickerSelectContextType<T>>(PickerSelectContext);
+  if (!context) {
+    throw new Error(
+      "usePickerSelectContext must be used within a PickerSelectContext",
+    );
   }
   return context;
 }

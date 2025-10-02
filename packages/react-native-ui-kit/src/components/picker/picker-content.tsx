@@ -6,18 +6,18 @@ import Sidebar from "../sidebar";
 import { usePickerContext } from "./utils";
 
 export interface PickerContentProps {
-  children: React.ReactNode;
   sidebarWidth?: number;
+  children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
-  mode?: "dialog" | "sidebar" | "bottom-sheet";
+  sidebarPosition?: "left" | "right";
 }
 
 const PickerContent = ({
   style,
   children,
-  mode = "bottom-sheet",
+  sidebarPosition = "right",
 }: PickerContentProps) => {
-  const { isOpen, setIsOpen } = usePickerContext();
+  const { mode, isOpen, setIsOpen } = usePickerContext();
 
   //render
   if (mode === "dialog") {
@@ -28,7 +28,12 @@ const PickerContent = ({
     );
   } else if (mode === "sidebar") {
     return (
-      <Sidebar open={isOpen} onOpenChange={(value) => setIsOpen(value)}>
+      <Sidebar
+        open={isOpen}
+        style={style}
+        position={sidebarPosition}
+        onOpenChange={(value) => setIsOpen(value)}
+      >
         {children}
       </Sidebar>
     );
@@ -36,6 +41,7 @@ const PickerContent = ({
     return (
       <BottomSheet
         open={isOpen}
+        contentStyle={style}
         onOpen={() => setIsOpen(true)}
         onClose={() => setIsOpen(false)}
       >

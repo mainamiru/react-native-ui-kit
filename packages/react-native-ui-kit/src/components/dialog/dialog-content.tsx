@@ -30,7 +30,6 @@ const DialogContent = ({ children, style }: DialogContentProps) => {
           style={[
             {
               width: "90%",
-              padding: 10,
               cursor: "auto",
               maxWidth: 500,
               borderRadius: 10,
