@@ -3,7 +3,10 @@ import { Picker } from "@mainamiru/react-native-ui-kit";
 import React from "react";
 import { ScrollView, View } from "react-native";
 
-const data = Array.from({ length: 20 }).map((_, i) => `Item ${i + 1}`);
+const data = Array.from({ length: 20 }).map((_, i) => ({
+  value: `Item ${i + 1}`,
+  label: `Item ${i + 1}`,
+}));
 
 const PickerDocsScreen = () => {
   return (
@@ -38,35 +41,21 @@ export default PickerDocsScreen;
     >
       <View style={{ padding: 10 }}>
         <Picker.Select
-          label="Gender"
-          contentStyle={{ height: 300 }}
-          helperText="This is BottomSheet Picker"
-        >
-          <Picker.Item value="male" label="Male" />
-          <Picker.Item value="female" label="Female" />
-        </Picker.Select>
-        <Picker.Select
-          label="Gender"
-          mode="dialog"
-          contentStyle={{ height: 300 }}
-          helperText="This is Dialog Picker"
-        >
-          <Picker.Item value="male" label="Male" />
-          <Picker.Item value="female" label="Female" />
-        </Picker.Select>
+          data={data}
+          mode="sidebar"
+          label="Select City"
+          // contentStyle={{ height: "90%" }}
+          helperText="This is Sidebar Picker"
+        />
         <Picker mode="sidebar">
-          <Picker.Trigger
-            label="Select City"
-            helperText="Custom Picker"
-            placeholderText="Select City"
-          />
+          <Picker.Trigger label="Select City" helperText="Custom Picker" />
           <Picker.Content style={{ padding: 0 }}>
             <ScrollView>
-              {data.map((label) => (
+              {data.map((item) => (
                 <Picker.Item
-                  key={label}
-                  label={label}
-                  value={label}
+                  key={item.value}
+                  label={item.label}
+                  value={item.value}
                   style={{
                     paddingVertical: 15,
                     borderBottomWidth: 1,

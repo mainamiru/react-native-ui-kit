@@ -1,8 +1,11 @@
 import * as React from "react";
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import { FlatList, StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { isNil } from "../../utils";
+import Divider from "../divider";
+import Text from "../text";
 import PickerBase from "./picker-base";
 import PickerContent from "./picker-content";
+import PickerItem, { PickerItemProps } from "./picker-item";
 import PickerTrigger from "./picker-trigger";
 import { PickerMode, PickerSelectContext } from "./utils";
 
@@ -12,7 +15,7 @@ export interface PickerSelectProps<T extends string | number> {
   mode?: PickerMode;
   helperText?: string;
   placeholderText?: string;
-  children: React.ReactNode;
+  data: PickerItemProps<T>[];
   labelStyle?: StyleProp<TextStyle>;
   contentStyle?: StyleProp<ViewStyle>;
   onValueChange?: (value: T) => void;
@@ -20,8 +23,8 @@ export interface PickerSelectProps<T extends string | number> {
 }
 
 const PickerSelect = <T extends string | number>({
+  data,
   label,
-  children,
   helperText,
   labelStyle,
   contentStyle,
@@ -31,12 +34,16 @@ const PickerSelect = <T extends string | number>({
   mode = "bottom-sheet",
   placeholderText = "Select",
 }: PickerSelectProps<T>) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const scrollRef = React.useRef<FlatList<any>>(null);
   const [internalValue, setInternalValue] = React.useState<T | undefined>(
     selectedValue,
   );
 
+  //set internal value
   const setValue = (value: T) => {
     setInternalValue(value);
+    setIsOpen(false);
   };
 
   //handle change
@@ -46,17 +53,66 @@ const PickerSelect = <T extends string | number>({
     }
   }, [internalValue]);
 
+  //scroll to selected value
+  React.useEffect(() => {
+    if (isOpen && scrollRef.current && internalValue) {
+      scrollRef.current?.scrollToIndex({
+        index: data.findIndex((item) => item.value === internalValue),
+        animated: true,
+      });
+    }
+  }, [isOpen, internalValue]);
+
   return (
-    <PickerBase mode={mode}>
+    <PickerBase
+      mode={mode}
+      open={isOpen}
+      onOpen={() => setIsOpen(true)}
+      onClose={() => setIsOpen(false)}
+    >
       <PickerSelectContext.Provider value={{ value: internalValue, setValue }}>
         <PickerTrigger
           label={label}
           helperText={helperText}
           labelStyle={labelStyle}
-          placeholderText={placeholderText}
           helperTextStyle={helperTextStyle}
+          selectedValue={internalValue?.toString()}
         />
-        <PickerContent style={contentStyle}>{children}</PickerContent>
+        <PickerContent style={[{ maxHeight: "100%" }, contentStyle]}>
+          <View style={{ padding: 10 }}>
+            <Text
+              variant="titleMedium"
+              style={[{ color: "black" }, labelStyle]}
+            >
+              {placeholderText}
+            </Text>
+            <Text
+              variant="bodyMedium"
+              style={[{ color: "gray" }, helperTextStyle]}
+            >
+              {helperText}
+            </Text>
+          </View>
+          <Divider />
+          <FlatList
+            data={data}
+            ref={scrollRef}
+            keyExtractor={(_, index) => index.toString()}
+            getItemLayout={(_, index) => ({
+              index,
+              length: 40,
+              offset: 40 * index,
+            })}
+            renderItem={({ item }) => (
+              <PickerItem
+                value={item.value}
+                label={item.label}
+                onPress={() => setValue(item.value)}
+                selected={internalValue === item.value}
+              />
+            )}
+          />
+        </PickerContent>
       </PickerSelectContext.Provider>
     </PickerBase>
   );

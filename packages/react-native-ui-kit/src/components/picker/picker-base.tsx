@@ -21,12 +21,21 @@ const PickerBase = ({
   //handle open and close
   React.useEffect(() => {
     if (isOpen === open) return;
-    if (isOpen && onOpen) {
-      onOpen();
-    } else if (!isOpen && onClose) {
-      onClose();
+    if (isOpen) {
+      onOpen?.();
+    } else {
+      onClose?.();
     }
   }, [isOpen]);
+
+  React.useEffect(() => {
+    if (isOpen === open) return;
+    if (open) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [open]);
 
   return (
     <PickerContext.Provider value={{ mode, isOpen, setIsOpen }}>

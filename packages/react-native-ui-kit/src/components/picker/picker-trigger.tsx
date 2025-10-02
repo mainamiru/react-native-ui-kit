@@ -16,7 +16,7 @@ export interface PickerTriggerProps {
   helperText?: string;
   label?: string | number;
   value?: string | number;
-  placeholderText?: string;
+  selectedValue?: string | number;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   helperTextStyle?: StyleProp<TextStyle>;
@@ -28,7 +28,7 @@ const PickerTrigger = ({
   value,
   helperText,
   labelStyle,
-  placeholderText,
+  selectedValue = "Select",
   helperTextStyle,
 }: PickerTriggerProps) => {
   const { isOpen, setIsOpen } = usePickerContext();
@@ -74,7 +74,7 @@ const PickerTrigger = ({
               {value}
             </Text>
           ) : (
-            <Text style={{ color: placeholder }}>{placeholderText}</Text>
+            <Text style={{ color: placeholder }}>{selectedValue}</Text>
           )}
         </FlexView>
       </TouchRipple>
