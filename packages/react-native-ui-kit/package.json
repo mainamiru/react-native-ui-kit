@@ -1,7 +1,8 @@
 {
   "name": "@mainamiru/react-native-ui-kit",
-  "version": "1.0.0",
-  "main": "src/index",
+  "version": "0.1.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": {
     "name": "LUCKY BABU",
     "url": "https://lucky-babu.vercel.app",
@@ -34,8 +35,7 @@
   "files": [
     "dist",
     "assets",
-    "README.md",
-    "package.json"
+    "tsconfig.json"
   ],
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
