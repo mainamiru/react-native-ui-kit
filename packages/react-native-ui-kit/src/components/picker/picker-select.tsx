@@ -20,6 +20,7 @@ export interface PickerSelectProps<T extends string | number> {
   contentStyle?: StyleProp<ViewStyle>;
   onValueChange?: (value: T) => void;
   helperTextStyle?: StyleProp<TextStyle>;
+  HeaderComponent?: React.ReactElement;
 }
 
 const PickerSelect = <T extends string | number>({
@@ -31,6 +32,7 @@ const PickerSelect = <T extends string | number>({
   selectedValue,
   onValueChange,
   helperTextStyle,
+  HeaderComponent,
   mode = "bottom-sheet",
   placeholderText = "Select",
 }: PickerSelectProps<T>) => {
@@ -79,20 +81,23 @@ const PickerSelect = <T extends string | number>({
           selectedValue={internalValue?.toString()}
         />
         <PickerContent style={[{ maxHeight: "100%" }, contentStyle]}>
-          <View style={{ padding: 10 }}>
-            <Text
-              variant="titleMedium"
-              style={[{ color: "black" }, labelStyle]}
-            >
-              {placeholderText}
-            </Text>
-            <Text
-              variant="bodyMedium"
-              style={[{ color: "gray" }, helperTextStyle]}
-            >
-              {helperText}
-            </Text>
-          </View>
+          {HeaderComponent && HeaderComponent}
+          {isNil(HeaderComponent) && (
+            <View style={{ padding: 10 }}>
+              <Text
+                variant="titleMedium"
+                style={[{ color: "black" }, labelStyle]}
+              >
+                {placeholderText}
+              </Text>
+              <Text
+                variant="bodyMedium"
+                style={[{ color: "gray" }, helperTextStyle]}
+              >
+                {helperText}
+              </Text>
+            </View>
+          )}
           <Divider />
           <FlatList
             data={data}
