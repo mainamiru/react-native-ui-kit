@@ -10,12 +10,14 @@ export interface ContainerProps {
   indicatorSize?: number;
   style?: StyleProp<ViewStyle>;
   onRequestClose?: () => void;
+  indicator?: "default" | "ios";
 }
 
 export const Container: React.FC<ContainerProps> = React.memo(
   ({
     style,
     children,
+    indicator,
     indicatorColor,
     indicatorSize,
     onRequestClose,
@@ -26,7 +28,11 @@ export const Container: React.FC<ContainerProps> = React.memo(
       return (
         <View style={{ flex: 1, position: "relative" }}>
           <View style={styles.loadingWrapper}>
-            <ActivityIndicator size={indicatorSize} color={indicatorColor} />
+            <ActivityIndicator
+              size={indicatorSize}
+              color={indicatorColor}
+              indicator={indicator}
+            />
           </View>
         </View>
       );
@@ -43,7 +49,11 @@ export const Container: React.FC<ContainerProps> = React.memo(
           onRequestClose={onRequestClose}
         >
           <View style={styles.modalOverlay}>
-            <ActivityIndicator size={indicatorSize} color="white" />
+            <ActivityIndicator
+              color="white"
+              size={indicatorSize}
+              indicator={indicator}
+            />
           </View>
         </Modal>
       </View>

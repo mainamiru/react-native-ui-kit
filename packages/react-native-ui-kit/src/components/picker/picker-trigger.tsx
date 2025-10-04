@@ -1,14 +1,8 @@
 import React from "react";
-import {
-  Platform,
-  StyleProp,
-  Text,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native";
+import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
 import { useThemeColor } from "../../hooks";
 import FlexView from "../flex-view";
+import Icon from "../icon";
 import TouchRipple from "../touch-ripple";
 import { usePickerContext } from "./utils";
 
@@ -28,10 +22,10 @@ const PickerTrigger = ({
   value,
   helperText,
   labelStyle,
-  selectedValue = "Select",
   helperTextStyle,
+  selectedValue = "Select",
 }: PickerTriggerProps) => {
-  const { isOpen, setIsOpen } = usePickerContext();
+  const { mode, isOpen, setIsOpen } = usePickerContext();
   const { border, placeholder } = useThemeColor();
   return (
     <View style={[{ gap: 5 }, style]}>
@@ -52,17 +46,16 @@ const PickerTrigger = ({
         disabled={isOpen}
         onPress={() => setIsOpen(!isOpen)}
         style={{
-          padding: 10,
+          height: 50,
           borderWidth: 1,
           borderRadius: 5,
           borderColor: border,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          height: Platform.OS === "web" ? 40 : 50,
         }}
       >
-        <FlexView style={{ justifyContent: "center" }}>
+        <FlexView style={{ padding: 10, justifyContent: "center" }}>
           {value ? (
             <Text
               numberOfLines={1}
@@ -77,6 +70,11 @@ const PickerTrigger = ({
             <Text style={{ color: placeholder }}>{selectedValue}</Text>
           )}
         </FlexView>
+        {mode == "sidebar" ? (
+          <Icon.ChevronRight size={30} color={placeholder} />
+        ) : mode == "bottom-sheet" ? (
+          <Icon.ChevronDown size={30} color={placeholder} />
+        ) : null}
       </TouchRipple>
       {helperText && (
         <Text style={[{ color: "grey" }, helperTextStyle]}>{helperText}</Text>

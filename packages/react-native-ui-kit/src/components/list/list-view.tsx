@@ -77,10 +77,10 @@ const ListView: React.FC<ListViewProps> = ({
               {description}
             </Text>
           )}
+          {children}
         </View>
         {right && right({ marginRight: 10 })}
       </View>
-      {children}
     </Pressable>
   );
 };

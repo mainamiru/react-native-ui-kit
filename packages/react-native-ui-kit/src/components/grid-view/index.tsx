@@ -10,7 +10,6 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import Container from "../container";
 
 type OmittedFlatListProps =
   | "renderItem"
@@ -73,37 +72,35 @@ export function GridView<T>({
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayout}>
-      <Container isLoading={containerWidth <= 0}>
-        <FlatList
-          data={data}
-          {...restProps}
-          key={numColumns}
-          numColumns={numColumns}
-          keyExtractor={(_, index) => String(index)}
-          contentContainerStyle={[style, { gap: itemSpacing }]}
-          columnWrapperStyle={numColumns > 1 ? { gap: itemSpacing } : undefined}
-          renderItem={({ item, index, separators }) => {
-            const itemWidth = adjustedItemWidth;
-            return (
-              <View
-                style={[
-                  itemStyle,
-                  {
-                    flex: 1,
-                    width: undefined,
-                    height: undefined,
-                    minWidth: undefined,
-                    minHeight: undefined,
-                    maxWidth: itemWidth,
-                  },
-                ]}
-              >
-                {renderItem({ item, index, separators, width: itemWidth })}
-              </View>
-            );
-          }}
-        />
-      </Container>
+      <FlatList
+        data={data}
+        {...restProps}
+        key={numColumns}
+        numColumns={numColumns}
+        keyExtractor={(_, index) => String(index)}
+        contentContainerStyle={[style, { gap: itemSpacing }]}
+        columnWrapperStyle={numColumns > 1 ? { gap: itemSpacing } : undefined}
+        renderItem={({ item, index, separators }) => {
+          const itemWidth = adjustedItemWidth;
+          return (
+            <View
+              style={[
+                itemStyle,
+                {
+                  flex: 1,
+                  width: undefined,
+                  height: undefined,
+                  minWidth: undefined,
+                  minHeight: undefined,
+                  maxWidth: itemWidth,
+                },
+              ]}
+            >
+              {renderItem({ item, index, separators, width: itemWidth })}
+            </View>
+          );
+        }}
+      />
     </View>
   );
 }

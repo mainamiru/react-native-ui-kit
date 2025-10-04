@@ -9,7 +9,7 @@ export type DefaultIconProps = Omit<
 >;
 
 export interface IconProps extends DefaultIconProps {
-  size: number;
+  size?: number;
   color?: string;
   testID?: string;
   direction?: "rtl" | "ltr";
