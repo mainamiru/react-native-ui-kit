@@ -79,6 +79,11 @@ export const navigations: NavLink[] = [
     description: "Divider component",
   },
   {
+    label: "EvilIcons",
+    path: "/docs/evil-icons",
+    description: "EvilIcons component",
+  },
+  {
     label: "FlexView",
     path: "/docs/flex-view",
     description: "FlexView component",

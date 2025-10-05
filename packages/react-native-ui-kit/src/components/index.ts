@@ -11,6 +11,7 @@ export * from "./container";
 export * from "./dialog";
 export * from "./divider";
 export * from "./documentation-viewer";
+export * from "./evil-icons";
 export * from "./flex-view";
 export * from "./grid-view";
 export * from "./icon";
@@ -38,4 +39,3 @@ export * from "./toaster";
 export * from "./tooltip";
 export * from "./touch-ripple";
 export * from "./typography";
-

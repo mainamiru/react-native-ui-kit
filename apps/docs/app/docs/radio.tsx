@@ -60,7 +60,7 @@ export default function App() {
         },
       }}
     >
-      <View style={{ gap: 16 }}>
+      <View style={{ gap: 16, padding: 15 }}>
         <Text variant="titleMedium">Select an option</Text>
         <Radio
           value="option 1"

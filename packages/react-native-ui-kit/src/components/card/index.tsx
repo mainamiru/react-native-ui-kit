@@ -3,6 +3,8 @@ import {
   Image,
   ImageSourcePropType,
   ImageStyle,
+  Pressable,
+  PressableProps,
   StyleProp,
   StyleSheet,
   Text,
@@ -12,15 +14,15 @@ import {
 } from "react-native";
 import { useThemeColor } from "../../hooks";
 
-export interface CardProps {
-  style?: StyleProp<ViewStyle>;
+export interface CardProps extends PressableProps {
   children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 }
 
 export interface CardImageProps {
-  source: string | ImageSourcePropType;
-  style?: StyleProp<ImageStyle>;
   alt?: string;
+  style?: StyleProp<ImageStyle>;
+  source: string | ImageSourcePropType;
 }
 
 export interface CardContentProps {
@@ -43,10 +45,12 @@ export const Card: React.FC<CardProps> & {
   Content: React.FC<CardContentProps>;
   Title: React.FC<CardTitleProps>;
   Description: React.FC<CardDescriptionProps>;
-} = ({ style, children }) => {
+} = ({ children, style, ...props }) => {
   const { card: backgroundColor } = useThemeColor();
   return (
-    <View style={[styles.card, { backgroundColor }, style]}>{children}</View>
+    <Pressable style={[styles.card, { backgroundColor }, style]} {...props}>
+      {children}
+    </Pressable>
   );
 };
 
