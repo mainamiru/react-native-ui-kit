@@ -1,8 +1,8 @@
 {
   "name": "@mainamiru/react-native-ui-kit",
   "version": "0.1.2",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": {
     "name": "LUCKY BABU",
     "url": "https://lucky-babu.vercel.app",
