@@ -48,7 +48,7 @@
     },
     "packages/react-native-ui-kit": {
       "name": "@mainamiru/react-native-ui-kit",
-      "version": "1.0.0",
+      "version": "0.1.2",
       "dependencies": {
         "expo-clipboard": "^8.0.7",
         "typescript": "^5.9.2",

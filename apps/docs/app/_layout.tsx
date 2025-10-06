@@ -20,7 +20,7 @@ const RootLayout = () => {
           name="keywords"
           content="React Native UI Kit, React Native components, mobile app UI, React Native design system, TypeScript React Native, customizable UI components, fast app development, React Native templates, mobile UI library"
         />
-        <link rel="icon" href="/images/favicon.png" sizes="512x512" />
+        <link rel="icon" href="/images/favicon.png" sizes="256x256" />
       </Head>
       <SafeAreaProvider style={{ flex: 1 }}>
         <AppThemeProvider>
