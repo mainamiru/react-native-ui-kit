@@ -6,6 +6,7 @@ export * from "./button";
 export * from "./card";
 export * from "./center";
 export * from "./checkbox";
+export * from "./chip";
 export * from "./code";
 export * from "./container";
 export * from "./dialog";

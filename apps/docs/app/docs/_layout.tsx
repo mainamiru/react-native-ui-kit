@@ -77,6 +77,10 @@ const DocsLayout = () => {
       <Drawer.Screen name="portal" options={{ title: "Portal" }} />
       <Drawer.Screen name="typography" options={{ title: "Typography" }} />
       <Drawer.Screen name="touch-ripple" options={{ title: "Touch Ripple" }} />
+      <Drawer.Screen name="chip" options={{ title: "Chip" }} />
+      <Drawer.Screen name="skeleton" options={{ title: "Skeleton" }} />
+      <Drawer.Screen name="smart-image" options={{ title: "Smart Image" }} />
+      <Drawer.Screen name="spacer" options={{ title: "Spacer" }} />
     </Drawer>
   );
 };

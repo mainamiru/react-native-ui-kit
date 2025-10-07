@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, TextStyle } from "react-native";
+import { ImageProps, ImageURISource, StyleProp, TextStyle } from "react-native";
 import { EvilIcons } from "../evil-icons";
 
 export type IconName = React.ComponentProps<typeof EvilIcons>["name"];
@@ -7,6 +7,10 @@ export type DefaultIconProps = Omit<
   React.ComponentProps<typeof EvilIcons>,
   "name" | "color"
 >;
+export type IconSource =
+  | IconName
+  | ImageURISource
+  | React.ComponentType<ImageProps>;
 
 export interface IconProps extends DefaultIconProps {
   size?: number;

@@ -59,6 +59,11 @@ export const navigations: NavLink[] = [
     description: "Checkbox component",
   },
   {
+    label: "Chip",
+    path: "/docs/chip",
+    description: "Chip component",
+  },
+  {
     label: "Code",
     path: "/docs/code",
     description: "Code component",
@@ -154,6 +159,11 @@ export const navigations: NavLink[] = [
     label: "Spinner",
     path: "/docs/spinner",
     description: "Spinner component",
+  },
+  {
+    label: "Spacer",
+    path: "/docs/spacer",
+    description: "Spacer component",
   },
   {
     label: "Sidebar",
