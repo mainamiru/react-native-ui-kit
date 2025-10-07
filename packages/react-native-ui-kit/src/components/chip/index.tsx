@@ -3,6 +3,7 @@ import {
   GestureResponderEvent,
   Image,
   ImageProps,
+  ImageURISource,
   StyleProp,
   StyleSheet,
   Text,
@@ -11,7 +12,7 @@ import {
   ViewStyle,
 } from "react-native";
 import { EvilIcons } from "..";
-import { assets, isImageSource } from "../../utils";
+import { assets } from "../../utils";
 import { IconSource } from "../icon";
 import { TouchRipple, TouchRippleProps } from "../touch-ripple";
 
@@ -60,11 +61,36 @@ export const Chip: React.FC<ChipProps> = ({
     return "#333";
   };
 
-  //render custom
-  const renderCustomIcon = React.useCallback((source: any) => {
-    const CustomIcon = source as React.ComponentType<ImageProps>;
-    return <CustomIcon style={{ width: 16, height: 16 }} />;
-  }, []);
+  /** Internal universal icon renderer */
+  const renderIcon = (
+    source: IconSource,
+    size: number,
+    color: string,
+  ): React.ReactNode => {
+    if (typeof source === "string") {
+      return <EvilIcons name={source} size={size} color={color} />;
+    } else if (typeof source === "object" && "uri" in source) {
+      return (
+        <Image
+          resizeMode="contain"
+          source={source as ImageURISource}
+          style={{ width: size, height: size }}
+        />
+      );
+    } else if (typeof source === "function" || React.isValidElement(source)) {
+      const CustomIcon = source as React.ComponentType<ImageProps>;
+      return (
+        <CustomIcon
+          style={{
+            width: size,
+            height: size,
+          }}
+        />
+      );
+    }
+
+    return null;
+  };
 
   return (
     <TouchRipple
@@ -81,18 +107,7 @@ export const Chip: React.FC<ChipProps> = ({
         style,
       ]}
     >
-      {typeof icon === "string" && (
-        <EvilIcons name={icon} size={16} color={getTextColor()} />
-      )}
-      {isImageSource(icon) && (
-        <Image
-          source={icon}
-          resizeMode="contain"
-          style={{ height: 16, width: 16 }}
-        />
-      )}
-      {typeof icon === "function" && renderCustomIcon(icon)}
-
+      {icon && renderIcon(icon, 16, getTextColor())}
       <Text style={[styles.label, { color: getTextColor() }, textStyle]}>
         {label}
       </Text>

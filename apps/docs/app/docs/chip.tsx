@@ -1,4 +1,5 @@
 import { DocsViewer } from "@/components";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Chip } from "@mainamiru/react-native-ui-kit";
 import React, { useState } from "react";
 import { View } from "react-native";
@@ -74,6 +75,9 @@ export default function App() {
         <Chip
           label="Selectable"
           selected={selected}
+          icon={() => (
+            <MaterialCommunityIcons name="check" size={16} color="white" />
+          )}
           onClose={() => setSelected(false)}
           onPress={() => setSelected(true)}
         />

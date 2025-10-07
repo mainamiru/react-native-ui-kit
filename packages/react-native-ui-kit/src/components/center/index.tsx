@@ -1,11 +1,7 @@
 import React from "react";
-import { View, ViewStyle } from "react-native";
+import { View, ViewProps } from "react-native";
 
-export interface CenterProps extends ViewStyle {
-  children: React.ReactNode;
-}
-
-export const Center = ({ children, ...style }: CenterProps) => {
+export const Center = ({ style, children, ...props }: ViewProps) => {
   return (
     <View
       style={[
@@ -15,6 +11,7 @@ export const Center = ({ children, ...style }: CenterProps) => {
           justifyContent: "center",
         },
       ]}
+      {...props}
     >
       {children}
     </View>

@@ -19,7 +19,6 @@ export * from "./icon";
 export * from "./icon-button";
 export * from "./layout-view";
 export * from "./list";
-export * from "./menu";
 export * from "./picker";
 export * from "./portal";
 export * from "./radio";

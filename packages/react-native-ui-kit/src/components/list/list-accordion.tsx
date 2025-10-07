@@ -10,8 +10,6 @@ import {
   ViewStyle,
 } from "react-native";
 import { Divider } from "../divider";
-import { FlexView } from "../flex-view";
-import { Row } from "../row";
 import { Text } from "../text";
 import TouchRipple from "../touch-ripple";
 
@@ -20,8 +18,11 @@ export interface ListAccordionProps {
   expanded?: boolean;
   description?: string;
   children: React.ReactNode;
+  titleNumberOfLines?: number;
+  descriptionNumberOfLines?: number;
   style?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;
+  headerStyle?: StyleProp<ViewStyle>;
   contentStyle?: StyleProp<ViewStyle>;
   descriptionStyle?: StyleProp<TextStyle>;
   onPress?: (event: GestureResponderEvent) => void;
@@ -34,9 +35,12 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
   children,
   titleStyle,
   description,
+  headerStyle,
   contentStyle,
   expanded = false,
   descriptionStyle,
+  titleNumberOfLines = 2,
+  descriptionNumberOfLines = 2,
 }) => {
   const [contentHeight, setContentHeight] = React.useState(0);
   const [isExpanded, setIsExpanded] = React.useState(expanded);
@@ -78,17 +82,38 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
   return (
     <View style={[styles.container, style]}>
       <TouchRipple onPress={toggleAccordion}>
-        <Row alignItems="center" padding={10}>
-          <FlexView>
-            <Text variant="titleMedium" style={titleStyle}>
+        <View
+          style={[
+            {
+              padding: 10,
+              alignItems: "center",
+              flexDirection: "row",
+            },
+            headerStyle,
+          ]}
+        >
+          <View style={{ flex: 1 }}>
+            <Text
+              style={titleStyle}
+              variant="titleMedium"
+              numberOfLines={titleNumberOfLines}
+            >
               {title}
             </Text>
-            {description && <Text style={descriptionStyle}>{description}</Text>}
-          </FlexView>
+            {description && (
+              <Text
+                variant="body"
+                style={descriptionStyle}
+                numberOfLines={descriptionNumberOfLines}
+              >
+                {description}
+              </Text>
+            )}
+          </View>
           <Animated.Text style={[styles.arrow, { transform: [{ rotate }] }]}>
             ⌵
           </Animated.Text>
-        </Row>
+        </View>
       </TouchRipple>
       {isExpanded && <Divider margin={0} />}
       <Animated.View

@@ -26,10 +26,9 @@ export const DrawerContents = () => {
                 expanded={isActive}
                 title={item.label}
                 onPress={() => router.push(item.path as Href)}
-                style={{
+                style={{ borderWidth: 0, borderRadius: 0 }}
+                headerStyle={{
                   width: "100%",
-                  borderWidth: 0,
-                  borderRadius: 0,
                   backgroundColor: isActive ? activeBackground : "transparent",
                 }}
                 contentStyle={{ padding: 0 }}
