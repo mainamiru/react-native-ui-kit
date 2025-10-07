@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://expo-react-native-ui-kit.web.app/sitemap.xml
