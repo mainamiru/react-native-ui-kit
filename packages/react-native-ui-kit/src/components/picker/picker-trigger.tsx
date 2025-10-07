@@ -23,9 +23,9 @@ const PickerTrigger = ({
   value,
   helperText,
   labelStyle,
+  selectedValue,
   containerStyle,
   helperTextStyle,
-  selectedValue = "Select",
 }: PickerTriggerProps) => {
   const { mode, isOpen, setIsOpen } = usePickerContext();
   const { border, placeholder } = useThemeColor();
@@ -82,7 +82,9 @@ const PickerTrigger = ({
               {value}
             </Text>
           ) : (
-            <Text style={{ color: placeholder }}>{selectedValue}</Text>
+            <Text style={{ color: placeholder }}>
+              {selectedValue || "Select"}
+            </Text>
           )}
         </FlexView>
         {mode == "sidebar" ? (

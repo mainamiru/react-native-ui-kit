@@ -6,23 +6,27 @@ import Sidebar from "../sidebar";
 import { usePickerContext } from "./utils";
 
 export interface PickerContentProps {
+  /** Width of the sidebar (only applicable in sidebar mode) */
   sidebarWidth?: number;
+  /** Child components to render inside the picker content */
   children: React.ReactNode;
+  /** Optional custom styles for the content container */
   style?: StyleProp<ViewStyle>;
+  /** Sidebar alignment when mode is 'sidebar' */
   sidebarPosition?: "left" | "right";
 }
 
-const PickerContent = ({
+export const PickerContent: React.FC<PickerContentProps> = ({
   style,
   children,
+  sidebarWidth,
   sidebarPosition = "right",
-}: PickerContentProps) => {
+}) => {
   const { mode, isOpen, setIsOpen } = usePickerContext();
 
-  //render
   if (mode === "dialog") {
     return (
-      <Dialog open={isOpen} onValueChange={(value) => setIsOpen(value)}>
+      <Dialog open={isOpen} onValueChange={setIsOpen}>
         <Dialog.Content style={style}>{children}</Dialog.Content>
       </Dialog>
     );
@@ -30,9 +34,10 @@ const PickerContent = ({
     return (
       <Sidebar
         open={isOpen}
-        style={style}
+        width={sidebarWidth}
+        onOpenChange={setIsOpen}
         position={sidebarPosition}
-        onOpenChange={(value) => setIsOpen(value)}
+        style={[style, { maxHeight: "100%", height: "100%" }]}
       >
         {children}
       </Sidebar>

@@ -1,5 +1,12 @@
 import * as React from "react";
-import { FlatList, StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import {
+  FlatList,
+  StyleProp,
+  TextInput,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 import { isNil } from "../../utils";
 import Divider from "../divider";
 import Text from "../text";
@@ -20,8 +27,14 @@ export interface PickerSelectProps<T extends string | number> {
   contentStyle?: StyleProp<ViewStyle>;
   onValueChange?: (value: T) => void;
   helperTextStyle?: StyleProp<TextStyle>;
-  HeaderComponent?: React.ReactElement;
+  HeaderComponent?: React.ReactElement | null;
+  /** Enable inline search filtering */
+  searchable?: boolean;
+  /** Placeholder text for the search input */
+  searchPlaceholder?: string;
 }
+
+const ITEM_HEIGHT = 40;
 
 const PickerSelect = <T extends string | number>({
   data,
@@ -35,35 +48,63 @@ const PickerSelect = <T extends string | number>({
   HeaderComponent,
   mode = "bottom-sheet",
   placeholderText = "Select",
+  searchable = false,
+  searchPlaceholder = "Search...",
 }: PickerSelectProps<T>) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const scrollRef = React.useRef<FlatList<any>>(null);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const scrollRef = React.useRef<FlatList<PickerItemProps<T>>>(null);
   const [internalValue, setInternalValue] = React.useState<T | undefined>(
     selectedValue,
   );
 
-  //set internal value
-  const setValue = (value: T) => {
-    setInternalValue(value);
-    setIsOpen(false);
-  };
+  // Sync internal state with external prop
+  React.useEffect(() => {
+    setInternalValue(selectedValue);
+  }, [selectedValue]);
 
-  //handle change
+  // Handle value change
   React.useEffect(() => {
     if (!isNil(internalValue) && onValueChange) {
       onValueChange(internalValue);
     }
-  }, [internalValue]);
+  }, [internalValue, onValueChange]);
 
-  //scroll to selected value
+  // Scroll to selected item when open
   React.useEffect(() => {
-    if (isOpen && scrollRef.current && internalValue) {
-      scrollRef.current?.scrollToIndex({
-        index: data.findIndex((item) => item.value === internalValue),
-        animated: true,
-      });
+    if (isOpen && scrollRef.current && internalValue != null) {
+      const index = data.findIndex((item) => item.value === internalValue);
+      if (index >= 0) {
+        scrollRef.current.scrollToIndex({ index, animated: true });
+      }
     }
-  }, [isOpen, internalValue]);
+  }, [isOpen, internalValue, data]);
+
+  // Set value and close picker
+  const setValue = React.useCallback((value: T) => {
+    setIsOpen(false);
+    setInternalValue(value);
+  }, []);
+
+  // Filter data based on search query
+  const filteredData = React.useMemo(() => {
+    if (!searchable || !searchQuery.trim()) return data;
+    const lower = searchQuery.toLowerCase();
+    return data.filter((item) => item.label.toLowerCase().includes(lower));
+  }, [data, searchQuery, searchable]);
+
+  // Render item
+  const renderItem = React.useCallback(
+    ({ item }: { item: PickerItemProps<T> }) => (
+      <PickerItem
+        value={item.value}
+        label={item.label}
+        onPress={() => setValue(item.value)}
+        selected={internalValue === item.value}
+      />
+    ),
+    [internalValue, setValue],
+  );
 
   return (
     <PickerBase
@@ -75,14 +116,15 @@ const PickerSelect = <T extends string | number>({
       <PickerSelectContext.Provider value={{ value: internalValue, setValue }}>
         <PickerTrigger
           label={label}
+          style={{ height: 50 }}
           helperText={helperText}
           labelStyle={labelStyle}
           helperTextStyle={helperTextStyle}
-          selectedValue={internalValue?.toString()}
+          selectedValue={internalValue?.toString() || placeholderText}
         />
+
         <PickerContent style={[{ maxHeight: "100%" }, contentStyle]}>
-          {HeaderComponent && HeaderComponent}
-          {isNil(HeaderComponent) && (
+          {HeaderComponent ?? (
             <View style={{ padding: 10 }}>
               <Text
                 variant="titleMedium"
@@ -94,28 +136,55 @@ const PickerSelect = <T extends string | number>({
                 variant="bodyMedium"
                 style={[{ color: "gray" }, helperTextStyle]}
               >
-                {helperText}
+                {helperText || placeholderText}
               </Text>
             </View>
           )}
+
+          {searchable && (
+            <>
+              <Divider />
+              <View style={{ padding: 10 }}>
+                <TextInput
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
+                  placeholder={searchPlaceholder}
+                  style={{
+                    height: 50,
+                    borderWidth: 1,
+                    borderColor: "#ccc",
+                    borderRadius: 8,
+                    paddingHorizontal: 10,
+                  }}
+                  placeholderTextColor="#999"
+                />
+              </View>
+            </>
+          )}
+
           <Divider />
           <FlatList
-            data={data}
             ref={scrollRef}
-            keyExtractor={(_, index) => index.toString()}
+            data={filteredData}
+            keyExtractor={(item) => item.value.toString()}
             getItemLayout={(_, index) => ({
               index,
-              length: 40,
-              offset: 40 * index,
+              length: ITEM_HEIGHT,
+              offset: ITEM_HEIGHT * index,
             })}
-            renderItem={({ item }) => (
-              <PickerItem
-                value={item.value}
-                label={item.label}
-                onPress={() => setValue(item.value)}
-                selected={internalValue === item.value}
-              />
-            )}
+            renderItem={renderItem}
+            ListEmptyComponent={
+              <Text
+                style={{
+                  textAlign: "center",
+                  padding: 20,
+                  color: "#888",
+                }}
+              >
+                No results found
+              </Text>
+            }
+            showsVerticalScrollIndicator={false}
           />
         </PickerContent>
       </PickerSelectContext.Provider>
