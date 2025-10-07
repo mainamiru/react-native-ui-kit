@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "types": ["react", "react-native"],
     "allowSyntheticDefaultImports": true
   },

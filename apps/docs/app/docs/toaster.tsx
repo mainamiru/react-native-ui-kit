@@ -69,7 +69,12 @@ export default App;
         <Button
           mode="contained"
           buttonColor="blue"
-          onPress={() => toast.info("Thank you for your payment")}
+          onPress={() =>
+            toast.info(
+              "A complete design system with TypeScript support, modern aesthetics, and seamless integration",
+              { position: "top-center" }
+            )
+          }
         >
           Info
         </Button>
