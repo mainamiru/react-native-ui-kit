@@ -19,10 +19,10 @@ export interface RadioButtonProps {
 
 export const RadioButton: React.FC<RadioButtonProps> = ({
   label,
-  selected,
   onPress,
-  containerStyle,
+  selected,
   labelStyle,
+  containerStyle,
 }) => {
   return (
     <TouchableOpacity

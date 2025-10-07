@@ -114,7 +114,7 @@ export const navigations: NavLink[] = [
     description: "SearchBar component",
   },
   {
-    label: "Layout View",
+    label: "LayoutView",
     path: "/docs/layout-view",
     description: "LayoutView component",
   },
@@ -191,6 +191,11 @@ export const navigations: NavLink[] = [
     description: "Tabs component",
   },
   {
+    label: "Surface",
+    path: "/docs/surface",
+    description: "Surface component",
+  },
+  {
     label: "Toaster",
     path: "/docs/toaster",
     description: "Toaster component",
@@ -206,13 +211,18 @@ export const navigations: NavLink[] = [
     description: "Typography component",
   },
   {
+    label: "Tooltip",
+    path: "/docs/tooltip",
+    description: "Tooltip component",
+  },
+  {
     label: "Portal",
     path: "/docs/portal",
     description: "Portal component",
   },
   {
-    label: "Tooltip",
-    path: "/docs/tooltip",
-    description: "Tooltip component",
+    label: "ProgressBar",
+    path: "/docs/progress-bar",
+    description: "ProgressBar component",
   },
 ];

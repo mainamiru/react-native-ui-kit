@@ -24,7 +24,13 @@ const DocsLayout = () => {
           paddingHorizontal: 0,
         },
         headerRight: ({ tintColor }) => (
-          <Row gap={10} alignItems="center" marginRight={15}>
+          <Row
+            style={{
+              gap: 10,
+              marginRight: 15,
+              alignItems: "center",
+            }}
+          >
             <MaterialIcons
               size={24}
               color={tintColor}
@@ -53,9 +59,9 @@ const DocsLayout = () => {
       <Drawer.Screen name="checkbox" options={{ title: "Checkbox" }} />
       <Drawer.Screen name="code" options={{ title: "Code" }} />
       <Drawer.Screen name="divider" options={{ title: "Divider" }} />
-      <Drawer.Screen name="grid-view" options={{ title: "Grid View" }} />
+      <Drawer.Screen name="grid-view" options={{ title: "GridView" }} />
       <Drawer.Screen name="icon" options={{ title: "Icon" }} />
-      <Drawer.Screen name="icon-button" options={{ title: "Icon Button" }} />
+      <Drawer.Screen name="icon-button" options={{ title: "IconButton" }} />
       <Drawer.Screen name="list/index" options={{ title: "List" }} />
       <Drawer.Screen name="list/item" options={{ title: "List.Item" }} />
       <Drawer.Screen
@@ -65,22 +71,23 @@ const DocsLayout = () => {
       <Drawer.Screen name="picker" options={{ title: "Picker" }} />
       <Drawer.Screen name="radio" options={{ title: "Radio" }} />
       <Drawer.Screen name="switch" options={{ title: "Switch" }} />
-      <Drawer.Screen name="layout-view" options={{ title: "Layout View" }} />
+      <Drawer.Screen name="layout-view" options={{ title: "LayoutView" }} />
       <Drawer.Screen name="toaster" options={{ title: "Toaster" }} />
       <Drawer.Screen name="spinner" options={{ title: "Spinner" }} />
       <Drawer.Screen name="table" options={{ title: "Table" }} />
       <Drawer.Screen name="tabs" options={{ title: "Tabs" }} />
       <Drawer.Screen name="text" options={{ title: "Text" }} />
-      <Drawer.Screen name="text-input" options={{ title: "Text Input" }} />
+      <Drawer.Screen name="text-input" options={{ title: "TextInput" }} />
       <Drawer.Screen name="sidebar" options={{ title: "Sidebar" }} />
       <Drawer.Screen name="tooltip" options={{ title: "Tooltip" }} />
       <Drawer.Screen name="portal" options={{ title: "Portal" }} />
       <Drawer.Screen name="typography" options={{ title: "Typography" }} />
-      <Drawer.Screen name="touch-ripple" options={{ title: "Touch Ripple" }} />
+      <Drawer.Screen name="touch-ripple" options={{ title: "TouchRipple" }} />
       <Drawer.Screen name="chip" options={{ title: "Chip" }} />
       <Drawer.Screen name="skeleton" options={{ title: "Skeleton" }} />
-      <Drawer.Screen name="smart-image" options={{ title: "Smart Image" }} />
+      <Drawer.Screen name="surface" options={{ title: "Surface" }} />
       <Drawer.Screen name="spacer" options={{ title: "Spacer" }} />
+      <Drawer.Screen name="progress-bar" options={{ title: "ProgressBar" }} />
     </Drawer>
   );
 };

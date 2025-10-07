@@ -14,67 +14,78 @@ import { Text } from "../text";
 import TouchRipple from "../touch-ripple";
 
 export interface ListAccordionProps {
+  /** Title displayed in the header */
   title: string;
-  expanded?: boolean;
+  /** Optional subtitle text below the title */
   description?: string;
+  /** Whether the accordion starts expanded */
+  expanded?: boolean;
+  /** Content inside the accordion */
   children: React.ReactNode;
+  /** Callback when the accordion header is pressed */
+  onPress?: (event: GestureResponderEvent) => void;
+  /** Style overrides */
+  style?: StyleProp<ViewStyle>;
+  headerStyle?: StyleProp<ViewStyle>;
+  titleStyle?: StyleProp<TextStyle>;
+  descriptionStyle?: StyleProp<TextStyle>;
+  contentStyle?: StyleProp<ViewStyle>;
+  /** Number of lines to show for title/description */
   titleNumberOfLines?: number;
   descriptionNumberOfLines?: number;
-  style?: StyleProp<ViewStyle>;
-  titleStyle?: StyleProp<TextStyle>;
-  headerStyle?: StyleProp<ViewStyle>;
-  contentStyle?: StyleProp<ViewStyle>;
-  descriptionStyle?: StyleProp<TextStyle>;
-  onPress?: (event: GestureResponderEvent) => void;
 }
 
 export const ListAccordion: React.FC<ListAccordionProps> = ({
   title,
-  style,
-  onPress,
-  children,
-  titleStyle,
   description,
-  headerStyle,
-  contentStyle,
+  children,
+  onPress,
   expanded = false,
+  style,
+  headerStyle,
+  titleStyle,
   descriptionStyle,
+  contentStyle,
   titleNumberOfLines = 2,
   descriptionNumberOfLines = 2,
 }) => {
-  const [contentHeight, setContentHeight] = React.useState(0);
   const [isExpanded, setIsExpanded] = React.useState(expanded);
-  const animatedHeight = React.useRef(new Animated.Value(0)).current;
+  const [contentHeight, setContentHeight] = React.useState(0);
   const rotationAnim = React.useRef(new Animated.Value(0)).current;
+  const animatedHeight = React.useRef(new Animated.Value(0)).current;
 
-  //animate arrow
+  //handle animation
   React.useEffect(() => {
-    Animated.timing(rotationAnim, {
-      toValue: isExpanded ? 1 : 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  }, [isExpanded, rotationAnim]);
+    Animated.parallel([
+      Animated.timing(rotationAnim, {
+        toValue: isExpanded ? 1 : 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
 
-  //toggle accordion
+      Animated.timing(animatedHeight, {
+        toValue: isExpanded ? 1 : 0,
+        duration: 200,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  }, [isExpanded]);
+
   const toggleAccordion = (e: GestureResponderEvent) => {
-    Animated.timing(animatedHeight, {
-      toValue: isExpanded ? 0 : contentHeight,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-    setIsExpanded(!isExpanded);
+    setIsExpanded((prev) => !prev);
     onPress?.(e);
   };
 
-  //handle content size change
-  const onContentSizeChange = (width: number, height: number) => {
-    if (contentHeight !== height) {
-      setContentHeight(height);
-    }
+  const onContentLayout = (width: number, height: number) => {
+    if (contentHeight !== height) setContentHeight(height);
   };
 
-  const rotate = rotationAnim.interpolate({
+  const heightInterpolation = animatedHeight.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, contentHeight],
+  });
+
+  const rotateInterpolation = rotationAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "180deg"],
   });
@@ -82,51 +93,46 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
   return (
     <View style={[styles.container, style]}>
       <TouchRipple onPress={toggleAccordion}>
-        <View
-          style={[
-            {
-              padding: 10,
-              alignItems: "center",
-              flexDirection: "row",
-            },
-            headerStyle,
-          ]}
-        >
+        <View style={[styles.header, headerStyle]}>
           <View style={{ flex: 1 }}>
             <Text
-              style={titleStyle}
-              variant="titleMedium"
+              style={[styles.title, titleStyle]}
               numberOfLines={titleNumberOfLines}
+              variant="titleMedium"
             >
               {title}
             </Text>
             {description && (
               <Text
-                variant="body"
-                style={descriptionStyle}
+                style={[styles.description, descriptionStyle]}
                 numberOfLines={descriptionNumberOfLines}
+                variant="body"
               >
                 {description}
               </Text>
             )}
           </View>
-          <Animated.Text style={[styles.arrow, { transform: [{ rotate }] }]}>
+          <Animated.Text
+            style={[
+              styles.arrow,
+              { transform: [{ rotate: rotateInterpolation }] },
+            ]}
+          >
             ⌵
           </Animated.Text>
         </View>
       </TouchRipple>
+
       {isExpanded && <Divider margin={0} />}
+
       <Animated.View
-        style={{
-          overflow: "hidden",
-          height: animatedHeight,
-        }}
+        style={{ height: heightInterpolation, overflow: "hidden" }}
       >
         <ScrollView
           scrollEnabled={false}
           contentContainerStyle={contentStyle}
           showsVerticalScrollIndicator={false}
-          onContentSizeChange={onContentSizeChange}
+          onContentSizeChange={onContentLayout}
         >
           {children}
         </ScrollView>
@@ -138,24 +144,26 @@ export const ListAccordion: React.FC<ListAccordionProps> = ({
 const styles = StyleSheet.create({
   arrow: {
     fontSize: 16,
+    marginLeft: 8,
   },
   container: {
     backgroundColor: "#fff",
-    borderColor: "#ccc",
+    borderColor: "#ddd",
     borderRadius: 8,
     borderWidth: 1,
+    overflow: "hidden",
   },
-  contentContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+  description: {
+    color: "#666",
+    fontSize: 14,
   },
-  titleContainer: {
+  header: {
     alignItems: "center",
     flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
-  titleText: {
+  title: {
     fontSize: 16,
     fontWeight: "600",
   },
