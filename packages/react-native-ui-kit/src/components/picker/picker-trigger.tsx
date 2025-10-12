@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, Text, TextStyle, ViewStyle } from "react-native";
+import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
 import { useThemeColor } from "../../hooks";
 import FlexView from "../flex-view";
 import Icon from "../icon";
@@ -14,6 +14,7 @@ export interface PickerTriggerProps {
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   helperTextStyle?: StyleProp<TextStyle>;
+  coontentBoxStyle?: StyleProp<ViewStyle>;
   containerStyle?: StyleProp<ViewStyle>;
 }
 
@@ -26,11 +27,12 @@ const PickerTrigger = ({
   selectedValue,
   containerStyle,
   helperTextStyle,
+  coontentBoxStyle
 }: PickerTriggerProps) => {
   const { mode, isOpen, setIsOpen } = usePickerContext();
   const { border, placeholder } = useThemeColor();
   return (
-    <>
+    <View style={style}>
       {label !== undefined && (
         <Text
           style={[
@@ -52,8 +54,9 @@ const PickerTrigger = ({
             borderWidth: 1,
             borderRadius: 5,
             borderColor: border,
+            marginVertical: 5,
           },
-          style,
+          containerStyle,
           {
             alignItems: "center",
             flexDirection: "row",
@@ -61,15 +64,9 @@ const PickerTrigger = ({
           },
         ]}
       >
-        <FlexView
-          style={[
-            {
-              padding: 10,
-              justifyContent: "center",
-            },
-            containerStyle,
-          ]}
-        >
+        <FlexView style={[{ 
+          padding: 10,
+           justifyContent: "center" },coontentBoxStyle]}>
           {value ? (
             <Text
               numberOfLines={1}
@@ -95,7 +92,7 @@ const PickerTrigger = ({
       {helperText && (
         <Text style={[{ color: "grey" }, helperTextStyle]}>{helperText}</Text>
       )}
-    </>
+    </View>
   );
 };
 

@@ -7,7 +7,6 @@
     "fix:deps": "npx rimraf apps/*/node_modules && bun install"
   },
   "workspaces": [
-    "docs",
     "apps/*",
     "packages/*"
   ],

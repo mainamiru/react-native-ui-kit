@@ -23,6 +23,7 @@ export interface BottomSheetProps {
   open?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
+  defaultOpen?: boolean;
   backdropOpacity?: number;
   children: React.ReactNode;
   closeOnPressBack?: boolean;
@@ -41,6 +42,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       onClose,
       children,
       contentStyle,
+      defaultOpen = false,
       backdropOpacity = 0.5,
       closeOnPressBack = true,
       statusBarTranslucent = true,
@@ -48,7 +50,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     },
     ref,
   ) => {
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(defaultOpen);
     const [contentHeight, setContentHeight] = React.useState(0);
     const [hasMeasured, setHasMeasured] = React.useState(false);
     const translateY = React.useRef(new Animated.Value(0)).current;
@@ -84,7 +86,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
         setIsOpen(false);
         onClose?.();
       });
-    }, [contentHeight, onClose, translateY]);
+    }, [contentHeight, translateY]);
 
     // open modal
     const openModal = React.useCallback(() => {
@@ -94,16 +96,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
         duration: 300,
         useNativeDriver: true,
       }).start(onOpen);
-    }, [onOpen, translateY]);
-
-    // sync external "open" prop
-    React.useEffect(() => {
-      if (open) {
-        openModal();
-      } else if (open === false) {
-        closeModal();
-      }
-    }, [open]);
+    }, [translateY]);
 
     // handle ref
     React.useImperativeHandle(
@@ -115,12 +108,22 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       [closeModal, openModal],
     );
 
+    //handle open prop
+    React.useEffect(() => {
+      if (open === undefined) return;
+      if (open) {
+        openModal();
+      } else if (open === false) {
+        closeModal();
+      }
+    }, [open]);
+
     //handle auto open
     React.useEffect(() => {
       if (isOpen && hasMeasured) {
         openModal();
       }
-    }, [isOpen, hasMeasured, openModal]);
+    }, [isOpen, hasMeasured]);
 
     return (
       <>

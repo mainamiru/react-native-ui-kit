@@ -13,14 +13,14 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
-    "@mainamiru/react-native-ui-kit": "../packages/react-native-ui-kit",
+    "@mainamiru/react-native-ui-kit": "../../packages/react-native-ui-kit",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/drawer": "^7.5.0",
     "@react-navigation/elements": "^2.6.5",
     "@react-navigation/native": "^7.1.8",
     "date-fns": "^4.1.0",
-    "expo": "54.0.12",
+    "expo": "54.0.13",
     "expo-constants": "~18.0.9",
     "expo-font": "~14.0.8",
     "expo-haptics": "~15.0.7",
@@ -46,7 +46,7 @@
   "devDependencies": {
     "@types/react": "~19.1.0",
     "typescript": "~5.9.2",
-    "eslint": "^9.25.0",
+    "eslint": "^9.37.0",
     "eslint-config-expo": "~10.0.0"
   },
   "private": true
