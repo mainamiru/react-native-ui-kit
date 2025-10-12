@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "cd apps/docs && bun start"
+    "start": "cd apps/docs && bun start",
+    "fix:deps": "npx rimraf apps/*/node_modules && bun install"
   },
   "workspaces": [
+    "docs",
     "apps/*",
     "packages/*"
   ],

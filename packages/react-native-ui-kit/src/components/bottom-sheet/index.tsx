@@ -103,7 +103,7 @@ export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       } else if (open === false) {
         closeModal();
       }
-    }, [open, openModal, closeModal]);
+    }, [open]);
 
     // handle ref
     React.useImperativeHandle(
