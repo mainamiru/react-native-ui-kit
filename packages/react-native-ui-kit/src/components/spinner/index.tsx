@@ -13,19 +13,23 @@ import {
   ViewStyle,
 } from "react-native";
 
-export interface SpinnerProps<T = string | number> {
-  data: T[];
+export interface SpinnerItemProps {
+  label: string;
+  value: number | string;
+}
+export interface SpinnerProps {
+  data: SpinnerItemProps[];
   label?: string;
   itemHeight?: number;
   scrollable?: boolean;
-  initialIndex?: number;
+  selectedValue?: number | string;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
-  onChange?: (value: T) => void;
+  onChange?: (value: SpinnerItemProps) => void;
   visibleItems?: number; // number of items visible at once (default: 3)
 }
 
-export const Spinner = <T extends string | number>({
+export const Spinner = ({
   data,
   label,
   style,
@@ -33,9 +37,9 @@ export const Spinner = <T extends string | number>({
   onChange,
   scrollable,
   itemHeight = 50,
-  initialIndex = 0,
+  selectedValue = 0,
   visibleItems = 3,
-}: SpinnerProps<T>) => {
+}: SpinnerProps) => {
   const ref = useRef<FlatList>(null);
   const scrollY = useRef(new Animated.Value(0)).current;
 
@@ -56,7 +60,7 @@ export const Spinner = <T extends string | number>({
   };
 
   //handle item press
-  const handleItemPress = (item: T, index: number) => {
+  const handleItemPress = (item: SpinnerItemProps, index: number) => {
     onChange?.(item);
     const isFirstItem = index === 0;
     const isLastItem = index === flatData.length - 1;
@@ -80,6 +84,13 @@ export const Spinner = <T extends string | number>({
       });
     }
   };
+
+  //initialIndex
+  const initialIndex = React.useMemo(() => {
+    const currentIndex = data.findIndex(({ value }) => value === selectedValue);
+    if (currentIndex >= 0) return currentIndex;
+    return 0;
+  }, [selectedValue, data]);
 
   return (
     <View style={style}>
@@ -157,7 +168,7 @@ export const Spinner = <T extends string | number>({
                       textStyle,
                     ]}
                   >
-                    {item}
+                    {item.label}
                   </Animated.Text>
                 </Pressable>
               </Animated.View>

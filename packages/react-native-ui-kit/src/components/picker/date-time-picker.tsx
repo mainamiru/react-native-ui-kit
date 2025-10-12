@@ -1,3 +1,4 @@
+import { formatDate } from "date-fns";
 import React from "react";
 import { Pressable, Text } from "react-native";
 import { useThemeColor } from "../../hooks";
@@ -8,7 +9,10 @@ import { Center } from "../center";
 import { Row } from "../row";
 import { Spinner } from "../spinner";
 
-const months = monthNames;
+const months = monthNames.map((month, index) => ({
+  value: index,
+  label: month.slice(0, 3),
+}));
 
 export interface DateTimePickerProps {
   maxDate: Date | string | number;
@@ -22,29 +26,31 @@ const DateTimePicker = ({
   maxDate,
   minDate,
   onChange,
-  selectedDate,
+  selectedDate = new Date(),
   placeholderText = "Select Date",
 }: DateTimePickerProps) => {
   const { border, placeholder } = useThemeColor();
   const _selectedDate = selectedDate ? new Date(selectedDate) : new Date();
-  const [date, setDate] = React.useState<string>(
-    _selectedDate.getDate().toString(),
-  );
+  const [date, setDate] = React.useState<number>(_selectedDate.getDate());
   const [year, setYear] = React.useState<number>(_selectedDate.getFullYear());
-  const [month, setMonth] = React.useState<string>(
-    monthNames[_selectedDate.getMonth()],
-  );
+  const [month, setMonth] = React.useState<number>(_selectedDate.getMonth());
   const [isOpen, setIsOpen] = React.useState(false);
 
   //variables
   const minYear = new Date(minDate).getFullYear();
   const maxYear = new Date(maxDate).getFullYear();
-  const dates = Array.from({ length: 31 }).map((_, i) => {
-    return String(i + 1).padStart(2, "0");
-  });
+  const dates = Array.from({ length: 31 }).map((_, i) => ({
+    value: i + 1,
+    label: String(i + 1).padStart(2, "0"),
+  }));
   const years = Array.from({
     length: maxYear - minYear + 1,
-  }).map((_, i) => i + minYear);
+  }).map((_, i) => ({
+    value: i + minYear,
+    label: String(i + minYear),
+  }));
+
+  const formattedDate = `${year}-${month}-${date}`;
 
   return (
     <>
@@ -60,7 +66,7 @@ const DateTimePicker = ({
       >
         <Text style={{ padding: 10, color: placeholder }}>
           {selectedDate
-            ? new Date(selectedDate).toDateString()
+            ? formatDate(selectedDate, "dd MMM yyyy")
             : placeholderText}
         </Text>
       </Pressable>
@@ -79,7 +85,7 @@ const DateTimePicker = ({
             {placeholderText}
           </Text>
           <Text style={{ fontSize: 18, color: placeholder }}>
-            {date}-{month}-{year}
+            {formatDate(formattedDate, "dd-MM-yyyy")}
           </Text>
         </Center>
         <Row style={{ gap: 10 }}>
@@ -87,19 +93,22 @@ const DateTimePicker = ({
             data={dates}
             itemHeight={70}
             style={{ flex: 1 }}
-            onChange={(value) => setDate(value)}
+            selectedValue={date}
+            onChange={({ value }) => setDate(Number(value))}
           />
           <Spinner
             data={months}
             itemHeight={70}
             style={{ flex: 1 }}
-            onChange={(value) => setMonth(value)}
+            selectedValue={month}
+            onChange={({ value }) => setMonth(Number(value))}
           />
           <Spinner
             data={years}
             itemHeight={70}
             style={{ flex: 1 }}
-            onChange={(value) => setYear(value)}
+            selectedValue={year}
+            onChange={({ value }) => setYear(Number(value))}
           />
         </Row>
         <Row style={{ gap: 15 }}>
@@ -116,8 +125,7 @@ const DateTimePicker = ({
             style={{ flex: 1 }}
             onPress={() => {
               setIsOpen(false);
-              const monthIndex = months.findIndex((m) => m === month);
-              onChange?.(`${year}-${monthIndex}-${date}`);
+              onChange?.(formattedDate);
             }}
           >
             OK
