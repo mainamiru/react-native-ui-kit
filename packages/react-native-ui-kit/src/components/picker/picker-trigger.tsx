@@ -27,7 +27,7 @@ const PickerTrigger = ({
   selectedValue,
   containerStyle,
   helperTextStyle,
-  coontentBoxStyle
+  coontentBoxStyle,
 }: PickerTriggerProps) => {
   const { mode, isOpen, setIsOpen } = usePickerContext();
   const { border, placeholder } = useThemeColor();
@@ -51,6 +51,7 @@ const PickerTrigger = ({
         onPress={() => setIsOpen(!isOpen)}
         style={[
           {
+            height: 50,
             borderWidth: 1,
             borderRadius: 5,
             borderColor: border,
@@ -64,9 +65,15 @@ const PickerTrigger = ({
           },
         ]}
       >
-        <FlexView style={[{ 
-          padding: 10,
-           justifyContent: "center" },coontentBoxStyle]}>
+        <FlexView
+          style={[
+            {
+              padding: 10,
+              justifyContent: "center",
+            },
+            coontentBoxStyle,
+          ]}
+        >
           {value ? (
             <Text
               numberOfLines={1}

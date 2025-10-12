@@ -1,3 +1,4 @@
+import DatePicker from "./date-picker";
 import DateTimePicker from "./date-time-picker";
 import PickerBase from "./picker-base";
 import PickerContent from "./picker-content";
@@ -11,4 +12,5 @@ export const Picker = Object.assign(PickerBase, {
   Content: PickerContent,
   Trigger: PickerTrigger,
   DateTime: DateTimePicker,
+  Date: DatePicker,
 });

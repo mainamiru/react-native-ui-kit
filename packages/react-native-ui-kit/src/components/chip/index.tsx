@@ -11,8 +11,8 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
-import { EvilIcons } from "..";
 import { assets } from "../../utils";
+import { EvilIcons } from "../evil-icons";
 import { IconSource } from "../icon";
 import { TouchRipple, TouchRippleProps } from "../touch-ripple";
 
@@ -21,12 +21,12 @@ export type ChipMode = "filled" | "outlined" | "elevated";
 export interface ChipProps extends Omit<TouchRippleProps, "children"> {
   label: string;
   mode?: ChipMode;
+  icon?: IconSource;
   selected?: boolean;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   onClose?: (event: GestureResponderEvent) => void;
-  icon?: IconSource;
 }
 
 export const Chip: React.FC<ChipProps> = ({

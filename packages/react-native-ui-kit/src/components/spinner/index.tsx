@@ -4,14 +4,14 @@ import {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  Pressable,
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   View,
   ViewStyle,
 } from "react-native";
-import Divider from "../divider";
-import TouchRipple from "../touch-ripple";
 
 export interface SpinnerProps<T = string | number> {
   data: T[];
@@ -20,6 +20,7 @@ export interface SpinnerProps<T = string | number> {
   scrollable?: boolean;
   initialIndex?: number;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   onChange?: (value: T) => void;
   visibleItems?: number; // number of items visible at once (default: 3)
 }
@@ -28,6 +29,7 @@ export const Spinner = <T extends string | number>({
   data,
   label,
   style,
+  textStyle,
   onChange,
   scrollable,
   itemHeight = 50,
@@ -47,6 +49,10 @@ export const Spinner = <T extends string | number>({
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { contentOffset } = event.nativeEvent;
     scrollY.setValue(contentOffset.y);
+    const index = Math.round(contentOffset.y / itemHeight);
+    if (flatData[index + 1]) {
+      onChange?.(flatData[index + 1]);
+    }
   };
 
   //handle item press
@@ -89,13 +95,12 @@ export const Spinner = <T extends string | number>({
           {label}
         </Text>
       )}
-      <Divider margin={0} />
       <View
         style={{
-            width: "100%",
-            height: contentHeight,
-            justifyContent: "center",
-          }}
+          width: "100%",
+          height: contentHeight,
+          justifyContent: "center",
+        }}
       >
         <View
           style={[
@@ -138,14 +143,23 @@ export const Spinner = <T extends string | number>({
             });
             return (
               <Animated.View style={{ opacity }}>
-                <TouchRipple
+                <Pressable
                   style={[styles.item, { height: itemHeight }]}
                   onPress={() => handleItemPress(item, index)}
                 >
-                  <Text style={[styles.itemText, { fontSize: itemHeight / 2 }]}>
+                  <Animated.Text
+                    style={[
+                      styles.itemText,
+                      {
+                        fontSize: 20,
+                        textAlign: "center",
+                      },
+                      textStyle,
+                    ]}
+                  >
                     {item}
-                  </Text>
-                </TouchRipple>
+                  </Animated.Text>
+                </Pressable>
               </Animated.View>
             );
           }}
@@ -158,10 +172,6 @@ export const Spinner = <T extends string | number>({
 
 const styles = StyleSheet.create({
   highlight: {
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    borderTopColor: "gray",
-    borderTopWidth: 1,
     left: 0,
     position: "absolute",
     right: 0,
