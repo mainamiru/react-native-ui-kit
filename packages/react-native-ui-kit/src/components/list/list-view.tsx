@@ -20,8 +20,8 @@ export interface ListViewProps extends PressableProps {
   titleStyle?: StyleProp<TextStyle>;
   containerStyle?: StyleProp<ViewStyle>;
   descriptionStyle?: StyleProp<TextStyle>;
-  left?: (style: { marginLeft: number }) => React.ReactNode;
-  right?: (style: { marginRight: number }) => React.ReactNode;
+  left?: () => React.ReactNode;
+  right?: () => React.ReactNode;
 }
 
 const ListView: React.FC<ListViewProps> = ({
@@ -38,49 +38,48 @@ const ListView: React.FC<ListViewProps> = ({
   descriptionNumberOfLines = 2,
   ...props
 }) => {
-  const { text } = useThemeColor();
+  const { text, placeholder } = useThemeColor();
 
   return (
-    <Pressable style={style} {...props}>
-      <View
-        style={[
-          {
-            gap: 10,
-            maxWidth: "100%",
-            flexDirection: "row",
-            alignItems: "center",
-          },
-          containerStyle,
-          { flexDirection: "row" },
-        ]}
-      >
-        {left && left({ marginLeft: 10 })}
-        <View style={{ flex: 1 }}>
+    <Pressable
+      style={[
+        {
+          gap: 10,
+          padding: 10,
+          maxWidth: "100%",
+          flexDirection: "row",
+          alignItems: "center",
+        },
+        style,
+      ]}
+      {...props}
+    >
+      {left && left()}
+      <View style={[{ flex: 1 }, containerStyle]}>
+        <Text
+          numberOfLines={titleNumberOfLines}
+          style={[
+            {
+              color: text,
+              fontSize: 16,
+              fontWeight: "600",
+            },
+            titleStyle,
+          ]}
+        >
+          {title}
+        </Text>
+        {description && (
           <Text
-            numberOfLines={titleNumberOfLines}
-            style={[
-              {
-                color: text,
-                fontSize: 16,
-                fontWeight: "500",
-              },
-              titleStyle,
-            ]}
+            numberOfLines={descriptionNumberOfLines}
+            style={[{ fontSize: 14, color: placeholder }, descriptionStyle]}
           >
-            {title}
+            {description}
           </Text>
-          {description && (
-            <Text
-              numberOfLines={descriptionNumberOfLines}
-              style={[{ fontSize: 14, color: text }, descriptionStyle]}
-            >
-              {description}
-            </Text>
-          )}
-          {children}
-        </View>
-        {right && right({ marginRight: 10 })}
+        )}
+        {children}
       </View>
+      {right && right()}
     </Pressable>
   );
 };
