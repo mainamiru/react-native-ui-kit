@@ -2,6 +2,11 @@ import * as React from "react";
 
 export type PickerMode = "dialog" | "sidebar" | "bottom-sheet";
 
+export interface PickerRef {
+  open: () => void;
+  close: () => void;
+}
+
 export interface PickerContextType {
   mode: PickerMode;
   isOpen: boolean;

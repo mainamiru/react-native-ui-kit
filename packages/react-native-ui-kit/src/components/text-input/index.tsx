@@ -176,9 +176,13 @@ export const TextInput = forwardRef<TextInputRef, TextInputProps>(
             })}
         </Animated.View>
         {error ? (
-          <Text style={{ color: "red" }}>{error.message}</Text>
+          <Text style={{ fontSize: 13, color: "red" }}>{error.message}</Text>
         ) : (
-          helperText && <Text style={{ color: mutedColor }}>{helperText}</Text>
+          helperText && (
+            <Text style={{ fontSize: 13, color: mutedColor }}>
+              {helperText}
+            </Text>
+          )
         )}
       </View>
     );

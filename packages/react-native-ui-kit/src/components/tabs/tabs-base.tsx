@@ -5,6 +5,7 @@ export interface TabsBaseProps<T extends string> {
   children?: React.ReactNode;
   value?: T;
   defaultValue: T;
+  showActiveIndicator?: boolean;
   activeIndicatorColor?: string;
   onValueChange?: (value: T) => void;
   activeTabStyle?: StyleProp<ViewStyle>;
@@ -12,6 +13,7 @@ export interface TabsBaseProps<T extends string> {
 
 export interface TabsContextType<T extends string> {
   value: T;
+  showActiveIndicator: boolean;
   setValue: (value: T) => void;
   activeIndicatorColor: string;
   activeTabStyle?: StyleProp<ViewStyle>;
@@ -27,6 +29,7 @@ const TabsBase = <T extends string>({
   defaultValue,
   onValueChange,
   activeTabStyle,
+  showActiveIndicator = true,
   activeIndicatorColor = "orange",
 }: TabsBaseProps<T>) => {
   const [internalValue, setInternalValue] = React.useState<T>(defaultValue);
@@ -49,6 +52,7 @@ const TabsBase = <T extends string>({
       value={{
         setValue,
         activeTabStyle,
+        showActiveIndicator,
         activeIndicatorColor,
         value: internalValue,
       }}

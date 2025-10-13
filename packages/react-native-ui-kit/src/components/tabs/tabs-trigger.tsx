@@ -1,7 +1,13 @@
 import React from "react";
-import { Animated, StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import {
+  Animated,
+  Pressable,
+  StyleProp,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 import Text from "../text";
-import TouchRipple from "../touch-ripple";
 import { TabsContext } from "./tabs-base";
 
 export interface TabsTriggerProps {
@@ -19,6 +25,8 @@ const TabsTrigger = ({
 }: TabsTriggerProps) => {
   const {
     setValue,
+    activeTabStyle,
+    showActiveIndicator,
     value: contextValue,
     activeIndicatorColor,
   } = React.useContext(TabsContext);
@@ -43,7 +51,10 @@ const TabsTrigger = ({
   }, [active]);
 
   return (
-    <TouchRipple style={style} onPress={() => setValue(value)}>
+    <Pressable
+      onPress={() => setValue(value)}
+      style={[style, active && activeTabStyle]}
+    >
       <View style={{ position: "relative" }}>
         <Text
           style={[
@@ -56,27 +67,29 @@ const TabsTrigger = ({
         >
           {children}
         </Text>
-        <Animated.View
-          style={{
-            left: 0,
-            bottom: 0,
-            height: 2,
-            width: "100%",
-            borderRadius: 5,
-            position: "absolute",
-            transform: [
-              {
-                scaleX: animatedValue.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, 1],
-                }),
-              },
-            ],
-            backgroundColor: activeIndicatorColor,
-          }}
-        />
+        {showActiveIndicator && (
+          <Animated.View
+            style={{
+              left: 0,
+              bottom: 0,
+              height: 2,
+              width: "100%",
+              borderRadius: 5,
+              position: "absolute",
+              transform: [
+                {
+                  scaleX: animatedValue.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                  }),
+                },
+              ],
+              backgroundColor: activeIndicatorColor,
+            }}
+          />
+        )}
       </View>
-    </TouchRipple>
+    </Pressable>
   );
 };
 

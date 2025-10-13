@@ -97,7 +97,9 @@ const PickerTrigger = ({
         ) : null}
       </TouchRipple>
       {helperText && (
-        <Text style={[{ color: "grey" }, helperTextStyle]}>{helperText}</Text>
+        <Text style={[{ fontSize: 13, color: "grey" }, helperTextStyle]}>
+          {helperText}
+        </Text>
       )}
     </View>
   );
